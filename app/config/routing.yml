@@ -1,0 +1,4 @@
+iqiyi_avon:
+    resource: "@IqiyiAvonBundle/Resources/config/routing.yml"
+    prefix:   /
+
