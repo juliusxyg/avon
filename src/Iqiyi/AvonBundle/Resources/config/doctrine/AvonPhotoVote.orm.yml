@@ -1,0 +1,37 @@
+Iqiyi\AvonBundle\Entity\AvonPhotoVote:
+    type: entity
+    table: avon_photo_vote
+    id:
+        photoVoteId:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: photo_vote_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        photoId:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: '所投照片id'
+            default: '0'
+            column: photo_id
+        voteIp:
+            type: string
+            nullable: false
+            length: 64
+            fixed: false
+            comment: '投票者ip'
+            default: ''
+            column: vote_ip
+        voteTime:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: 投票时间
+            default: '0'
+            column: vote_time
+    lifecycleCallbacks: {  }

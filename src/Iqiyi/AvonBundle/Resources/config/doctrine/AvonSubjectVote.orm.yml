@@ -1,0 +1,58 @@
+Iqiyi\AvonBundle\Entity\AvonSubjectVote:
+    type: entity
+    table: avon_subject_vote
+    id:
+        subjectVoteId:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: subject_vote_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        subjectId:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: 所投主题id
+            default: '0'
+            column: subject_id
+        voteIp:
+            type: string
+            nullable: false
+            length: 64
+            fixed: false
+            comment: '投票者ip'
+            default: ''
+            column: vote_ip
+        voteTime:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: 投票时间
+            default: '0'
+            column: vote_time
+        voteType:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: '投票类型 0.点赞 1.答题 2.兑换码'
+            default: '0'
+            column: vote_type
+        redeemCode:
+            type: string
+            nullable: false
+            length: 64
+            fixed: false
+            comment: '所使用的兑换码'
+            default: ''
+            column: redeem_code
+        fromType:
+            type: boolean
+            nullable: false
+            comment: '发布平台 0.pc 1.mobile'
+            default: '0'
+            column: from_type
+    lifecycleCallbacks: {  }

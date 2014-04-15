@@ -1,0 +1,27 @@
+Iqiyi\AvonBundle\Entity\AvonRedeemCode:
+    type: entity
+    table: avon_redeem_code
+    id:
+        redeemCodeId:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: redeem_code_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        code:
+            type: string
+            nullable: false
+            length: 64
+            fixed: false
+            comment: '兑换码'
+            default: ''
+        status:
+            type: boolean
+            nullable: false
+            comment: '是否使用 0.未使用 1.已使用'
+            default: '0'
+    lifecycleCallbacks: {  }

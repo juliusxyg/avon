@@ -1,0 +1,52 @@
+Iqiyi\AvonBundle\Entity\AvonPhoto:
+    type: entity
+    table: avon_photo
+    id:
+        photoId:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: photo_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        memName:
+            type: string
+            nullable: false
+            length: 50
+            fixed: false
+            comment: 联系人姓名
+            default: ''
+            column: mem_name
+        memGender:
+            type: boolean
+            nullable: false
+            comment: '联系人性别 0.男 1.女'
+            default: '0'
+            column: mem_gender
+        memMobile:
+            type: string
+            nullable: false
+            length: 11
+            fixed: false
+            comment: 联系手机
+            default: ''
+            column: mem_mobile
+        photoUrl:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: '照片地址'
+            default: ''
+            column: photo_url
+        addTime:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: 发布时间
+            default: '0'
+            column: add_time
+    lifecycleCallbacks: {  }
