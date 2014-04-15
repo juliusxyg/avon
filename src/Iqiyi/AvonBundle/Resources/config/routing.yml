@@ -1,3 +1,3 @@
 iqiyi_avon_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: IqiyiAvonBundle:Default:index }
+    pattern:  /home
+    defaults: { _controller: IqiyiAvonBundle:Home:index }
