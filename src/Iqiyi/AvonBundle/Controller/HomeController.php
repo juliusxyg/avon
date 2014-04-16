@@ -17,12 +17,18 @@ class HomeController extends Controller
 
     public function addmsgAction()
     {
+        //留下最美时刻，填写手机号，姓氏，性别，地址，邮编信息
+    }
 
+    public function votemsgAction()
+    {
+        //投票要限制IP
+        //天猫投票不限制IP
     }
 
     /**
-     * @Template()
-     */
+    *  @Template()
+    */
     public function addphotoAction(Request $request)
     {
         $avonPhoto = new AvonPhoto();
@@ -49,5 +55,10 @@ class HomeController extends Controller
         }
 
         return array('form' => $form->createView());
+    }
+
+    public function votephotoAction()
+    {
+
     }
 }
