@@ -49,4 +49,7 @@ Iqiyi\AvonBundle\Entity\AvonPhoto:
             comment: 发布时间
             default: '0'
             column: add_time
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks: 
+        prePersist: [preUpload, upload]
+        preUpdate: [preUpload, upload]
+        postRemove: [removeUpload]

@@ -1,0 +1,26 @@
+Iqiyi\AvonBundle\Entity\AvonPhoto:
+    properties:
+        file:
+            - NotNull: ~
+            - Image:
+                maxSize: 6000000
+                mimeTypes: ["image/png", "image/jpeg", "image/jpg", "image/pjpeg"]
+                mimeTypesMessage: "请上传一张图片, 格式为jpg、png"
+                maxSizeMessage: "文件不能超过6M"
+        memName:
+            - NotBlank: ~
+            - Length:
+                min: 2
+                max: 8
+                minMessage: "姓名至少 {{ limit }} 个字"
+                maxMessage: "姓名不能超过 {{ limit }} 个字"
+        memMobile:
+            - NotBlank: ~
+            - Regex:
+                pattern: "/^(1(([35][0-9])|(47)|[8][01236789]))\d{8}$/"
+                match:   true
+                message: "手机号不正确"
+        memGender:
+            - Choice:
+                choices:  [0, 1]
+                message:  "性别选择错误"
