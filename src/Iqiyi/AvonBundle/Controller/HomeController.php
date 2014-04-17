@@ -39,6 +39,8 @@ class HomeController extends Controller
                                                 'required'  => true, 
                                                 'label'=>'性别：'))
             ->add('memMobile', 'text', array( 'label'=>'手机：', 'max_length'=>15))
+            ->add('memAddress', 'text', array( 'label'=>'地址：', 'max_length'=>60))
+            ->add('memZip', 'text', array( 'label'=>'邮编：', 'max_length'=>15))
             ->add('file', 'file', array( 'label'=>'照片：'))
             ->add('save', 'submit', array( 'label'=>'发布'))
             ->getForm();

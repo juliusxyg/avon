@@ -24,3 +24,16 @@ Iqiyi\AvonBundle\Entity\AvonPhoto:
             - Choice:
                 choices:  [0, 1]
                 message:  "性别选择错误"
+        memAddress:
+            - NotBlank: ~
+            - Length:
+                min: 10
+                max: 60
+                minMessage: "地址至少 {{ limit }} 个字"
+                maxMessage: "地址不能超过 {{ limit }} 个字"
+        memZip:
+            - NotBlank: ~
+            - Regex:
+                pattern: "/^[1-9]\d{5}$/"
+                match:   true
+                message: "邮编不正确"
