@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS `avon_subject` (
   `mem_name` varchar(50) NOT NULL DEFAULT '' COMMENT '联系人姓名',
   `mem_gender` tinyint(4) NOT NULL DEFAULT '0' COMMENT '联系人性别 0.男 1.女',
   `mem_mobile` varchar(11) NOT NULL DEFAULT '' COMMENT '联系手机',
+  `mem_address` varchar(120) NOT NULL DEFAULT '' COMMENT '地址',
+  `mem_zip` varchar(20) NOT NULL DEFAULT '' COMMENT '邮编',
   `content` varchar(255) NOT NULL DEFAULT '' COMMENT '最美一瞬内容',
   `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '发布时间',
   `from_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '发布平台 0.pc 1.mobile',
@@ -64,6 +66,8 @@ CREATE TABLE IF NOT EXISTS `avon_photo` (
   `mem_name` varchar(50) NOT NULL DEFAULT '' COMMENT '联系人姓名',
   `mem_gender` tinyint(4) NOT NULL DEFAULT '0' COMMENT '联系人性别 0.男 1.女',
   `mem_mobile` varchar(11) NOT NULL DEFAULT '' COMMENT '联系手机',
+  `mem_address` varchar(120) NOT NULL DEFAULT '' COMMENT '地址',
+  `mem_zip` varchar(20) NOT NULL DEFAULT '' COMMENT '邮编',
   `photo_url` varchar(255) NOT NULL DEFAULT '' COMMENT '照片地址',
   `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '发布时间',
   PRIMARY KEY (`photo_id`)

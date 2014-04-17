@@ -34,6 +34,22 @@ Iqiyi\AvonBundle\Entity\AvonPhoto:
             comment: 联系手机
             default: ''
             column: mem_mobile
+        memAddress:
+            type: string
+            nullable: false
+            length: 120
+            fixed: false
+            comment: 地址
+            default: ''
+            column: mem_address
+        memZip:
+            type: string
+            nullable: false
+            length: 20
+            fixed: false
+            comment: 邮编
+            default: ''
+            column: mem_zip
         photoUrl:
             type: string
             nullable: false
@@ -49,7 +65,4 @@ Iqiyi\AvonBundle\Entity\AvonPhoto:
             comment: 发布时间
             default: '0'
             column: add_time
-    lifecycleCallbacks: 
-        prePersist: [preUpload, upload]
-        preUpdate: [preUpload, upload]
-        postRemove: [removeUpload]
+    lifecycleCallbacks: {  }

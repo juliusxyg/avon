@@ -34,6 +34,22 @@ Iqiyi\AvonBundle\Entity\AvonSubject:
             comment: 联系手机
             default: ''
             column: mem_mobile
+        memAddress:
+            type: string
+            nullable: false
+            length: 120
+            fixed: false
+            comment: 地址
+            default: ''
+            column: mem_address
+        memZip:
+            type: string
+            nullable: false
+            length: 20
+            fixed: false
+            comment: 邮编
+            default: ''
+            column: mem_zip
         content:
             type: string
             nullable: false
