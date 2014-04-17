@@ -1,4 +1,8 @@
 Iqiyi\AvonBundle\Entity\AvonPhoto:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [memMobile]
+            message: "手机号已被使用"
     properties:
         file:
             - NotNull: ~
@@ -7,6 +11,50 @@ Iqiyi\AvonBundle\Entity\AvonPhoto:
                 mimeTypes: ["image/png", "image/jpeg", "image/jpg", "image/pjpeg"]
                 mimeTypesMessage: "请上传一张图片, 格式为jpg、png"
                 maxSizeMessage: "文件不能超过6M"
+        memName:
+            - NotBlank: ~
+            - Length:
+                min: 2
+                max: 8
+                minMessage: "姓名至少 {{ limit }} 个字"
+                maxMessage: "姓名不能超过 {{ limit }} 个字"
+        memMobile:
+            - NotBlank: ~
+            - Regex:
+                pattern: "/^(1(([35][0-9])|(47)|[8][01236789]))\d{8}$/"
+                match:   true
+                message: "手机号不正确"
+        memGender:
+            - Choice:
+                choices:  [0, 1]
+                message:  "性别选择错误"
+        memAddress:
+            - NotBlank: ~
+            - Length:
+                min: 10
+                max: 60
+                minMessage: "地址至少 {{ limit }} 个字"
+                maxMessage: "地址不能超过 {{ limit }} 个字"
+        memZip:
+            - NotBlank: ~
+            - Regex:
+                pattern: "/^[1-9]\d{5}$/"
+                match:   true
+                message: "邮编不正确"
+
+Iqiyi\AvonBundle\Entity\AvonSubject:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [memMobile]
+            message: "手机号已被使用"
+    properties:
+        content:
+            - NotBlank: ~
+            - Length:
+                min: 10
+                max: 120
+                minMessage: "内容至少 {{ limit }} 个字"
+                maxMessage: "内容不能超过 {{ limit }} 个字"
         memName:
             - NotBlank: ~
             - Length:

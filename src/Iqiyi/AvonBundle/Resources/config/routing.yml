@@ -5,3 +5,7 @@ iqiyi_avon_homepage:
 iqiyi_avon_addphoto:
     pattern:  /addphoto
     defaults: { _controller: IqiyiAvonBundle:Home:addphoto }
+
+iqiyi_avon_addmsg:
+    pattern:  /addmsg
+    defaults: { _controller: IqiyiAvonBundle:Home:addmsg }
