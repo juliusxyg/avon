@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS `avon_subject` (
   `content` varchar(255) NOT NULL DEFAULT '' COMMENT '最美一瞬内容',
   `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '发布时间',
   `from_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '发布平台 0.pc 1.mobile',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '审核状态 0.待审 1.通过',
   PRIMARY KEY (`subject_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -37,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `avon_subject_vote` (
   `vote_type` int(11) NOT NULL DEFAULT '0' COMMENT '投票类型 0.点赞 1.答题 2.兑换码',
   `redeem_code` varchar(64) NOT NULL DEFAULT '' COMMENT '所使用的兑换码',
   `from_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '发布平台 0.pc 1.mobile',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '审核状态 0.待审 1.通过',
   PRIMARY KEY (`subject_vote_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -69,7 +71,9 @@ CREATE TABLE IF NOT EXISTS `avon_photo` (
   `mem_address` varchar(120) NOT NULL DEFAULT '' COMMENT '地址',
   `mem_zip` varchar(20) NOT NULL DEFAULT '' COMMENT '邮编',
   `photo_url` varchar(255) NOT NULL DEFAULT '' COMMENT '照片地址',
+  `content` varchar(255) NOT NULL DEFAULT '' COMMENT '最美一瞬内容',
   `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '发布时间',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '审核状态 0.待审 1.通过',
   PRIMARY KEY (`photo_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

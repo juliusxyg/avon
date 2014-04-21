@@ -55,4 +55,9 @@ Iqiyi\AvonBundle\Entity\AvonSubjectVote:
             comment: '发布平台 0.pc 1.mobile'
             default: '0'
             column: from_type
+        status:
+            type: boolean
+            nullable: false
+            comment: '审核状态 0.待审 1.通过'
+            default: '0'
     lifecycleCallbacks: {  }

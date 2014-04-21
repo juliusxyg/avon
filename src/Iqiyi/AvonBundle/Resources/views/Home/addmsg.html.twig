@@ -1,11 +1,88 @@
-{{ form_start(form) }}
+<!DOCTYPE html>
+<head>
+<title>hahaha</title>
+<script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+</head>
+<body>
+<div>
+<textarea class="words-input" name="myWords" col="100" rows="5" maxlength="80">蝶舞一瞬宣言</textarea>
+<span class="words-left">还能填写80字</span>
+<span class="error-content"></span>
+<br/>
+<select class="words-select" name="commonWords">
+	<option value="">快速选择</option>
+	<option value="1">我升职了</option>
+	<option value="2">我结婚了</option>
+	<option value="3">我当爹/妈了</option>
+</select>
+<br/>
+<a href="###" class="words-ok">发布我的蝶舞一瞬</a>
+<br/>
+</div>
+<div id="myForm" style="display:none;">
+{{ form_start(form, {'attr': {'id': 'words-form'}}) }}
     {{ form_errors(form) }}
 
-    {{ form_row(form.memName) }}
-    {{ form_row(form.memGender) }}
-    {{ form_row(form.memMobile) }}
-    {{ form_row(form.memAddress) }}
-    {{ form_row(form.memZip) }}
-    {{ form_row(form.content) }}
+    {{ form_row(form.memName) }}<span class="error-memName"></span>
+    {{ form_row(form.memGender) }}<span class="error-memGender"></span>
+    {{ form_row(form.memMobile) }}<span class="error-memMobile"></span>
+    {{ form_row(form.memAddress) }}<span class="error-memAddress"></span>
+    {{ form_row(form.memZip) }}<span class="error-memZip"></span>
+    {{ form_widget(form.content, {'attr': {'readonly': 'true', 'class': 'words-form', 'style': 'display:none;'}}) }}
     {{ form_row(form.save) }}
 {{ form_end(form) }}
+</div>
+<script>
+$(function(){
+	/*words maxlength*/
+	$("textarea.words-input").on("keyup", function(){
+		var wordsContent = $(this).val();
+		var maxLength = $(this).attr('maxlength');
+		var left = maxLength - wordsContent.length;
+		if(left < 0){
+			left=0;
+			$(this).val(wordsContent.substring(0, maxLength));
+		}
+		$("span.words-left").text("还能填写"+left+"字");
+	});
+	/*words select*/
+	$("select.words-select").change(function(){
+		if($(this).val()!=''){
+			$("textarea.words-input").val($(this).find("option:selected").text()).focus();
+		}
+	});
+	/*words ok*/
+	$("a.words-ok").click(function(){
+		event.preventDefault();
+		if($.trim($("textarea.words-input").val()) == '' || $.trim($("textarea.words-input").val()).length<5){
+			$("textarea.words-input").focus();
+			alert("请填写您的蝶舞瞬间, 最少5个字");
+			return;
+		}
+		$("#myForm").show();
+		$("textarea.words-form").val($("textarea.words-input").val());
+	});
+	/*ajax submit*/
+	$("#words-form").submit(function(event){
+		event.preventDefault();
+		$.ajax({
+           type: "POST",
+           url: $(this).attr('action'),
+           data: $(this).serialize(),
+           success: function(data)
+           {
+               	if(data.success == 1){
+               		alert('分享id: '+data.id);
+               	}else{
+               		for(var i in data.errorList){
+               			$("span.error-"+i).text(data.errorList[i]);
+               		}
+               	}
+           }
+         });
+		return false;
+	});	
+});
+</script>
+</body>
+</html>

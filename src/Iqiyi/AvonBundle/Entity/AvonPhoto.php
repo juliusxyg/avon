@@ -335,4 +335,60 @@ class AvonPhoto
     {
         return $this->memZip;
     }
+    /**
+     * @var string
+     */
+    private $content;
+
+    /**
+     * @var boolean
+     */
+    private $status;
+
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return AvonPhoto
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string 
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set status
+     *
+     * @param boolean $status
+     * @return AvonPhoto
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return boolean 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 }

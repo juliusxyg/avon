@@ -58,6 +58,13 @@ Iqiyi\AvonBundle\Entity\AvonPhoto:
             comment: '照片地址'
             default: ''
             column: photo_url
+        content:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: '最美一瞬内容'
+            default: ''
         addTime:
             type: integer
             nullable: false
@@ -65,4 +72,9 @@ Iqiyi\AvonBundle\Entity\AvonPhoto:
             comment: 发布时间
             default: '0'
             column: add_time
+        status:
+            type: boolean
+            nullable: false
+            comment: '审核状态 0.待审 1.通过'
+            default: '0'
     lifecycleCallbacks: {  }
