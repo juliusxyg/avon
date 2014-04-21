@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Iqiyi\AvonBundle\Entity\AvonPhoto;
 use Iqiyi\AvonBundle\Entity\AvonSubject;
+use Iqiyi\AvonBundle\Entity\AvonSubjectVote;
 
 class HomeController extends Controller
 {
@@ -80,10 +81,47 @@ class HomeController extends Controller
         return $errors;
     }
 
-    public function votemsgAction()
+    /**
+    *  @Template()
+    */
+    public function votemsgAction(Request $request)
     {
         //投票要限制IP
         //天猫投票不限制IP
+        $avonSubjectVote = new AvonSubjectVote();
+        $form = $this->createFormBuilder($avonSubjectVote)
+            ->setAction($this->generateUrl('iqiyi_avon_votemsg'))
+            ->add('subjectId', 'hidden', array('data'=>1, 'error_bubbling'=>false))
+            ->add('save', 'submit', array( 'label'=>'赞'))
+            ->getForm();
+
+        if($request->isXmlHttpRequest())
+        {
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $avonSubjectVote->setVoteIp($request->getClientIp());
+                $avonSubjectVote->setVoteTime(time());
+                $avonSubjectVote->setVoteType(0);
+                $avonSubjectVote->setFromType(0);
+                $avonSubjectVote->setStatus(0);
+                $avonSubjectVote->setRedeemCode('');
+
+                $em->persist($avonSubjectVote);
+                $em->flush();
+
+                $errors = array('success'=>1, 'id'=>$avonSubjectVote->getSubjectVoteId());
+                return new JsonResponse($errors);
+            }else{
+                $errors = array('success'=>0);
+                $errors['errorList'] = $this->getErrorMessages($form);
+                
+                return new JsonResponse($errors);
+            }
+        }
+
+        return array('form' => $form->createView());
     }
 
     /**

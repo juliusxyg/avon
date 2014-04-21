@@ -9,3 +9,7 @@ iqiyi_avon_addphoto:
 iqiyi_avon_addmsg:
     pattern:  /addmsg
     defaults: { _controller: IqiyiAvonBundle:Home:addmsg }
+
+iqiyi_avon_votemsg:
+    pattern:  /votemsg
+    defaults: { _controller: IqiyiAvonBundle:Home:votemsg }

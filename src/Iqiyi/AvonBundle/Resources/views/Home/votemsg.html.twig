@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+<title>hahaha</title>
+<script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+</head>
+<body>
+{{ form_start(form, {'attr': {'id': 'vote-form'}}) }}
+    {{ form_row(form.subjectId) }}<span class="error-subjectId"></span>
+    {{ form_row(form.save) }}<span class="error-voteIp"></span>
+{{ form_end(form) }}
+<script>
+$(function(){
+	/*ajax submit*/
+	$("#vote-form").submit(function(event){
+		event.preventDefault();
+		$.ajax({
+           type: "POST",
+           url: $(this).attr('action'),
+           data: $(this).serialize(),
+           success: function(data)
+           {
+               	if(data.success == 1){
+               		alert('赞id: '+data.id);
+               	}else{
+               		for(var i in data.errorList){
+               			$("span.error-"+i).text(data.errorList[i]);
+               		}
+               	}
+           }
+         });
+		return false;
+	});	
+});
+</script>
+</body>
+</html>

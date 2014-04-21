@@ -92,3 +92,12 @@ Iqiyi\AvonBundle\Entity\AvonSubject:
                 pattern: "/^[1-9]\d{5}$/"
                 match:   true
                 message: "邮编不正确"
+
+Iqiyi\AvonBundle\Entity\AvonSubjectVote:
+    properties:
+        subjectId:
+            - NotBlank: ~
+            - Iqiyi\AvonBundle\Validator\Constraints\EntityExists:
+                entity: Iqiyi\AvonBundle\Entity\AvonSubject
+                property: subjectId
+                message: '投票对象不存在'

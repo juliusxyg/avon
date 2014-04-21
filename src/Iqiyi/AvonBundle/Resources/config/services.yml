@@ -1,7 +1,9 @@
 parameters:
-#    iqiyi_avon.example.class: Iqiyi\AvonBundle\Example
+    iqiyi_avon.validator.entityexists.class: Iqiyi\AvonBundle\Validator\Constraints\EntityExistsValidator
 
 services:
-#    iqiyi_avon.example:
-#        class: %iqiyi_avon.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    iqiyi_avon.validator.entity_exists:
+        class: %iqiyi_avon.validator.entityexists.class%
+        arguments: [@doctrine.orm.entity_manager]
+        tags:
+            - { name: validator.constraint_validator, alias: iqiyi_avon.validator.entity_exists }
