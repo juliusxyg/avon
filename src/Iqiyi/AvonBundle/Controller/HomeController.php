@@ -106,6 +106,15 @@ class HomeController extends Controller
             ->add('save', 'submit', array( 'label'=>'投ta'))
             ->getForm();
 
+        $formRedeem = $this->createFormBuilder($avonSubjectVote, array('validation_groups' => array('normal')))
+            ->setAction($this->generateUrl('iqiyi_avon_votemsg'))
+            ->add('subjectId', 'hidden', array('data'=>1, 'error_bubbling'=>false))
+            ->add('redeemCode', 'text', array('label'=>'我的天猫码：'))
+            ->add('voteType', 'hidden', array('data'=>2, 'error_bubbling'=>false))
+            ->add('fromType', 'hidden', array('data'=>0, 'error_bubbling'=>false))
+            ->add('save', 'submit', array( 'label'=>'投票'))
+            ->getForm();
+
         if($request->isXmlHttpRequest())
         {
             $formParams = $request->get('form');
@@ -158,7 +167,8 @@ class HomeController extends Controller
         }
 
         return array('form_like' => $formLike->createView(),
-                    'form_question' => $formQuestion->createView());
+                    'form_question' => $formQuestion->createView(),
+                    'form_redeem' => $formRedeem->createView());
     }
 
     /**
