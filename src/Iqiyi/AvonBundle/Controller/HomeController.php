@@ -86,42 +86,79 @@ class HomeController extends Controller
     */
     public function votemsgAction(Request $request)
     {
-        //投票要限制IP 希望一天可以对一个SUBJECT投一票，总共可以投10个SUBJECT
-        //天猫投票不管的 
+        //普通赞
         $avonSubjectVote = new AvonSubjectVote();
-        $form = $this->createFormBuilder($avonSubjectVote, array('validation_groups' => array('normal')))
+        $formLike = $this->createFormBuilder($avonSubjectVote, array('validation_groups' => array('normal')))
             ->setAction($this->generateUrl('iqiyi_avon_votemsg'))
             ->add('subjectId', 'hidden', array('data'=>1, 'error_bubbling'=>false))
+            ->add('voteType', 'hidden', array('data'=>0, 'error_bubbling'=>false))
+            ->add('fromType', 'hidden', array('data'=>0, 'error_bubbling'=>false))
             ->add('save', 'submit', array( 'label'=>'赞'))
+            ->getForm();
+
+        $formQuestion = $this->createFormBuilder($avonSubjectVote, array('validation_groups' => array('normal')))
+            ->setAction($this->generateUrl('iqiyi_avon_votemsg'))
+            ->add('subjectId', 'hidden', array('data'=>1, 'error_bubbling'=>false))
+            ->add('question', 'choice', array('choices'   => array('0' => '嘻嘻嘻嘻嘻嘻想', '1' => '美丽瞬间'),
+                                                'label'=>'ta的瞬间是：'))
+            ->add('voteType', 'hidden', array('data'=>1, 'error_bubbling'=>false))
+            ->add('fromType', 'hidden', array('data'=>0, 'error_bubbling'=>false))
+            ->add('save', 'submit', array( 'label'=>'投ta'))
             ->getForm();
 
         if($request->isXmlHttpRequest())
         {
-            $form->handleRequest($request);
+            $formParams = $request->get('form');
+            if($formParams['voteType']==0)
+            {
+                $formLike->handleRequest($request);
 
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $avonSubjectVote->setVoteIp($request->getClientIp());
-                $avonSubjectVote->setVoteTime(time());
-                $avonSubjectVote->setVoteType(0);
-                $avonSubjectVote->setFromType(0);
-                $avonSubjectVote->setStatus(0);
-                $avonSubjectVote->setRedeemCode('');
+                if ($formLike->isValid()) {
+                    $em = $this->getDoctrine()->getManager();
+                    $avonSubjectVote->setVoteIp($request->getClientIp());
+                    $avonSubjectVote->setVoteTime(time());
+                    $avonSubjectVote->setStatus(0);
+                    $avonSubjectVote->setRedeemCode('');
 
-                $em->persist($avonSubjectVote);
-                $em->flush();
+                    $em->persist($avonSubjectVote);
+                    $em->flush();
 
-                $errors = array('success'=>1, 'id'=>$avonSubjectVote->getSubjectVoteId());
-                return new JsonResponse($errors);
-            }else{
-                $errors = array('success'=>0);
-                $errors['errorList'] = $this->getErrorMessages($form);
-                
-                return new JsonResponse($errors);
+                    $errors = array('success'=>1, 'id'=>$avonSubjectVote->getSubjectVoteId());
+                    return new JsonResponse($errors);
+                }else{
+                    $errors = array('success'=>0);
+                    $errors['errorList'] = $this->getErrorMessages($formLike);
+                    
+                    return new JsonResponse($errors);
+                }
+            }
+            if($formParams['voteType']==1)
+            {
+                $formQuestion->handleRequest($request);
+
+                if ($formQuestion->isValid()) {
+                    $em = $this->getDoctrine()->getManager();
+                    $avonSubjectVote->setVoteIp($request->getClientIp());
+                    $avonSubjectVote->setVoteTime(time());
+                    $avonSubjectVote->setStatus(0);
+                    $avonSubjectVote->setRedeemCode('');
+
+                    $em->persist($avonSubjectVote);
+                    $em->flush();
+
+                    $errors = array('success'=>1, 'id'=>$avonSubjectVote->getSubjectVoteId());
+                    return new JsonResponse($errors);
+                }else{
+                    $errors = array('success'=>0);
+                    $errors['errorList'] = $this->getErrorMessages($formQuestion);
+                    
+                    return new JsonResponse($errors);
+                }
             }
         }
 
-        return array('form' => $form->createView());
+        return array('form_like' => $formLike->createView(),
+                    'form_question' => $formQuestion->createView());
     }
 
     /**

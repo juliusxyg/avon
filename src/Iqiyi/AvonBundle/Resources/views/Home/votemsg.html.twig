@@ -4,14 +4,20 @@
 <script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
 </head>
 <body>
-{{ form_start(form, {'attr': {'id': 'vote-form'}}) }}
-    {{ form_row(form.subjectId) }}<span class="error-subjectId"></span>
-    {{ form_row(form.save) }}<span class="error-voteIp"></span>
-{{ form_end(form) }}
+{{ form_start(form_like, {'attr': {'id': 'vote-form-like'}}) }}
+    {{ form_row(form_like.subjectId) }}<span class="error-like-subjectId"></span>
+    {{ form_row(form_like.save) }}<span class="error-like-voteIp"></span>
+{{ form_end(form_like) }}
+
+{{ form_start(form_question, {'attr': {'id': 'vote-form-question'}}) }}
+    {{ form_row(form_question.subjectId) }}<span class="error-question-subjectId"></span>
+    {{ form_row(form_question.question) }}<span class="error-question-question"></span>
+    {{ form_row(form_question.save) }}<span class="error-question-voteIp"></span>
+{{ form_end(form_question) }}
 <script>
 $(function(){
 	/*ajax submit*/
-	$("#vote-form").submit(function(event){
+	$("#vote-form-like").submit(function(event){
 		event.preventDefault();
 		$.ajax({
            type: "POST",
@@ -23,13 +29,37 @@ $(function(){
                		alert('赞id: '+data.id);
                	}else{
                		for(var i in data.errorList){
-               			$("span.error-"+i).text(data.errorList[i]);
+               			$("span.error-like-"+i).text(data.errorList[i]);
                		}
                	}
            }
          });
 		return false;
 	});	
+
+  $("#vote-form-question").submit(function(event){
+    event.preventDefault();
+    if(0 == $("#form_question").val()){
+      alert("选择的答案错误");
+    }else{
+      $.ajax({
+           type: "POST",
+           url: $(this).attr('action'),
+           data: $(this).serialize(),
+           success: function(data)
+           {
+                if(data.success == 1){
+                  alert('赞id: '+data.id);
+                }else{
+                  for(var i in data.errorList){
+                    $("span.error-question-"+i).text(data.errorList[i]);
+                  }
+                }
+           }
+         });
+    }
+    return false;
+  }); 
 });
 </script>
 </body>

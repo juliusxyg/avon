@@ -220,4 +220,16 @@ class AvonSubjectVote
     {
         return $this->status;
     }
+
+    private $question;
+
+    public function setQuestion($question)
+    {
+        return $this;
+    }
+
+    public function getQuestion()
+    {
+        return null;
+    }
 }
