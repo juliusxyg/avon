@@ -1,5 +1,6 @@
 parameters:
     iqiyi_avon.validator.entityexists.class: Iqiyi\AvonBundle\Validator\Constraints\EntityExistsValidator
+    iqiyi_avon.validator.votelimit.class: Iqiyi\AvonBundle\Validator\Constraints\VoteLimitValidator
 
 services:
     iqiyi_avon.validator.entity_exists:
@@ -7,3 +8,8 @@ services:
         arguments: [@doctrine.orm.entity_manager]
         tags:
             - { name: validator.constraint_validator, alias: iqiyi_avon.validator.entity_exists }
+    iqiyi_avon.validator.vote_limit:
+        class: %iqiyi_avon.validator.votelimit.class%
+        arguments: [@doctrine.orm.entity_manager, @request_stack]
+        tags:
+            - { name: validator.constraint_validator, alias: iqiyi_avon.validator.vote_limit }

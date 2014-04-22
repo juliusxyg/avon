@@ -86,8 +86,8 @@ class HomeController extends Controller
     */
     public function votemsgAction(Request $request)
     {
-        //投票要限制IP
-        //天猫投票不限制IP
+        //投票要限制IP 希望一天可以对一个SUBJECT投一票，总共可以投10个SUBJECT
+        //天猫投票不管的 
         $avonSubjectVote = new AvonSubjectVote();
         $form = $this->createFormBuilder($avonSubjectVote)
             ->setAction($this->generateUrl('iqiyi_avon_votemsg'))
