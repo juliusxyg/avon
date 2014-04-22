@@ -89,7 +89,7 @@ class HomeController extends Controller
         //投票要限制IP 希望一天可以对一个SUBJECT投一票，总共可以投10个SUBJECT
         //天猫投票不管的 
         $avonSubjectVote = new AvonSubjectVote();
-        $form = $this->createFormBuilder($avonSubjectVote)
+        $form = $this->createFormBuilder($avonSubjectVote, array('validation_groups' => array('normal')))
             ->setAction($this->generateUrl('iqiyi_avon_votemsg'))
             ->add('subjectId', 'hidden', array('data'=>1, 'error_bubbling'=>false))
             ->add('save', 'submit', array( 'label'=>'赞'))

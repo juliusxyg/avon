@@ -102,9 +102,14 @@ Iqiyi\AvonBundle\Entity\AvonSubjectVote:
                 property: subjectId
                 message: '投票对象不存在'
             - Iqiyi\AvonBundle\Validator\Constraints\VoteLimit:
+                groups: [normal]
                 entity: Iqiyi\AvonBundle\Entity\AvonSubjectVote
                 property_subject: subjectId
                 property_ip: voteIp
                 message_voted: '已经投过票'
                 limit: 10
                 message_limited: '今天已经投过{{ limit }}票了，请明天再来'
+        redeemCode:
+            - NotBlank: 
+                groups: [tmall]
+            
