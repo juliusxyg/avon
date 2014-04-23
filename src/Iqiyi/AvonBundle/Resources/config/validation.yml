@@ -98,6 +98,7 @@ Iqiyi\AvonBundle\Entity\AvonSubjectVote:
         subjectId:
             - NotBlank: ~
             - Iqiyi\AvonBundle\Validator\Constraints\EntityExists:
+                groups: [normal]
                 entity: Iqiyi\AvonBundle\Entity\AvonSubject
                 property: subjectId
                 message: '投票对象不存在'
@@ -112,4 +113,7 @@ Iqiyi\AvonBundle\Entity\AvonSubjectVote:
         redeemCode:
             - NotBlank: 
                 groups: [tmall]
-            
+            - Iqiyi\AvonBundle\Validator\Constraints\Redeem:
+                groups: [tmall]
+                message_bad: "天猫码不存在"
+                message_used: "天猫码已使用"

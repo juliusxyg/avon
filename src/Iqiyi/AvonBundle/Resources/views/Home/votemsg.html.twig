@@ -46,7 +46,7 @@ $(function(){
   $("#vote-form-question").submit(function(event){
     event.preventDefault();
     if(0 == $("#form_question").val()){
-      alert("选择的答案错误");
+      $("span.error-question-question").text("你选择的答案错误");
     }else{
       $.ajax({
            type: "POST",
@@ -59,6 +59,30 @@ $(function(){
                 }else{
                   for(var i in data.errorList){
                     $("span.error-question-"+i).text(data.errorList[i]);
+                  }
+                }
+           }
+         });
+    }
+    return false;
+  }); 
+
+  $("#vote-form-redeem").submit(function(event){
+    event.preventDefault();
+    if('' == $.trim($("#form_redeemCode").val())){
+      $("span.error-redeem-redeemCode").text("请填写天猫码");
+    }else{
+      $.ajax({
+           type: "POST",
+           url: $(this).attr('action'),
+           data: $(this).serialize(),
+           success: function(data)
+           {
+                if(data.success == 1){
+                  alert('赞id: '+data.id);
+                }else{
+                  for(var i in data.errorList){
+                    $("span.error-redeem-"+i).text(data.errorList[i]);
                   }
                 }
            }

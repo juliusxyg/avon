@@ -13,3 +13,12 @@ services:
         arguments: [@doctrine.orm.entity_manager, @request_stack]
         tags:
             - { name: validator.constraint_validator, alias: iqiyi_avon.validator.vote_limit }
+    iqiyi_avon.listener。update_redeem:
+        class: Iqiyi\AvonBundle\EventListener\UpdateRedeem
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+    iqiyi_avon.validator.redeem:
+        class: Iqiyi\AvonBundle\Validator\Constraints\RedeemValidator
+        arguments: [@doctrine.orm.entity_manager]
+        tags:
+            - { name: validator.constraint_validator, alias: iqiyi_avon.validator.redeem }

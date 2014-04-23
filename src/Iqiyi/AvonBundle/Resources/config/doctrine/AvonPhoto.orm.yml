@@ -77,4 +77,7 @@ Iqiyi\AvonBundle\Entity\AvonPhoto:
             nullable: false
             comment: '审核状态 0.待审 1.通过'
             default: '0'
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks: 
+        prePersist: [preUpload, upload]
+        preUpdate: [preUpload, upload]
+        postRemove: [removeUpload]

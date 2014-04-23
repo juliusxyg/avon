@@ -106,7 +106,7 @@ class HomeController extends Controller
             ->add('save', 'submit', array( 'label'=>'投ta'))
             ->getForm();
 
-        $formRedeem = $this->createFormBuilder($avonSubjectVote, array('validation_groups' => array('normal')))
+        $formRedeem = $this->createFormBuilder($avonSubjectVote, array('validation_groups' => array('tmall')))
             ->setAction($this->generateUrl('iqiyi_avon_votemsg'))
             ->add('subjectId', 'hidden', array('data'=>1, 'error_bubbling'=>false))
             ->add('redeemCode', 'text', array('label'=>'我的天猫码：'))
@@ -160,6 +160,28 @@ class HomeController extends Controller
                 }else{
                     $errors = array('success'=>0);
                     $errors['errorList'] = $this->getErrorMessages($formQuestion);
+                    
+                    return new JsonResponse($errors);
+                }
+            }
+            if($formParams['voteType']==2)
+            {
+                $formRedeem->handleRequest($request);
+
+                if ($formRedeem->isValid()) {
+                    $em = $this->getDoctrine()->getManager();
+                    $avonSubjectVote->setVoteIp($request->getClientIp());
+                    $avonSubjectVote->setVoteTime(time());
+                    $avonSubjectVote->setStatus(0);
+
+                    $em->persist($avonSubjectVote);
+                    $em->flush();
+
+                    $errors = array('success'=>1, 'id'=>$avonSubjectVote->getSubjectVoteId());
+                    return new JsonResponse($errors);
+                }else{
+                    $errors = array('success'=>0);
+                    $errors['errorList'] = $this->getErrorMessages($formRedeem);
                     
                     return new JsonResponse($errors);
                 }
