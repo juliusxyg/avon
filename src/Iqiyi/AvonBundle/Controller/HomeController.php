@@ -213,16 +213,28 @@ class HomeController extends Controller
             ->add('save', 'submit', array( 'label'=>'发布'))
             ->getForm();
 
-        $form->handleRequest($request);
+        if($request->isXmlHttpRequest())
+        {
+            $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $avonPhoto->setAddTime(time());
-            $em->persist($avonPhoto);
-            $em->flush();
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $avonPhoto->setAddTime(time());
+                $avonPhoto->setStatus(0);
+                $em->persist($avonPhoto);
+                $em->flush();
 
-            return $this->redirect($this->generateUrl('iqiyi_avon_homepage'));
+                $errors = array('success'=>1, 'id'=>$avonPhoto->getPhotoId());
+                return new JsonResponse($errors);
+            }else{
+                $errors = array('success'=>0);
+                $errors['errorList'] = $this->getErrorMessages($form);
+                
+                return new JsonResponse($errors);
+            }
         }
+
+            
 
         return array('form' => $form->createView());
     }

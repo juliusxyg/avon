@@ -1,11 +1,43 @@
-{{ form_start(form) }}
-    {{ form_errors(form) }}
-
-    {{ form_row(form.memName) }}
-    {{ form_row(form.memGender) }}
-    {{ form_row(form.memMobile) }}
-    {{ form_row(form.memAddress) }}
-    {{ form_row(form.memZip) }}
-    {{ form_row(form.file) }}
+<!DOCTYPE html>
+<head>
+<title>hahaha</title>
+<script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+</head>
+<body>
+{{ form_start(form, {'attr': {'id': 'photo-form', 'enctype': 'multipart/form-data'}}) }}
+    {{ form_row(form.memName) }}<span class="error-memName"></span>
+    {{ form_row(form.memGender) }}<span class="error-memGender"></span>
+    {{ form_row(form.memMobile) }}<span class="error-memMobile"></span>
+    {{ form_row(form.memAddress) }}<span class="error-memAddress"></span>
+    {{ form_row(form.memZip) }}<span class="error-memZip"></span>
+    {{ form_row(form.file) }}<span class="error-file"></span>
+    {{ form_row(form.content) }}<span class="error-content"></span>
     {{ form_row(form.save) }}
 {{ form_end(form) }}
+<script>
+$(function(){
+	/*ajax submit*/
+	$("#photo-form").submit(function(event){
+		event.preventDefault();
+		$.ajax({
+           type: "POST",
+           contentType:"multipart/form-data",
+           url: $(this).attr('action'),
+           data: $(this).serialize(),
+           success: function(data)
+           {
+               	if(data.success == 1){
+               		alert('分享id: '+data.id);
+               	}else{
+               		for(var i in data.errorList){
+               			$("span.error-"+i).text(data.errorList[i]);
+               		}
+               	}
+           }
+         });
+		return false;
+	});	
+});
+</script>
+</body>
+</html>
