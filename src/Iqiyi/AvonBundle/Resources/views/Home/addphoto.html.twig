@@ -2,6 +2,9 @@
 <head>
 <title>hahaha</title>
 <script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+{% javascripts '@IqiyiAvonBundle/Resources/public/js/jquery.form.min.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
 </head>
 <body>
 {{ form_start(form, {'attr': {'id': 'photo-form', 'enctype': 'multipart/form-data'}}) }}
@@ -19,22 +22,20 @@ $(function(){
 	/*ajax submit*/
 	$("#photo-form").submit(function(event){
 		event.preventDefault();
-		$.ajax({
-           type: "POST",
-           contentType:"multipart/form-data",
-           url: $(this).attr('action'),
-           data: $(this).serialize(),
-           success: function(data)
-           {
-               	if(data.success == 1){
-               		alert('分享id: '+data.id);
-               	}else{
-               		for(var i in data.errorList){
-               			$("span.error-"+i).text(data.errorList[i]);
-               		}
-               	}
-           }
-         });
+
+		$(this).ajaxSubmit({
+												success: function(data)
+											           {
+										               	if(data.success == 1){
+										               		alert('分享id: '+data.id);
+										               	}else{
+										               		for(var i in data.errorList){
+										               			$("span.error-"+i).text(data.errorList[i]);
+										               		}
+										               	}
+											           }
+											}); 
+
 		return false;
 	});	
 });

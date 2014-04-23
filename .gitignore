@@ -1,3 +1,4 @@
 app/cache/*
 app/logs/*
 web/uploads/documents/*
+.DS_Store
