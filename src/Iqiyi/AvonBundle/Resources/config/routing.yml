@@ -14,6 +14,12 @@ iqiyi_avon_votemsg:
     pattern:  /votemsg
     defaults: { _controller: IqiyiAvonBundle:Home:votemsg }
 
+##############################################################
+
+iqiyi_avon_login:
+    pattern:  /back/login
+    defaults: { _controller: IqiyiAvonBundle:Backend:login }
+
 iqiyi_avon_generate_redeem:
-    pattern:  /back/redeem/generate
+    pattern:  /admin/redeem/generate
     defaults: { _controller: IqiyiAvonBundle:Backend:generateRedeemCode }
