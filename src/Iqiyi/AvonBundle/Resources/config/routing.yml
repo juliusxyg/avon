@@ -16,10 +16,16 @@ iqiyi_avon_votemsg:
 
 ##############################################################
 
-iqiyi_avon_login:
-    pattern:  /back/login
+login:
+    path:  /admin/login
     defaults: { _controller: IqiyiAvonBundle:Backend:login }
+
+login_check:
+    path:  /login_check
 
 iqiyi_avon_generate_redeem:
     pattern:  /admin/redeem/generate
     defaults: { _controller: IqiyiAvonBundle:Backend:generateRedeemCode }
+
+logout:
+    path:   /logout

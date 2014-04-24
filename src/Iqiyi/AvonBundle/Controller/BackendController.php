@@ -5,6 +5,7 @@ namespace Iqiyi\AvonBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,25 +37,20 @@ class BackendController extends Controller
   */
   public function loginAction(Request $request)
   {
-  	$defaultData = array();
-    $form = $this->createFormBuilder($defaultData)
-        ->add('username', 'text')
-        ->add('password', 'password')
-        ->add('save', 'submit', array( 'label'=>'登入'))
-        ->getForm();
+    $session = $request->getSession();
 
-    if ($request->isMethod('POST')) {
-        $form->bind($request);
-
-        $data = $form->getData();
-        if($data['username']=='admin' && $data['password']==date("YmdHi")){
-
-        }else{
-        	$form->addError(new FormError('用户名或密码错误'));
-        }
+    // get the login error if there is one
+    if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR
+        );
+    } else {
+        $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+        $session->remove(SecurityContext::AUTHENTICATION_ERROR);
     }
 
-    return array('form'=>$form->createView());
+    return array('last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                  'error'         => $error);
   }
 }
 ?>
