@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>后台</title>
+{{ include('IqiyiAvonBundle:Backend:_head.html.twig') }}
+</head>
+<body>
+{{ include('IqiyiAvonBundle:Backend:_navi.html.twig') }}
+<div class="container-fluid">
+	<form class="form-inline" role="form" method="GET" action="{{ path('iqiyi_avon_subject_list') }}">
+	  <div class="form-group">
+	    <label class="sr-only" for="mobile">Mobile</label>
+	    <input type="text" name="mobile" class="form-control" id="mobile" placeholder="用手机号查找">
+	  </div>
+	  <button type="submit" class="btn btn-default">搜索</button>
+	</form>
+	<table class="table">
+		<tr>
+			<th>#</th>
+			<th>姓名</th>
+			<th>性别</th>
+			<th>手机</th>
+			<th>地址</th>
+			<th>内容</th>
+			<th>*</th>
+		</tr>
+		{% for item in items %}
+		<tr id="s_{{ item.getSubjectId() }}">
+			<td>{{ item.getSubjectId() }}</td>
+			<td>{{ item.getMemName() }}</td>
+			<td>{% if 1==item.getMemGender() %}女{% else %}男{% endif %}</td>
+			<td>{{ item.getMemMobile() }}</td>
+			<td>{{ item.getMemAddress() }}</td>
+			<td>{{ item.getContent() }}</td>
+			<td>
+				{% if 0==item.getStatus() %}
+				<button class="btn btn-primary" onclick="backend.do_approve('{{ path("iqiyi_avon_subject_approve", {'id': item.getSubjectId(), 'status': 1 }) }}', this);">通过</button>
+				{% else %}
+				<button class="btn btn-primary"  onclick="backend.do_approve('{{ path("iqiyi_avon_subject_approve", {'id': item.getSubjectId(), 'status': 0 }) }}', this);">不通过</button>
+				{% endif %}
+				<button class="btn btn-default btn-xs"  onclick="backend.do_remove('{{ path("iqiyi_avon_subject_remove", {'id': item.getSubjectId()}) }}', '{{ item.getSubjectId() }}');">删除</button>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% if items %}
+    <div>
+     <ul class="pagination pull-right">
+      {% if page.prevpage %}
+      <li ><a href="{{ path('iqiyi_avon_subject_list', {'page': page.prevpage}) }}{{ page.clause }}">&laquo;</a></li>
+      {% endif %}
+      {% for p in page.pagelist %}
+      {% if page.currpage == p %}
+      <li class="active"><a href="###">{{ p }}<span class="sr-only">(current)</span></a></li>
+      {% else %}
+      <li><a href="{{ path('iqiyi_avon_subject_list', {'page': p}) }}{{ page.clause }}">{{ p }}</a></li>
+      {% endif %}
+      {% endfor %}
+      {% if page.nextpage %}
+      <li ><a href="{{ path('iqiyi_avon_subject_list', {'page': page.nextpage}) }}{{ page.clause }}">&raquo;</a></li>
+      {% endif %}
+      </ul>
+    </div>
+  {% endif %}
+</div>
+<script type="text/javascript">
+var backend = {};
+backend.do_approve = function(surl, button)
+{
+	event.preventDefault();
+	$.get(surl,{},function(data){
+		if(data.success==1){
+			$(button).remove();
+		}else{
+			alert("请求失败："+data.error);
+		}
+	},'json');
+}
+
+backend.do_remove = function(surl, sid)
+{
+	event.preventDefault();
+	if(window.confirm("确定要删除吗？"))
+	{
+		$.get(surl,{},function(data){
+			if(data.success==1){
+				$("#s_"+sid).remove();
+			}else{
+				alert("请求失败："+data.error);
+			}
+		},'json');
+	}
+}
+
+</script>
+</body>
+</html>

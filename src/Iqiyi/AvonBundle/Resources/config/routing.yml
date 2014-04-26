@@ -23,9 +23,29 @@ login:
 login_check:
     path:  /login_check
 
+logout:
+    path:   /logout
+
 iqiyi_avon_generate_redeem:
     pattern:  /admin/redeem/generate
     defaults: { _controller: IqiyiAvonBundle:Backend:generateRedeemCode }
 
-logout:
-    path:   /logout
+iqiyi_avon_subject_list:
+    pattern:  /admin/subject/list/{page}
+    defaults: { _controller: IqiyiAvonBundle:Backend:subjectList, page: 1 }
+    requirements:
+        page:  \d+
+
+iqiyi_avon_subject_approve:
+    pattern:  /admin/subject/{id}/approve/{status}
+    defaults: { _controller: IqiyiAvonBundle:Backend:subjectApprove}
+    requirements:
+        id:  \d+
+        statis: 0|1
+
+iqiyi_avon_subject_remove:
+    pattern:  /admin/subject/{id}/remove/
+    defaults: { _controller: IqiyiAvonBundle:Backend:subjectRemove}
+    requirements:
+        id:  \d+
+
