@@ -73,6 +73,7 @@ $(function(){
            {
                	if(data.success == 1){
                		alert('分享id: '+data.id);
+               		$("#form__token").val(data.token);
                	}else{
                		for(var i in data.errorList){
                			$("span.error-"+i).text(data.errorList[i]);

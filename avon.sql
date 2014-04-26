@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `avon_subject` (
   `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '发布时间',
   `from_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '发布平台 0.pc 1.mobile',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '审核状态 0.待审 1.通过',
+  `total_vote` int(11) NOT NULL DEFAULT '0' COMMENT '得票总数',
   PRIMARY KEY (`subject_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -74,6 +75,7 @@ CREATE TABLE IF NOT EXISTS `avon_photo` (
   `content` varchar(255) NOT NULL DEFAULT '' COMMENT '最美一瞬内容',
   `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '发布时间',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '审核状态 0.待审 1.通过',
+  `total_vote` int(11) NOT NULL DEFAULT '0' COMMENT '得票总数',
   PRIMARY KEY (`photo_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

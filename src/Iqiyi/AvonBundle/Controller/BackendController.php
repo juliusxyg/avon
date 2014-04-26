@@ -100,6 +100,122 @@ class BackendController extends Controller
     return new JsonResponse(array("success"=>0, "error"=>"非法请求"));
   }
 
+  public function subjectVoteAction(Request $request)
+  {
+    if($request->isXmlHttpRequest())
+    {
+      $number = $request->get('number');
+      if(!is_numeric($number))
+      {
+        return new JsonResponse(array("success"=>0, "error"=>"请填写合理数字"));
+      }
+      $subjectId = $request->get('id');
+      $em = $this->getDoctrine()->getManager();
+      $entity = $em->getRepository("IqiyiAvonBundle:AvonSubject")->find($subjectId);
+      if(!$entity)
+      {
+        return new JsonResponse(array("success"=>0, "error"=>"操作对象不存在"));
+      }
+      $entity->setTotalVote($number);
+      $em->persist($entity);
+      $em->flush();
+
+      return new JsonResponse(array("success"=>1));
+    }
+    return new JsonResponse(array("success"=>0, "error"=>"非法请求"));
+  }
+
+  /**
+  *  @Template()
+  */
+  public function photoListAction(Request $request)
+  {
+    $pagesize = 20;
+    $page = $request->get('page', 1);
+    $mobile = $request->get('mobile', '');
+    $em = $this->getDoctrine()->getManager();
+    $query = $em->createQuery('SELECT COUNT(u.photoId) AS total FROM IqiyiAvonBundle:AvonPhoto u WHERE '.($mobile?'u.memMobile='.$mobile.'':'u.status=0'));
+    $total = $query->getSingleResult();
+    $totalpage = ceil($total['total']/$pagesize);
+    if($totalpage<$page){
+        $page = $totalpage<=0?1:$totalpage;
+    }
+    $offset = ($page-1)*$pagesize;
+    if($mobile){
+      $criteria = array("memMobile"=>$mobile);
+    }else{
+      $criteria = array("status"=>0);
+    }
+    $objects = $em->getRepository("IqiyiAvonBundle:AvonPhoto")
+                  ->findBy($criteria, array('addTime'=>'desc'), $pagesize, $offset);
+    return array("items"=>$objects, "page"=>$this->paginating($page,$totalpage,10, ($mobile?array("mobile"=>$mobile):array())));
+  }
+
+  public function photoApproveAction(Request $request)
+  {
+    if($request->isXmlHttpRequest())
+    {
+      $status = $request->get('status');
+      $photoId = $request->get('id');
+      $em = $this->getDoctrine()->getManager();
+      $entity = $em->getRepository("IqiyiAvonBundle:AvonPhoto")->find($photoId);
+      if(!$entity)
+      {
+        return new JsonResponse(array("success"=>0, "error"=>"操作对象不存在"));
+      }
+      $entity->setStatus($status);
+      $em->persist($entity);
+      $em->flush();
+
+      return new JsonResponse(array("success"=>1));
+    }
+    return new JsonResponse(array("success"=>0, "error"=>"非法请求"));
+  }
+
+  public function photoRemoveAction(Request $request)
+  {
+    if($request->isXmlHttpRequest())
+    {
+      $photoId = $request->get('id');
+      $em = $this->getDoctrine()->getManager();
+      $entity = $em->getRepository("IqiyiAvonBundle:AvonPhoto")->find($photoId);
+      if(!$entity)
+      {
+        return new JsonResponse(array("success"=>0, "error"=>"操作对象不存在"));
+      }
+      $em->remove($entity);
+      $em->flush();
+
+      return new JsonResponse(array("success"=>1));
+    }
+    return new JsonResponse(array("success"=>0, "error"=>"非法请求"));
+  }
+
+  public function photoVoteAction(Request $request)
+  {
+    if($request->isXmlHttpRequest())
+    {
+      $number = $request->get('number');
+      if(!is_numeric($number))
+      {
+        return new JsonResponse(array("success"=>0, "error"=>"请填写合理数字"));
+      }
+      $photoId = $request->get('id');
+      $em = $this->getDoctrine()->getManager();
+      $entity = $em->getRepository("IqiyiAvonBundle:AvonPhoto")->find($photoId);
+      if(!$entity)
+      {
+        return new JsonResponse(array("success"=>0, "error"=>"操作对象不存在"));
+      }
+      $entity->setTotalVote($number);
+      $em->persist($entity);
+      $em->flush();
+
+      return new JsonResponse(array("success"=>1));
+    }
+    return new JsonResponse(array("success"=>0, "error"=>"非法请求"));
+  }
+
   public function paginating($currpage=1, $totalpage=1, $pagespan=10, $get=array(), $pageNameInClause='page')
   {
     $ret=array();

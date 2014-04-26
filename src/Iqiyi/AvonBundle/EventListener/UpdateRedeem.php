@@ -11,6 +11,7 @@ class UpdateRedeem
         $entity = $args->getEntity();
         $em = $args->getEntityManager();
 
+        //使用天猫码的话更新对应的天猫码状态
         if ($entity instanceof AvonSubjectVote && $entity->getRedeemCode())
         {
             $code = $em->getRepository('IqiyiAvonBundle:AvonRedeemCode')

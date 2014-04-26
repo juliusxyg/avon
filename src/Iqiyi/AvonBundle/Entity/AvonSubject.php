@@ -276,4 +276,32 @@ class AvonSubject
     {
         return $this->status;
     }
+    /**
+     * @var integer
+     */
+    private $totalVote;
+
+
+    /**
+     * Set totalVote
+     *
+     * @param integer $totalVote
+     * @return AvonSubject
+     */
+    public function setTotalVote($totalVote)
+    {
+        $this->totalVote = $totalVote;
+
+        return $this;
+    }
+
+    /**
+     * Get totalVote
+     *
+     * @return integer 
+     */
+    public function getTotalVote()
+    {
+        return $this->totalVote;
+    }
 }

@@ -11,8 +11,10 @@ iqiyi_avon_addmsg:
     defaults: { _controller: IqiyiAvonBundle:Home:addmsg }
 
 iqiyi_avon_votemsg:
-    pattern:  /votemsg
+    pattern:  /votemsg/{id}
     defaults: { _controller: IqiyiAvonBundle:Home:votemsg }
+    requirements:
+        page:  \d+
 
 ##############################################################
 
@@ -30,6 +32,7 @@ iqiyi_avon_generate_redeem:
     pattern:  /admin/redeem/generate
     defaults: { _controller: IqiyiAvonBundle:Backend:generateRedeemCode }
 
+#backend subject
 iqiyi_avon_subject_list:
     pattern:  /admin/subject/list/{page}
     defaults: { _controller: IqiyiAvonBundle:Backend:subjectList, page: 1 }
@@ -44,8 +47,38 @@ iqiyi_avon_subject_approve:
         statis: 0|1
 
 iqiyi_avon_subject_remove:
-    pattern:  /admin/subject/{id}/remove/
+    pattern:  /admin/subject/{id}/remove
     defaults: { _controller: IqiyiAvonBundle:Backend:subjectRemove}
     requirements:
         id:  \d+
 
+iqiyi_avon_subject_update_vote:
+    pattern:  /admin/subject/{id}/vote
+    defaults: { _controller: IqiyiAvonBundle:Backend:subjectVote}
+    requirements:
+        id:  \d+
+#backend photo
+iqiyi_avon_photo_list:
+    pattern:  /admin/photo/list/{page}
+    defaults: { _controller: IqiyiAvonBundle:Backend:photoList, page: 1 }
+    requirements:
+        page:  \d+
+
+iqiyi_avon_photo_approve:
+    pattern:  /admin/photo/{id}/approve/{status}
+    defaults: { _controller: IqiyiAvonBundle:Backend:photoApprove}
+    requirements:
+        id:  \d+
+        statis: 0|1
+
+iqiyi_avon_photo_remove:
+    pattern:  /admin/photo/{id}/remove
+    defaults: { _controller: IqiyiAvonBundle:Backend:photoRemove}
+    requirements:
+        id:  \d+
+
+iqiyi_avon_photo_update_vote:
+    pattern:  /admin/photo/{id}/vote
+    defaults: { _controller: IqiyiAvonBundle:Backend:photoVote}
+    requirements:
+        id:  \d+

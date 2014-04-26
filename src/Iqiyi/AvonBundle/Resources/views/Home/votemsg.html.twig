@@ -33,6 +33,7 @@ $(function(){
            {
                	if(data.success == 1){
                		alert('赞id: '+data.id);
+                  $("#form__token").val(data.token);
                	}else{
                		for(var i in data.errorList){
                			$("span.error-like-"+i).text(data.errorList[i]);
@@ -56,6 +57,7 @@ $(function(){
            {
                 if(data.success == 1){
                   alert('赞id: '+data.id);
+                  $("#form__token").val(data.token);
                 }else{
                   for(var i in data.errorList){
                     $("span.error-question-"+i).text(data.errorList[i]);
@@ -80,6 +82,7 @@ $(function(){
            {
                 if(data.success == 1){
                   alert('赞id: '+data.id);
+                  $("#form__token").val(data.token);
                 }else{
                   for(var i in data.errorList){
                     $("span.error-redeem-"+i).text(data.errorList[i]);

@@ -248,4 +248,32 @@ class AvonSubject
     {
         return $this->memZip;
     }
+    /**
+     * @var boolean
+     */
+    private $status;
+
+
+    /**
+     * Set status
+     *
+     * @param boolean $status
+     * @return AvonSubject
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return boolean 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 }

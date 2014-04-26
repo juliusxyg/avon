@@ -192,4 +192,44 @@ class AvonSubjectVote
     {
         return $this->fromType;
     }
+    /**
+     * @var boolean
+     */
+    private $status;
+
+
+    /**
+     * Set status
+     *
+     * @param boolean $status
+     * @return AvonSubjectVote
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return boolean 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    private $question;
+
+    public function setQuestion($question)
+    {
+        return $this;
+    }
+
+    public function getQuestion()
+    {
+        return null;
+    }
 }

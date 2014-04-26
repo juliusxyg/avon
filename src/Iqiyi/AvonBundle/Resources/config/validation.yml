@@ -98,7 +98,7 @@ Iqiyi\AvonBundle\Entity\AvonSubjectVote:
         subjectId:
             - NotBlank: ~
             - Iqiyi\AvonBundle\Validator\Constraints\EntityExists:
-                groups: [normal]
+                groups: [normal, tmall]
                 entity: Iqiyi\AvonBundle\Entity\AvonSubject
                 property: subjectId
                 message: '投票对象不存在'

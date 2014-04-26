@@ -232,10 +232,10 @@ class AvonPhoto
         // check if we have an old image path
         if (isset($this->photoUrl)) {
             // store the old name to delete after the update
-            $this->temp = $this->path;
-            $this->path = null;
+            $this->temp = $this->photoUrl;
+            $this->photoUrl = null;
         } else {
-            $this->path = 'initial';
+            $this->photoUrl = 'initial';
         }
     }
 
@@ -390,5 +390,33 @@ class AvonPhoto
     public function getStatus()
     {
         return $this->status;
+    }
+    /**
+     * @var integer
+     */
+    private $totalVote;
+
+
+    /**
+     * Set totalVote
+     *
+     * @param integer $totalVote
+     * @return AvonPhoto
+     */
+    public function setTotalVote($totalVote)
+    {
+        $this->totalVote = $totalVote;
+
+        return $this;
+    }
+
+    /**
+     * Get totalVote
+     *
+     * @return integer 
+     */
+    public function getTotalVote()
+    {
+        return $this->totalVote;
     }
 }

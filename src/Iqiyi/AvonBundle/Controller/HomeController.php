@@ -22,9 +22,10 @@ class HomeController extends Controller
     *  @Template()
     */
     public function addmsgAction(Request $request)
-    {
+    {   
+        $intention = "subject_form_".date("YmdH");
         $avonSubject = new AvonSubject();
-        $form = $this->createFormBuilder($avonSubject)
+        $form = $this->createFormBuilder($avonSubject, array("intention"=>$intention))
             ->setAction($this->generateUrl('iqiyi_avon_addmsg'))
             ->add('memName', 'text', array('label'=>'姓名：', 'max_length'=>45))
             ->add('memGender', 'choice', array('choices'   => array('0' => '男', '1' => '女'),
@@ -47,11 +48,14 @@ class HomeController extends Controller
 
                 $avonSubject->setFromType(0);
                 $avonSubject->setStatus(0);
+                $avonSubject->setTotalVote(0);
 
                 $em->persist($avonSubject);
                 $em->flush();
 
-                $errors = array('success'=>1, 'id'=>$avonSubject->getSubjectId());
+                $csrf = $this->get('form.csrf_provider');
+                $token = $csrf->generateCsrfToken($intention);
+                $errors = array('success'=>1, 'id'=>$avonSubject->getSubjectId(), 'token'=>$token);
                 return new JsonResponse($errors);
             }else{
                 $errors = array('success'=>0);
@@ -85,20 +89,22 @@ class HomeController extends Controller
     *  @Template()
     */
     public function votemsgAction(Request $request)
-    {
+    {   
+        $id = $request->get('id');
+        $intention = "vote_form_".date("YmdH");
         //普通赞
         $avonSubjectVote = new AvonSubjectVote();
-        $formLike = $this->createFormBuilder($avonSubjectVote, array('validation_groups' => array('normal')))
-            ->setAction($this->generateUrl('iqiyi_avon_votemsg'))
-            ->add('subjectId', 'hidden', array('data'=>1, 'error_bubbling'=>false))
+        $formLike = $this->createFormBuilder($avonSubjectVote, array('validation_groups' => array('normal'), "intention"=>$intention))
+            ->setAction($this->generateUrl('iqiyi_avon_votemsg', array('id'=>$id)))
+            ->add('subjectId', 'hidden', array('data'=>$id, 'error_bubbling'=>false))
             ->add('voteType', 'hidden', array('data'=>0, 'error_bubbling'=>false))
             ->add('fromType', 'hidden', array('data'=>0, 'error_bubbling'=>false))
             ->add('save', 'submit', array( 'label'=>'赞'))
             ->getForm();
 
-        $formQuestion = $this->createFormBuilder($avonSubjectVote, array('validation_groups' => array('normal')))
-            ->setAction($this->generateUrl('iqiyi_avon_votemsg'))
-            ->add('subjectId', 'hidden', array('data'=>1, 'error_bubbling'=>false))
+        $formQuestion = $this->createFormBuilder($avonSubjectVote, array('validation_groups' => array('normal'), "intention"=>$intention))
+            ->setAction($this->generateUrl('iqiyi_avon_votemsg', array('id'=>$id)))
+            ->add('subjectId', 'hidden', array('data'=>$id, 'error_bubbling'=>false))
             ->add('question', 'choice', array('choices'   => array('0' => '嘻嘻嘻嘻嘻嘻想', '1' => '美丽瞬间'),
                                                 'label'=>'ta的瞬间是：'))
             ->add('voteType', 'hidden', array('data'=>1, 'error_bubbling'=>false))
@@ -106,9 +112,9 @@ class HomeController extends Controller
             ->add('save', 'submit', array( 'label'=>'投ta'))
             ->getForm();
 
-        $formRedeem = $this->createFormBuilder($avonSubjectVote, array('validation_groups' => array('tmall')))
-            ->setAction($this->generateUrl('iqiyi_avon_votemsg'))
-            ->add('subjectId', 'hidden', array('data'=>1, 'error_bubbling'=>false))
+        $formRedeem = $this->createFormBuilder($avonSubjectVote, array('validation_groups' => array('tmall'), "intention"=>$intention))
+            ->setAction($this->generateUrl('iqiyi_avon_votemsg', array('id'=>$id)))
+            ->add('subjectId', 'hidden', array('data'=>$id, 'error_bubbling'=>false))
             ->add('redeemCode', 'text', array('label'=>'我的天猫码：'))
             ->add('voteType', 'hidden', array('data'=>2, 'error_bubbling'=>false))
             ->add('fromType', 'hidden', array('data'=>0, 'error_bubbling'=>false))
@@ -132,7 +138,9 @@ class HomeController extends Controller
                     $em->persist($avonSubjectVote);
                     $em->flush();
 
-                    $errors = array('success'=>1, 'id'=>$avonSubjectVote->getSubjectVoteId());
+                    $csrf = $this->get('form.csrf_provider');
+                    $token = $csrf->generateCsrfToken($intention);
+                    $errors = array('success'=>1, 'id'=>$avonSubjectVote->getSubjectVoteId(), 'token'=>$token);
                     return new JsonResponse($errors);
                 }else{
                     $errors = array('success'=>0);
@@ -155,7 +163,9 @@ class HomeController extends Controller
                     $em->persist($avonSubjectVote);
                     $em->flush();
 
-                    $errors = array('success'=>1, 'id'=>$avonSubjectVote->getSubjectVoteId());
+                    $csrf = $this->get('form.csrf_provider');
+                    $token = $csrf->generateCsrfToken($intention);
+                    $errors = array('success'=>1, 'id'=>$avonSubjectVote->getSubjectVoteId(), 'token'=>$token);
                     return new JsonResponse($errors);
                 }else{
                     $errors = array('success'=>0);
@@ -177,7 +187,9 @@ class HomeController extends Controller
                     $em->persist($avonSubjectVote);
                     $em->flush();
 
-                    $errors = array('success'=>1, 'id'=>$avonSubjectVote->getSubjectVoteId());
+                    $csrf = $this->get('form.csrf_provider');
+                    $token = $csrf->generateCsrfToken($intention);
+                    $errors = array('success'=>1, 'id'=>$avonSubjectVote->getSubjectVoteId(), 'token'=>$token);
                     return new JsonResponse($errors);
                 }else{
                     $errors = array('success'=>0);
@@ -198,8 +210,9 @@ class HomeController extends Controller
     */
     public function addphotoAction(Request $request)
     {
+        $intention = "photo_form_".date("YmdH");
         $avonPhoto = new AvonPhoto();
-        $form = $this->createFormBuilder($avonPhoto)
+        $form = $this->createFormBuilder($avonPhoto, array( 'intention' => $intention ))
             ->setAction($this->generateUrl('iqiyi_avon_addphoto'))
             ->add('memName', 'text', array('label'=>'姓名：', 'max_length'=>45))
             ->add('memGender', 'choice', array('choices'   => array('0' => '男', '1' => '女'),
@@ -221,10 +234,13 @@ class HomeController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $avonPhoto->setAddTime(time());
                 $avonPhoto->setStatus(0);
+                $avonPhoto->setTotalVote(0);
                 $em->persist($avonPhoto);
                 $em->flush();
 
-                $errors = array('success'=>1, 'id'=>$avonPhoto->getPhotoId());
+                $csrf = $this->get('form.csrf_provider');
+                $token = $csrf->generateCsrfToken($intention);
+                $errors = array('success'=>1, 'id'=>$avonPhoto->getPhotoId(), 'token'=>$token);
                 return new JsonResponse($errors);
             }else{
                 $errors = array('success'=>0);

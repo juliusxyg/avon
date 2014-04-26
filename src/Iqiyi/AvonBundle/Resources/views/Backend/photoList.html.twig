@@ -7,8 +7,8 @@
 <body>
 {{ include('IqiyiAvonBundle:Backend:_navi.html.twig') }}
 <div class="container-fluid">
-	<h3>宣言审核</h3>
-	<form class="form-inline" role="form" method="GET" action="{{ path('iqiyi_avon_subject_list') }}">
+	<h3>图片审核</h3>
+	<form class="form-inline" role="form" method="GET" action="{{ path('iqiyi_avon_photo_list') }}">
 	  <div class="form-group">
 	    <label class="sr-only" for="mobile">Mobile</label>
 	    <input type="text" name="mobile" class="form-control" id="mobile" placeholder="用手机号查找">
@@ -27,26 +27,28 @@
 			<th>*</th>
 		</tr>
 		{% for item in items %}
-		<tr id="s_{{ item.getSubjectId() }}">
-			<td>{{ item.getSubjectId() }}</td>
+		<tr id="s_{{ item.getPhotoId() }}">
+			<td>{{ item.getPhotoId() }}</td>
 			<td>{{ item.getMemName() }}</td>
 			<td>{% if 1==item.getMemGender() %}女{% else %}男{% endif %}</td>
 			<td>{{ item.getMemMobile() }}</td>
 			<td>{{ item.getMemAddress() }}</td>
-			<td>{{ item.getContent() }}</td>
+			<td>
+				<a href="{{ asset(item.getWebPath()) }}" target="_blank"><img width="80" height="80" class="img-thumbnail" src="{{ asset(item.getWebPath()) }}"/></a><br/>
+				{{ item.getContent() }}</td>
 			<td>
 				<div class="col-xs-4">
-					<input type="text" class="form-control" id="vote_{{ item.getSubjectId() }}" name="vote_{{ item.getSubjectId() }}" value="{{ item.getTotalVote }}"/>
+					<input type="text" class="form-control" id="vote_{{ item.getPhotoId() }}" name="vote_{{ item.getPhotoId() }}" value="{{ item.getTotalVote }}"/>
 				</div>
-				<button class="btn btn-default btn-xs"  onclick="backend.do_vote('{{ path("iqiyi_avon_subject_update_vote", {'id': item.getSubjectId()}) }}', '{{ item.getSubjectId() }}');">修改</button>
+				<button class="btn btn-default btn-xs"  onclick="backend.do_vote('{{ path("iqiyi_avon_photo_update_vote", {'id': item.getPhotoId()}) }}', '{{ item.getPhotoId() }}');">修改</button>
 			</td>
 			<td>
 				{% if 0==item.getStatus() %}
-				<button class="btn btn-primary" onclick="backend.do_approve('{{ path("iqiyi_avon_subject_approve", {'id': item.getSubjectId(), 'status': 1 }) }}', this);">通过</button>
+				<button class="btn btn-primary" onclick="backend.do_approve('{{ path("iqiyi_avon_photo_approve", {'id': item.getPhotoId(), 'status': 1 }) }}', this);">通过</button>
 				{% else %}
-				<button class="btn btn-primary"  onclick="backend.do_approve('{{ path("iqiyi_avon_subject_approve", {'id': item.getSubjectId(), 'status': 0 }) }}', this);">不通过</button>
+				<button class="btn btn-primary"  onclick="backend.do_approve('{{ path("iqiyi_avon_photo_approve", {'id': item.getPhotoId(), 'status': 0 }) }}', this);">不通过</button>
 				{% endif %}
-				<button class="btn btn-default btn-xs"  onclick="backend.do_remove('{{ path("iqiyi_avon_subject_remove", {'id': item.getSubjectId()}) }}', '{{ item.getSubjectId() }}');">删除</button>
+				<button class="btn btn-default btn-xs"  onclick="backend.do_remove('{{ path("iqiyi_avon_photo_remove", {'id': item.getPhotoId()}) }}', '{{ item.getPhotoId() }}');">删除</button>
 			</td>
 		</tr>
 		{% endfor %}
@@ -55,17 +57,17 @@
     <div>
      <ul class="pagination pull-right">
       {% if page.prevpage %}
-      <li ><a href="{{ path('iqiyi_avon_subject_list', {'page': page.prevpage}) }}{{ page.clause }}">&laquo;</a></li>
+      <li ><a href="{{ path('iqiyi_avon_photo_list', {'page': page.prevpage}) }}{{ page.clause }}">&laquo;</a></li>
       {% endif %}
       {% for p in page.pagelist %}
       {% if page.currpage == p %}
       <li class="active"><a href="###">{{ p }}<span class="sr-only">(current)</span></a></li>
       {% else %}
-      <li><a href="{{ path('iqiyi_avon_subject_list', {'page': p}) }}{{ page.clause }}">{{ p }}</a></li>
+      <li><a href="{{ path('iqiyi_avon_photo_list', {'page': p}) }}{{ page.clause }}">{{ p }}</a></li>
       {% endif %}
       {% endfor %}
       {% if page.nextpage %}
-      <li ><a href="{{ path('iqiyi_avon_subject_list', {'page': page.nextpage}) }}{{ page.clause }}">&raquo;</a></li>
+      <li ><a href="{{ path('iqiyi_avon_photo_list', {'page': page.nextpage}) }}{{ page.clause }}">&raquo;</a></li>
       {% endif %}
       </ul>
     </div>

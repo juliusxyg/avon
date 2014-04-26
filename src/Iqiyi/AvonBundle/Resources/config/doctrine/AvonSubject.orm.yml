@@ -75,4 +75,11 @@ Iqiyi\AvonBundle\Entity\AvonSubject:
             nullable: false
             comment: '审核状态 0.待审 1.通过'
             default: '0'
+        totalVote:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: 得票总数
+            default: '0'
+            column: total_vote
     lifecycleCallbacks: {  }
