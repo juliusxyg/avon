@@ -33,7 +33,7 @@ class BackendController extends Controller
 	  }
     return new Response("生成了2000个码");
   }
-
+//####################################################################################################
   /**
   *  @Template()
   */
@@ -124,7 +124,7 @@ class BackendController extends Controller
     }
     return new JsonResponse(array("success"=>0, "error"=>"非法请求"));
   }
-
+//####################################################################################################
   /**
   *  @Template()
   */
@@ -215,7 +215,7 @@ class BackendController extends Controller
     }
     return new JsonResponse(array("success"=>0, "error"=>"非法请求"));
   }
-
+//####################################################################################################
   public function paginating($currpage=1, $totalpage=1, $pagespan=10, $get=array(), $pageNameInClause='page')
   {
     $ret=array();
@@ -301,7 +301,7 @@ class BackendController extends Controller
     
     return $ret;
   }
-
+//####################################################################################################
   /**
   *  @Template()
   */
@@ -321,6 +321,30 @@ class BackendController extends Controller
 
     return array('last_username' => $session->get(SecurityContext::LAST_USERNAME),
                   'error'         => $error);
+  }
+//####################################################################################################
+  /**
+  *  @Template()
+  */
+  public function subjectVoteListAction(Request $request)
+  {
+    //删除的一个subject 要删除对应的投票记录别忘了加上
+    //加上一个时间区间统计
+    $pagesize = 20;
+    $page = $request->get('page', 1);
+    $em = $this->getDoctrine()->getManager();
+    $query = $em->createQuery('SELECT count(DISTINCT u.subjectId) AS total FROM IqiyiAvonBundle:AvonSubjectVote u');
+    $total = $query->getSingleResult();
+    $totalpage = ceil($total['total']/$pagesize);
+    if($totalpage<$page){
+        $page = $totalpage<=0?1:$totalpage;
+    }
+    $offset = ($page-1)*$pagesize;
+    $query = $em->createQuery('SELECT u.subjectId, count(u.subjectVoteId) AS total, v.memMobile, v.memName, v.content FROM IqiyiAvonBundle:AvonSubjectVote u LEFT JOIN IqiyiAvonBundle:AvonSubject v WITH u.subjectId = v.subjectId GROUP BY u.subjectId ORDER BY total DESC')
+                ->setMaxResults($pagesize)->setFirstResult($offset);
+    $objects = $query->getResult();
+
+    return array("items"=>$objects, "page"=>$this->paginating($page,$totalpage,10));
   }
 }
 ?>

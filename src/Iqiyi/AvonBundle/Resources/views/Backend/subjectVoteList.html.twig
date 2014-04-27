@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>后台</title>
+{{ include('IqiyiAvonBundle:Backend:_head.html.twig') }}
+</head>
+<body>
+{{ include('IqiyiAvonBundle:Backend:_navi.html.twig') }}
+<div class="container-fluid">
+	<h3>宣言投票统计</h3>
+	<table class="table">
+		<tr>
+			<th>#</th>
+			<th>姓名</th>
+			<th>手机</th>
+			<th>内容</th>
+			<th>票数</th>
+		</tr>
+		{% for item in items %}
+		<tr>
+			<td>{{ item.subjectId }}</td>
+			<td>{{ item.memName }}</td>
+			<td>{{ item.memMobile }}</td>
+			<td>{{ item.content }}</td>
+			<td>{{ item.total }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% if items %}
+    <div>
+     <ul class="pagination pull-right">
+      {% if page.prevpage %}
+      <li ><a href="{{ path('iqiyi_avon_subject_list', {'page': page.prevpage}) }}{{ page.clause }}">&laquo;</a></li>
+      {% endif %}
+      {% for p in page.pagelist %}
+      {% if page.currpage == p %}
+      <li class="active"><a href="###">{{ p }}<span class="sr-only">(current)</span></a></li>
+      {% else %}
+      <li><a href="{{ path('iqiyi_avon_subject_list', {'page': p}) }}{{ page.clause }}">{{ p }}</a></li>
+      {% endif %}
+      {% endfor %}
+      {% if page.nextpage %}
+      <li ><a href="{{ path('iqiyi_avon_subject_list', {'page': page.nextpage}) }}{{ page.clause }}">&raquo;</a></li>
+      {% endif %}
+      </ul>
+    </div>
+  {% endif %}
+</div>
+
+</body>
+</html>

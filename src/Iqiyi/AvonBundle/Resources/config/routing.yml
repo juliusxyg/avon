@@ -57,6 +57,13 @@ iqiyi_avon_subject_update_vote:
     defaults: { _controller: IqiyiAvonBundle:Backend:subjectVote}
     requirements:
         id:  \d+
+
+iqiyi_avon_subject_vote_list:
+    pattern:  /admin/subject/vote/list/{page}
+    defaults: { _controller: IqiyiAvonBundle:Backend:subjectVoteList, page: 1 }
+    requirements:
+        page:  \d+
+
 #backend photo
 iqiyi_avon_photo_list:
     pattern:  /admin/photo/list/{page}
