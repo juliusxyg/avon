@@ -29,4 +29,4 @@ services:
     iqiyi_avon.listener.remove_number:
         class: Iqiyi\AvonBundle\EventListener\RemoveVote
         tags:
-            - { name: doctrine.event_listener, event: postRemove }
+            - { name: doctrine.event_listener, event: preRemove }

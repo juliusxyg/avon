@@ -3,6 +3,7 @@ namespace Iqiyi\AvonBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Iqiyi\AvonBundle\Entity\AvonSubjectVote;
+use Iqiyi\AvonBundle\Entity\AvonPhotoVote;
 
 class UpdateVoteNumber
 {
