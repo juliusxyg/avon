@@ -10,7 +10,7 @@ class UpdateVoteNumber
     {
         $entity = $args->getEntity();
         $em = $args->getEntityManager();
-
+        //投票后更新counter
         if ($entity instanceof AvonSubjectVote && $entity->getSubjectId())
         {
             $object = $em->getRepository('IqiyiAvonBundle:AvonSubject')
@@ -21,6 +21,18 @@ class UpdateVoteNumber
             	$object->setTotalVote($curVote);
             	$em->persist($object);
             	$em->flush();
+            }
+        }
+        if ($entity instanceof AvonPhotoVote && $entity->getPhotoId())
+        {
+            $object = $em->getRepository('IqiyiAvonBundle:AvonPhoto')
+                                ->find($entity->getPhotoId());
+            if($object){
+                $curVote = $object->getTotalVote();
+                $curVote++;
+                $object->setTotalVote($curVote);
+                $em->persist($object);
+                $em->flush();
             }
         }
     }

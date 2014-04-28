@@ -328,23 +328,36 @@ class BackendController extends Controller
   */
   public function subjectVoteListAction(Request $request)
   {
-    //删除的一个subject 要删除对应的投票记录别忘了加上
-    //加上一个时间区间统计
     $pagesize = 20;
     $page = $request->get('page', 1);
+    $start = $request->get('from', '');
+    $end = $request->get('to', '');
+    $criteria = array();
+    $where = "WHERE 1=1 ";
+    if($start){
+      $criteria['from'] = $start;
+      $start = strtotime($start." 00:00:00");
+      $where .= "AND u.voteTime>=$start ";
+    }
+    if($end){
+      $criteria['to'] = $end;
+      $end = strtotime($end." 23:59:59");
+      $where .= "AND u.voteTime<=$end ";
+    }
+
     $em = $this->getDoctrine()->getManager();
-    $query = $em->createQuery('SELECT count(DISTINCT u.subjectId) AS total FROM IqiyiAvonBundle:AvonSubjectVote u');
+    $query = $em->createQuery('SELECT count(DISTINCT u.subjectId) AS total FROM IqiyiAvonBundle:AvonSubjectVote u '.$where);
     $total = $query->getSingleResult();
     $totalpage = ceil($total['total']/$pagesize);
     if($totalpage<$page){
         $page = $totalpage<=0?1:$totalpage;
     }
     $offset = ($page-1)*$pagesize;
-    $query = $em->createQuery('SELECT u.subjectId, count(u.subjectVoteId) AS total, v.memMobile, v.memName, v.content FROM IqiyiAvonBundle:AvonSubjectVote u LEFT JOIN IqiyiAvonBundle:AvonSubject v WITH u.subjectId = v.subjectId GROUP BY u.subjectId ORDER BY total DESC')
+    $query = $em->createQuery('SELECT u.subjectId, count(u.subjectVoteId) AS total, v.memMobile, v.memName, v.content FROM IqiyiAvonBundle:AvonSubjectVote u LEFT JOIN IqiyiAvonBundle:AvonSubject v WITH u.subjectId = v.subjectId '.$where.' GROUP BY u.subjectId ORDER BY total DESC')
                 ->setMaxResults($pagesize)->setFirstResult($offset);
     $objects = $query->getResult();
 
-    return array("items"=>$objects, "page"=>$this->paginating($page,$totalpage,10));
+    return array("from"=>isset($criteria['from'])?$criteria['from']:"", "to"=>isset($criteria['to'])?$criteria['to']:"", "items"=>$objects, "page"=>$this->paginating($page,$totalpage,10, $criteria));
   }
 }
 ?>
