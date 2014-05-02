@@ -1,5 +1,37 @@
 <script>
 $(function(){
+	/*slide story*/
+	var sliderStory = $('div.slider-story').unslider();
+	$('a.slider-story-btn-prev').click(function() {
+        sliderStory.data('unslider').prev();
+    });
+    $('a.slider-story-btn-next').click(function() {
+        sliderStory.data('unslider').next();
+    });
+    /*slider week*/
+    var sliderWeek = $('div.slider-week').unslider();
+	$('a.slider-week-btn-prev').click(function() {
+        sliderWeek.data('unslider').prev();
+    });
+    $('a.slider-week-btn-next').click(function() {
+        sliderWeek.data('unslider').next();
+    });
+    /*avon share*/
+    $("area.share-weibo").click(function(){
+    	var title = document.title;  
+    	var url = location.href; 
+    	weibo(title, url);
+    });
+    $("area.share-renren").click(function(){
+    	var title = encodeURIComponent(document.title.substring(0,76));  
+    	var url = encodeURIComponent(location.href); 
+    	renren(title, url);
+    });
+    $("area.share-tx").click(function(){
+    	var title = encodeURIComponent(document.title.substring(0,76));  
+    	var url = encodeURIComponent(location.href); 
+    	tx(title, url);
+    });
 	/*words maxlength*/
 	$("textarea.words-input").on("keyup", function(){
 		var wordsContent = $(this).val();
@@ -95,5 +127,20 @@ $(function(){
 		return false;
 	});
 });
-</script>
+
+function weibo(title, url){
+	shareSocial('http://v.t.sina.com.cn/share/share.php?title={title}&url={url}', title, url);
+}
+function renren(title, url){
+	shareSocial('http://widget.renren.com/dialog/share?resourceUrl={url}&title={title}', title, url);
+}
+function tx(title, url){
+	shareSocial('http://share.v.t.qq.com/index.php?c=share&a=index&url={url}&title={title}', title, url);
+}
+function shareSocial(server_url,title, url)
+{  
+    server_url = server_url.replace("{title}",title);  
+    server_url = server_url.replace("{url}",url);  
+    window.open(server_url ,'_blank','scrollbars=no,width=600,height=450,left=75,top=20,status=no,resizable=yes');
+}  
 </script>
