@@ -12,15 +12,35 @@ use Iqiyi\AvonBundle\Entity\AvonSubject;
 use Iqiyi\AvonBundle\Entity\AvonSubjectVote;
 
 class HomeController extends Controller
-{
-    public function indexAction()
-    {
-        return $this->render('IqiyiAvonBundle:Home:index.html.twig');
-    }
-
+{   
     /**
     *  @Template()
     */
+    public function indexAction()
+    {
+        $hash = array();
+
+        $hash['myForm'] = $this->addmsgAction(new Request());
+        $hash['subjects'] = $this->getRecentSubjectList(8);
+        $hash['subjectForms'] = array();
+        if($hash['subjects'])
+        {
+            foreach($hash['subjects'] as $key=>$subject)
+            {
+                $hash['subjectForms'][$key] = $this->votemsgAction(new Request(array("id"=>$subject->getSubjectId())));
+            }
+        }
+        return $hash;
+    }
+
+    public function getRecentSubjectList($size=8)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $objects = $em->getRepository("IqiyiAvonBundle:AvonSubject")
+                  ->findBy(array('status'=>1), array('addTime'=>'desc'), $size, 0);
+        return $objects;
+    }
+
     public function addmsgAction(Request $request)
     {   
         $intention = "subject_form_".date("YmdH");
@@ -28,14 +48,13 @@ class HomeController extends Controller
         $form = $this->createFormBuilder($avonSubject, array("intention"=>$intention))
             ->setAction($this->generateUrl('iqiyi_avon_addmsg'))
             ->add('memName', 'text', array('label'=>'姓名：', 'max_length'=>45))
-            ->add('memGender', 'choice', array('choices'   => array('0' => '男', '1' => '女'),
+            ->add('memGender', 'choice', array('choices'   => array('0' => '男 ', '1' => '女 '),
+                                                'expanded' => true,
                                                 'required'  => true, 
                                                 'label'=>'性别：'))
             ->add('memMobile', 'text', array( 'label'=>'手机：', 'max_length'=>15))
-            ->add('memAddress', 'text', array( 'label'=>'地址：', 'max_length'=>60))
-            ->add('memZip', 'text', array( 'label'=>'邮编：', 'max_length'=>15))
+            ->add('memAddress', 'textarea', array( 'label'=>'地址：', 'max_length'=>60))
             ->add('content', 'textarea', array( 'label'=>'我的瞬间：'))
-            ->add('save', 'submit', array( 'label'=>'发布'))
             ->getForm();
 
         if($request->isXmlHttpRequest())
@@ -49,6 +68,7 @@ class HomeController extends Controller
                 $avonSubject->setFromType(0);
                 $avonSubject->setStatus(0);
                 $avonSubject->setTotalVote(0);
+                $avonSubject->setMemZip(0);
 
                 $em->persist($avonSubject);
                 $em->flush();
@@ -65,7 +85,7 @@ class HomeController extends Controller
             }
         }
 
-        return array('form' => $form->createView());
+        return $form->createView();
     }
 
     private function getErrorMessages($form)
@@ -85,9 +105,6 @@ class HomeController extends Controller
         return $errors;
     }
 
-    /**
-    *  @Template()
-    */
     public function votemsgAction(Request $request)
     {   
         $id = $request->get('id');
@@ -99,7 +116,6 @@ class HomeController extends Controller
             ->add('subjectId', 'hidden', array('data'=>$id, 'error_bubbling'=>false))
             ->add('voteType', 'hidden', array('data'=>0, 'error_bubbling'=>false))
             ->add('fromType', 'hidden', array('data'=>0, 'error_bubbling'=>false))
-            ->add('save', 'submit', array( 'label'=>'赞'))
             ->getForm();
 
         $formQuestion = $this->createFormBuilder($avonSubjectVote, array('validation_groups' => array('normal'), "intention"=>$intention))
@@ -140,7 +156,9 @@ class HomeController extends Controller
 
                     $csrf = $this->get('form.csrf_provider');
                     $token = $csrf->generateCsrfToken($intention);
-                    $errors = array('success'=>1, 'id'=>$avonSubjectVote->getSubjectVoteId(), 'token'=>$token);
+
+                    $avonSubject = $em->getRepository("IqiyiAvonBundle:AvonSubject")->find($avonSubjectVote->getSubjectId());
+                    $errors = array('success'=>1, 'id'=>$avonSubjectVote->getSubjectId(), 'vote'=>$avonSubject->getTotalVote(), 'token'=>$token);
                     return new JsonResponse($errors);
                 }else{
                     $errors = array('success'=>0);
@@ -259,4 +277,6 @@ class HomeController extends Controller
     {
 
     }
+
+
 }

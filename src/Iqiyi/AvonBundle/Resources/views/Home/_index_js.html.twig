@@ -1,0 +1,99 @@
+<script>
+$(function(){
+	/*words maxlength*/
+	$("textarea.words-input").on("keyup", function(){
+		var wordsContent = $(this).val();
+		var maxLength = $(this).attr('maxlength');
+		var left = maxLength - wordsContent.length;
+		if(left < 0){
+			left=0;
+			$(this).val(wordsContent.substring(0, maxLength));
+		}
+		//$("span.words-left").text("还能填写"+left+"字");
+	});
+	/*words select*/
+	$("span.words-select, span.arrow").click(function(){
+		$("ul.words-select-list").toggle();
+	});
+	$("ul.words-select-list li.lazy_reason").each(function(){
+		$(this).click(function(){
+			if($(this).text()!=''){
+				$("textarea.words-input").select().val($(this).text());
+				//$("span.words-select").text($(this).text());
+				$("ul.words-select-list").toggle();
+			}
+		});
+	})
+	/*words ok*/
+	$("a.words-ok").click(function(){
+		if($.trim($("textarea.words-input").val()) == '' || $.trim($("textarea.words-input").val()).length<5){
+			$("textarea.words-input").focus();
+			alert("请填写您的蝶舞瞬间, 最少5个字");
+			return;
+		}
+		$.colorbox({inline:true, href:"#myForm"});
+		$("textarea.words-form").val($("textarea.words-input").val());
+	});
+	/*ajax submit words*/
+	$("#words-form").submit(function(event){
+		event.preventDefault();
+		$.ajax({
+           type: "POST",
+           url: $(this).attr('action'),
+           data: $(this).serialize(),
+           success: function(data)
+           {
+               	if(data.success == 1){
+               		$("#words-form")[0].reset();
+               		$("#words-form .words-form-token").val(data.token);
+               		$.colorbox({inline:true, href:"#shareForm"});
+               	}else{
+               		for(var i in data.errorList){
+               			$("span.error-"+i).text(data.errorList[i]);
+               		}
+               	}
+           }
+         });
+		return false;
+	});	
+	$("a.words-form-save").click(function(){
+		$("#words-form").submit();
+	});
+	/*close light box*/
+	$(".btn_close_lightbox").click(function(){
+		$.colorbox.close();
+	});
+	/*show reward list*/
+	$("a.btn_hjmd, a.btn_02").click(function(){
+		$.colorbox({inline:true, href:"#hjmd"});
+	});
+	/*submit like*/
+	$("a.words-like").each(function(){
+		$(this).click(function(){
+			var likeForm = $(this).parent().next().find("form.vote-form-like").eq(0);
+			$(likeForm).submit();
+		});
+	});
+	$("form.vote-form-like").submit(function(){
+		event.preventDefault();
+		$.ajax({
+	       type: "POST",
+	       url: $(this).attr('action'),
+	       data: $(this).serialize(),
+	       success: function(data)
+	       {
+	           	if(data.success == 1){
+	            	$("span.vote-num-"+data.id).text(data.vote);
+	                $("input.vote-form-like-token").val(data.token);
+	           	}else{
+	           		for(var i in data.errorList){
+	           			alert(data.errorList[i]);
+	           		}
+	           	}
+	       }
+	     });
+		return false;
+	});
+});
+</script>
+</script>

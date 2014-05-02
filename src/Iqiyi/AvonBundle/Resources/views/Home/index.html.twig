@@ -1,1 +1,298 @@
-home page
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>《雅芳》蝶舞霓彩最美一瞬</title>
+{% stylesheets 'bundles/iqiyiavon/css/*' filter='cssrewrite' %}
+  <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+<script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+{% javascripts 'bundles/iqiyiavon/js/*' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+</head>
+
+<body>
+
+<div id="background">
+
+<div id="pagepage">
+
+
+
+
+     <div class="pic"><img src="{{ asset('bundles/iqiyiavon/images/yf_01.jpg') }}" width="1002" height="433" /> <a name="a1" id="a1"></a> </div>
+      <!-- 视频区 -->     
+    <div class="video_l">
+      <div class="video_l_area"></div>
+    </div>
+    <div class="video_r"> <img src="{{ asset('bundles/iqiyiavon/images/yf_03.jpg') }}" width="198" height="512" usemap="#Map" border="0" />
+      <map name="Map" id="Map">
+        <area shape="circle" coords="44,105,20" href="#" />
+        <area shape="circle" coords="90,106,20" href="#" />
+        <area shape="circle" coords="140,106,20" href="#" />
+      </map><a name="b" id="b"></a> 
+    </div>
+<!-- 视频区 end -->   
+
+<!-- 主角蝶舞故事 --> 
+  <div class="pic"><img src="{{ asset('bundles/iqiyiavon/images/yf_04.jpg') }}" width="1002" height="86" /></div>
+  <div class="lb"><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/lb_01.jpg') }}" width="1002" height="355" /></a>
+      <a class="lb_btn_l" href="#"></a>
+      <a class="lb_btn_r" href="#"></a>
+      <a name="c" id="c"></a>      
+  </div>
+<!-- 主角蝶舞故事 end-->   
+ 
+<!-- 蝶舞故事参与 --> 
+  <div class="pic"><img src="{{ asset('bundles/iqiyiavon/images/yf_05.jpg') }}" width="1002" height="303" /></div>  
+  <div class="dwgscy_l">
+     <div class="fbxy">
+    <div class="tjxy">
+      <form id="info_form">
+      <textarea class="words-input" name="myWords" id="info" cols="" rows="" maxlength="100">A:请在此输入"蝶舞一瞬"的梦想宣言</textarea>
+      </form>
+    </div>
+    </div>
+    
+<div class="lounger">
+<label>精彩选择：</label>
+<span class="mr words-select">我的精彩一瞬是幡然醒悟的瞬间</span>
+ <ul class="words-select-list" style="display:none;">
+    <li class="lazy_reason">不会洗！</li>
+    <li class="lazy_reason">我忙着赚钱，哪有时间洗衣服。</li>
+    <li class="lazy_reason">我忙着赚钱，哪有时间洗衣服。</li>
+    <li class="lazy_reason">我忙着赚钱，哪有时间洗衣服。</li>
+    <li class="lazy_reason">我忙着赚钱，哪有时间洗衣服。</li>
+    <li class="lazy_reason">我忙着赚钱，哪有时间洗衣服。</li>
+  </ul>
+<span class="arrow">
+<img src="{{ asset('bundles/iqiyiavon/images/lounger_arrow.png') }}">
+</span>
+</div>
+<a class="btn_01 words-ok" href="#myForm" style="width:264px; height:45px; float:left; margin-left:126px; margin-top:77px;display:block;"></a>
+<a class="btn_02" href="#hjmd" style="width:145px; height:37px; float:left; margin-left:54px; margin-top:86px;display:block;"></a>
+
+
+
+  </div>
+  
+  <div class="pic"><img src="{{ asset('bundles/iqiyiavon/images/yf_07.jpg') }}" width="351" height="307" />
+  <a name="d" id="d"></a> 
+  </div> 
+  
+  
+<!-- 蝶舞故事参与 end --> 
+
+<!-- 本周最美一瞬 --> 
+  <div class="pic"><img src="{{ asset('bundles/iqiyiavon/images/yf_08.jpg') }}" width="1002" height="51" /></div>
+  <div class="lb_under01" ><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/yf_09.jpg') }}" width="1002" height="403" /></a>
+  
+    <a class="lb_btn_l_01" href="#"></a>
+    <a class="lb_btn_r_01" href="#"></a> 
+    <a name="e" id="e"></a>  
+  </div> 
+<!-- 本周最美一瞬 end --> 
+
+<!--精彩蝶舞一瞬 --> 
+<div class="pic"><img src="{{ asset('bundles/iqiyiavon/images/yf_10.jpg') }}" width="1002" height="163" /></div> 
+<div class="jcdwys">
+    <!-- 1 -->
+    {% if subjects %}
+    {% for key,subject in subjects %}
+    {% if key == 0 %}
+    <div class="jcdwys_con_l" style="margin-left:54px">
+    {% elseif key == 1 %}
+    <div class="jcdwys_con_r" style="margin-left:54px">
+    {% elseif key == 2 %}
+    <div class="jcdwys_con_l" style="margin-left:14px">
+    {% elseif key == 3 %}
+    <div class="jcdwys_con_r" style="margin-left:124px; margin-top:40px">
+    {% elseif key == 4 %}
+    <div class="jcdwys_con_l" style="margin-left:44px">
+    {% elseif key == 5 %}
+    <div class="jcdwys_con_r" style="margin-left:110px; margin-top:60px">
+    {% elseif key == 6 %}
+    <div class="jcdwys_con_l" style="margin-left:14px">
+    {% elseif key == 6 %}
+    <div class="jcdwys_con_r" style="margin-left:95px; margin-top:60px">
+    {% endif %}
+         <div class=""><p>{{ subject.getMemName() }}</p></div>
+         <div class="jcdwys_con_l_font" ><span>{{ subject.getContent() }}</span></div>
+      
+      <div class="jcdwys_con_l_end">分享
+        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
+        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
+        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
+        <a href="#" style="margin-left:30px">
+          <img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" />
+        </a>
+        <a href="#like" class="words-like">
+          <img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" />
+        </a>
+        <a >
+          <img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" />
+          <span class="vote-num-{{ subject.getSubjectId() }}">{{ subject.getTotalVote() }}</span>
+        </a>
+        </div>
+        <div style="display:none">
+          {{ form_start(subjectForms[key]['form_like'], {'attr': {'class': "vote-form-like"}}) }}
+              {{ form_widget(subjectForms[key]['form_like'].subjectId) }}
+              {{ form_widget(subjectForms[key]['form_like']._token, {'attr': {'class': 'vote-form-like-token'}}) }}
+          {{ form_end(subjectForms[key]['form_like']) }}
+        </div>
+      </div>
+      {% if key==0 %}
+        <a class="btn_hjmd" href="#hjmd" style="width:145px; height:39px; float:left; margin-left:52px; margin-top:61px"></a>     
+        <a class="btn_more" href="#" style="width:93px; height:27px; float:left; margin-left:15px; margin-top:64px"></a>    
+      {% endif %}
+    {% endfor %}
+    {% endif %}
+
+        
+       <a name="ff" id="ff"></a>  
+        
+      
+    </div>
+      
+
+<!-- 精彩蝶舞一瞬 end --> 
+
+<!--精彩蝶舞产品 --> 
+<div class="dwnccp_l">
+<div class="font" >
+<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;护肤彩妆蕴含蝴蝶兰精华、玫瑰精油、桃花精油、红石榴精华、维他命及胶原蛋白。多重天然护肤成分使双唇不仅莹润光泽，并且有效延缓女性唇部老化。
+水莹花香及丝滑质地让你感受到双唇之间的花瓣触感。<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6款精致华丽的色彩供选择 </span>
+<a class="btn_01" href="#" style="width:146px; height:33px; float:left; margin-top:39px;display:block;"></a>
+</div>
+<div class="font" style="margin-left:222px; margin-top:218px" >
+<span>内含色彩盘内含双色腮红及四色眼影。<br />
+3款色彩供选择：沙漠炫色、海滩魅蓝、玫瑰花园 </span>
+<a class="btn_01" href="#" style="width:146px; height:33px; float:left; margin-left:76px; margin-top:64px; display:block;"></a>
+</div>
+
+
+</div> 
+<div class="pic"><img src="{{ asset('bundles/iqiyiavon/images/yf_13.jpg') }}" width="254" height="172" /></div> 
+<div class="pic" style="margin-top:10px"><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/yf_14.jpg') }}" width="245" height="93" /></a></div> 
+<div class="pic" style="margin-top:10px"><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/yf_15.jpg') }}" width="245" height="90" /></a></div> 
+<!--精彩蝶舞产品 end--> 
+
+
+<!-- 标准尾 begin -->
+    
+
+
+<div class="footer" collection="Y">
+  <div class="big_bg"></div>
+  <a href="http://app.iqiyi.com/" class="fEn" title="“APP专区”">APP专区</a> <span class="fGray">|</span>
+  <a href="http://www.iqiyi.com/common/aboutus.html" title="公司介绍">公司介绍</a> <span class="fGray">|</span>
+  <a href="http://www.iqiyi.com/common/news.html" title="新闻动态">新闻动态</a> <span class="fGray">|</span>
+  <a href="http://www.iqiyi.com/common/contactus.html" title="联系方式">联系方式</a> <span class="fGray">|</span>
+  <a href="http://www.iqiyi.com/common/employ.html" title="招聘英才">招聘英才</a><span class="fGray">|</span>
+  <a href="http://labs.iqiyi.com/" title="奇艺实验室">奇艺实验室</a> <span class="fGray">|</span>
+  <a href="http://www.iqiyi.com/common/helpandsuggest.html?entry=yedi" title="帮助与反馈">帮助与反馈</a> <span class="fGray">|</span>
+  <a href="http://www.iqiyi.com/common/20100420/n4813.html" class="fEn" title="About Us">About Us</a><br>
+<span class="fEn"><a href="http://www.iqiyi.com/" title="爱奇艺">爱奇艺</a>&nbsp;&nbsp;© 2014 iQIYI.COM</span>
+</div>
+
+<div class="hoverOutwrap" data-widget="qishengtemp" style="display:none">
+  <div class="hover-box">
+    <div class="totop"><a class="sy-ding" href="javascript:void(0);" style="display:none;"></a></div>
+    <div class="tosyn"><a class="sy-tong" href="javascript:void(0);" id="j-qishengbtn"></a></div>
+  </div>
+</div>
+<!-- 标准尾 end -->
+
+<!--弹窗 -->
+
+<!-- 获奖名单-->
+<div style="display:none;">
+  {{ include('IqiyiAvonBundle:Home:_rewardlist.html.twig') }}
+</div>
+<!-- 获奖名单 end-->
+
+<!-- 参加蝶舞霓彩活动-->
+<div class="tc_cjdwnchd">
+<div class="tc_font_close"><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/close.gif') }}" width="25" height="25" /></a></div>
+<a class="btn_01" href="#" style="width:264px; height:45px; float:left; margin-left:136px; margin-top:100px;display:block;"></a>
+<a class="btn_01" href="#" style="width:145px; height:37px; float:left; margin-left:204px; margin-top:42px;display:block;"></a>
+</div>
+<!-- 参加蝶舞霓彩活动 end-->
+
+<!-- 参加蝶舞霓彩活动02-->
+<div style="display:none;">
+<div class="tc_cjdwnchd" id="shareForm">
+  <img src="{{ asset('bundles/iqiyiavon/images/tc_cjdwnchd02.gif') }}" width="527" height="388" usemap="#Map2" border="0" />
+  <map name="Map2" id="Map2">
+    <area shape="circle" coords="328,135,21" href="#" />
+    <area shape="circle" coords="264,133,21" href="#" />
+    <area shape="circle" coords="501,30,14" href="#closeShareForm" class="btn_close_lightbox" />
+    <area shape="circle" coords="200,133,21" href="#" />
+  </map>
+</div>
+</div>
+<!-- 参加蝶舞霓彩活动 end-->
+
+<!-- 参加蝶舞霓彩活动03-->
+<div style="display:none;">
+<div class="tc_cjdwnchd03" id="myForm">
+  <div class="tc_font_close_myform"><a class="btn_close_lightbox" href="#closeMyForm"><img src="{{ asset('bundles/iqiyiavon/images/close.gif') }}" width="25" height="25" /></a></div>
+  {{ form_start(myForm, {'attr': {'id': 'words-form'}}) }}
+  <table width="400" border="0" cellpadding="0" cellspacing="0" class="tc_cjdwnchd03_area">
+    <tr>
+      <td width="96" height="30" align="right" valign="middle">姓名：</td>
+      <td width="304">
+        {{ form_widget(myForm.memName, {'attr': {'style': 'text-align:left;'}}) }}<span class="error-memName"></span>
+      </td>
+    </tr>
+    <tr>
+      <td height="30" align="right" valign="middle">性别：</td>
+      <td>
+        {{ form_widget(myForm.memGender) }}<span class="error-memGender"></span>
+      </td>
+    </tr>
+    <tr>
+      <td height="30" align="right" valign="middle">手机：</td>
+      <td>
+        {{ form_widget(myForm.memMobile, {'attr': {'style': 'text-align:left;'}}) }}<span class="error-memMobile"></span>
+      </td>
+    </tr>
+    <tr>
+      <td height="50" align="right" valign="middle">地址：</td>
+      <td>
+        {{ form_widget(myForm.memAddress, {'attr': {'style': 'text-align:left; width:260px;'}}) }}<span class="error-memAddress"></span>
+      </td>
+    </tr>
+  </table>
+  {{ form_widget(myForm.content, {'attr': {'readonly': 'true', 'class': 'words-form', 'style': 'display:none;'}}) }}
+  {{ form_widget(myForm._token, {'attr': {'class': 'words-form-token'}}) }}
+  {{ form_end(myForm) }}
+<a class="btn_01 words-form-save" href="#myForm" style="width:200px; height:45px; float:left; margin-left:156px; margin-top:35px;display:block;"></a>  
+</div>
+</div>
+<!-- 参加蝶舞霓彩活动 end-->
+
+
+<!--弹窗 end-->
+
+<!--导航 -->
+<div class="nav">
+    <a class="nav_01" href="#a1" style="margin-left:102px; margin-top:132px"></a>
+    <a class="nav_02" href="#b" style="margin-left:102px; margin-top:35px"></a>
+    <a class="nav_03" href="#c" style="margin-left:102px; margin-top:35px"></a>
+    <a class="nav_04" href="#d" style="margin-left:102px; margin-top:35px"></a>
+    <a class="nav_05" href="#e" style="margin-left:102px; margin-top:35px"></a>
+    <a class="nav_06" href="#ff" style="margin-left:102px; margin-top:35px"></a>
+    <a class="top" href="#" style=" width:51px; height:52px;margin-left:60px;margin-top:70px; display:block "></a>
+   
+</div>
+<!--导航 end -->
+ </div>
+ 
+</div>
+</div>
+{{ include('IqiyiAvonBundle:Home:_index_js.html.twig') }}
+</body>
+</html>
