@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `avon_subject_vote` (
 DROP TABLE IF EXISTS `avon_redeem_code`;
 CREATE TABLE IF NOT EXISTS `avon_redeem_code` (
   `redeem_code_id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` varchar(64) NOT NULL DEFAULT '' COMMENT '兑换码',
+  `code` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '兑换码',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否使用 0.未使用 1.已使用',
   PRIMARY KEY (`redeem_code_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

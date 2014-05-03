@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>后台</title>
+{{ include('IqiyiAvonBundle:Backend:_head.html.twig') }}
+</head>
+<body>
+{{ include('IqiyiAvonBundle:Backend:_navi.html.twig') }}
+<div class="container-fluid">
+	<h3>天猫码</h3>
+	<div class="well">还剩余{{ total_unused }}个未使用</div>
+	<a class="btn btn-default" href="#" onclick="backend.generate(this)">生成2000个码</a>
+</div>
+<script type="text/javascript">
+var backend = {ongoing: false};
+backend.generate = function(obj){
+	if(this.ongoing == true){
+		return false;
+	}
+	this.ongoing = true
+	$(obj).text("生成中...");
+	$.get('{{ path('iqiyi_avon_generate_redeem') }}', {}, function(data){
+		alert(data.msg);
+		$(obj).text("生成2000个码");
+		backend.ongoing = false;
+		window.location.reload();
+	});
+}
+</script>
+</body>
+</html>

@@ -9,8 +9,8 @@
 <body>
 {{ include('IqiyiAvonBundle:Backend:_navi.html.twig') }}
 <div class="container-fluid">
-	<h3>宣言投票统计</h3>
-	<form class="form-inline" role="form" method="GET" action="{{ path('iqiyi_avon_subject_vote_list') }}">
+	<h3>图片投票统计</h3>
+	<form class="form-inline" role="form" method="GET" action="{{ path('iqiyi_avon_photo_vote_list') }}">
 	  <div class="form-group">
 	    <label class="sr-only" for="from">投票日期：从</label>
 	    <input type="text" name="from" class="form-control" id="from" placeholder="开始时间" value="{{ from }}">
@@ -26,16 +26,16 @@
 			<th>#</th>
 			<th>姓名</th>
 			<th>手机</th>
-			<th>内容</th>
+			<th>图片</th>
 			<th>实际票数</th>
 			<th>显示票数</th>
 		</tr>
 		{% for item in items %}
 		<tr>
-			<td>{{ item.subjectId }}</td>
+			<td>{{ item.photoId }}</td>
 			<td>{{ item.memName }}</td>
-			<td><a href="{{ path('iqiyi_avon_subject_list') }}?mobile={{ item.memMobile }}">{{ item.memMobile }}</td>
-			<td>{{ item.content }}</td>
+			<td><a href="{{ path('iqiyi_avon_photo_list') }}?mobile={{ item.memMobile }}">{{ item.memMobile }}</td>
+			<td><a href="web/{{ asset(item.photoUrl) }}" target="_blank"><img width="80" height="80" class="img-thumbnail" src="web/{{ asset(item.photoUrl) }}"/></a></td>
 			<td>{{ item.total }}</td>
 			<td>{{ item.totalVote }}</td>
 		</tr>
@@ -45,17 +45,17 @@
     <div>
      <ul class="pagination pull-right">
       {% if page.prevpage %}
-      <li ><a href="{{ path('iqiyi_avon_subject_list', {'page': page.prevpage}) }}{{ page.clause }}">&laquo;</a></li>
+      <li ><a href="{{ path('iqiyi_avon_photo_list', {'page': page.prevpage}) }}{{ page.clause }}">&laquo;</a></li>
       {% endif %}
       {% for p in page.pagelist %}
       {% if page.currpage == p %}
       <li class="active"><a href="###">{{ p }}<span class="sr-only">(current)</span></a></li>
       {% else %}
-      <li><a href="{{ path('iqiyi_avon_subject_list', {'page': p}) }}{{ page.clause }}">{{ p }}</a></li>
+      <li><a href="{{ path('iqiyi_avon_photo_list', {'page': p}) }}{{ page.clause }}">{{ p }}</a></li>
       {% endif %}
       {% endfor %}
       {% if page.nextpage %}
-      <li ><a href="{{ path('iqiyi_avon_subject_list', {'page': page.nextpage}) }}{{ page.clause }}">&raquo;</a></li>
+      <li ><a href="{{ path('iqiyi_avon_photo_list', {'page': page.nextpage}) }}{{ page.clause }}">&raquo;</a></li>
       {% endif %}
       </ul>
     </div>

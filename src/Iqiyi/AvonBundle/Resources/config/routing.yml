@@ -28,9 +28,17 @@ login_check:
 logout:
     path:   /logout
 
+iqiyi_avon_redeem_backend:
+    pattern:  /admin/redeem
+    defaults: { _controller: IqiyiAvonBundle:Backend:redeem }
+
 iqiyi_avon_generate_redeem:
     pattern:  /admin/redeem/generate
     defaults: { _controller: IqiyiAvonBundle:Backend:generateRedeemCode }
+    
+iqiyi_avon_download_redeem:
+    pattern:  /admin/redeem/download
+    defaults: { _controller: IqiyiAvonBundle:Backend:downloadRedeem }
 
 #backend subject
 iqiyi_avon_subject_list:
@@ -89,3 +97,9 @@ iqiyi_avon_photo_update_vote:
     defaults: { _controller: IqiyiAvonBundle:Backend:photoVote}
     requirements:
         id:  \d+
+
+iqiyi_avon_photo_vote_list:
+    pattern:  /admin/photo/vote/list/{page}
+    defaults: { _controller: IqiyiAvonBundle:Backend:photoVoteList, page: 1 }
+    requirements:
+        page:  \d+

@@ -15,23 +15,73 @@ use Iqiyi\AvonBundle\Entity\AvonRedeemCode;
 
 
 class BackendController extends Controller
-{
-	public function generateRedeemCodeAction()
+{ 
+  /**
+  *  @Template()
+  */
+  public function redeemAction(Request $request)
   {
-  	$em = $this->getDoctrine()->getManager();
+    $em = $this->getDoctrine()->getManager();
+    $query = $em->createQuery('SELECT COUNT(u.redeemCodeId) AS total FROM IqiyiAvonBundle:AvonRedeemCode u WHERE u.status=0');
+    $totalUnused = $query->getSingleResult();
+    return array("total_unused"=>$totalUnused['total']);
+  }
 
-  	for($i=0; $i<200; $i++){
-	  	for($j=0; $j<10; $j++){
-		  	$avonRedeemCode = new AvonRedeemCode();
-		    $avonRedeemCode->setCode(md5(uniqid(mt_rand(), true)));
-		    $avonRedeemCode->setStatus(0);
+  public function downloadRedeemAction(Request $request)
+  {
+    /*
+    $filename="tmall-code.csv";
+    $em = $this->getDoctrine()->getManager();
+    $content = "";
+    $objects = $em->getRepository("IqiyiAvonBundle:AvonRedeemCode")->findBy(array("status"=>0));
+    if(!$objects){
+      return new Response("未使用天猫码数量为0");
+    }
+    //内存需求太大，需要换个方式
+    foreach($objects as $object)
+    {
+      $content .= $object->getCode()."\n";
+    }
+    
+    $response = new Response();
+    $response->headers->set('Content-Type', 'text/csv');
+    $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
+    $response->setContent($content);
+    return $response;*/
+  }
 
-		    $em->persist($avonRedeemCode);
-		  }
-	    $em->flush();
-	    $em->clear();
-	  }
-    return new Response("生成了2000个码");
+	public function generateRedeemCodeAction(Request $request)
+  {
+    if($request->isXmlHttpRequest())
+    {
+    	$em = $this->getDoctrine()->getManager();
+
+    	for($i=0; $i<200; $i++){
+  	  	for($j=0; $j<10; $j++){
+  		  	$avonRedeemCode = new AvonRedeemCode();
+  		    $avonRedeemCode->setCode($this->buildcode());
+  		    $avonRedeemCode->setStatus(0);
+
+  		    $em->persist($avonRedeemCode);
+  		  }
+  	    $em->flush();
+  	    $em->clear();
+  	  }
+      return new JsonResponse(array("success"=>1, "msg"=>"生成了2000个码"));
+    }
+    return new JsonResponse(array("success"=>0, "error"=>"非法请求"));
+  }
+
+  public function buildcode($len=10)
+  {
+    $chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz'; 
+    $string=''; 
+    for(;$len>=1;$len--) 
+    { 
+      $position=mt_rand()%strlen($chars); 
+      $string.=substr($chars,$position,1); 
+    } 
+    return $string;
   }
 //####################################################################################################
   /**
@@ -353,11 +403,49 @@ class BackendController extends Controller
         $page = $totalpage<=0?1:$totalpage;
     }
     $offset = ($page-1)*$pagesize;
-    $query = $em->createQuery('SELECT u.subjectId, count(u.subjectVoteId) AS total, v.memMobile, v.memName, v.content FROM IqiyiAvonBundle:AvonSubjectVote u LEFT JOIN IqiyiAvonBundle:AvonSubject v WITH u.subjectId = v.subjectId '.$where.' GROUP BY u.subjectId ORDER BY total DESC')
+    $query = $em->createQuery('SELECT u.subjectId, count(u.subjectVoteId) AS total, v.memMobile, v.memName, v.content, v.totalVote FROM IqiyiAvonBundle:AvonSubjectVote u LEFT JOIN IqiyiAvonBundle:AvonSubject v WITH u.subjectId = v.subjectId '.$where.' GROUP BY u.subjectId ORDER BY total DESC')
                 ->setMaxResults($pagesize)->setFirstResult($offset);
     $objects = $query->getResult();
 
     return array("from"=>isset($criteria['from'])?$criteria['from']:"", "to"=>isset($criteria['to'])?$criteria['to']:"", "items"=>$objects, "page"=>$this->paginating($page,$totalpage,10, $criteria));
   }
+//####################################################################################################
+  /**
+  *  @Template()
+  */
+  public function photoVoteListAction(Request $request)
+  {
+    $pagesize = 20;
+    $page = $request->get('page', 1);
+    $start = $request->get('from', '');
+    $end = $request->get('to', '');
+    $criteria = array();
+    $where = "WHERE 1=1 ";
+    if($start){
+      $criteria['from'] = $start;
+      $start = strtotime($start." 00:00:00");
+      $where .= "AND u.voteTime>=$start ";
+    }
+    if($end){
+      $criteria['to'] = $end;
+      $end = strtotime($end." 23:59:59");
+      $where .= "AND u.voteTime<=$end ";
+    }
+
+    $em = $this->getDoctrine()->getManager();
+    $query = $em->createQuery('SELECT count(DISTINCT u.photoId) AS total FROM IqiyiAvonBundle:AvonPhotoVote u '.$where);
+    $total = $query->getSingleResult();
+    $totalpage = ceil($total['total']/$pagesize);
+    if($totalpage<$page){
+        $page = $totalpage<=0?1:$totalpage;
+    }
+    $offset = ($page-1)*$pagesize;
+    $query = $em->createQuery('SELECT u.photoId, count(u.photoVoteId) AS total, v.memMobile, v.memName, v.photoUrl, v.totalVote FROM IqiyiAvonBundle:AvonPhotoVote u LEFT JOIN IqiyiAvonBundle:AvonPhoto v WITH u.photoId = v.photoId '.$where.' GROUP BY u.photoId ORDER BY total DESC')
+                ->setMaxResults($pagesize)->setFirstResult($offset);
+    $objects = $query->getResult();
+
+    return array("from"=>isset($criteria['from'])?$criteria['from']:"", "to"=>isset($criteria['to'])?$criteria['to']:"", "items"=>$objects, "page"=>$this->paginating($page,$totalpage,10, $criteria));
+  }
+//########################################################################################################
 }
 ?>
