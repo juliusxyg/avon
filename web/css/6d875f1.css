@@ -1,0 +1,209 @@
+/*
+    Colorbox Core Style:
+    The following CSS is consistent between example themes and should not be altered.
+*/
+#colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;}
+#cboxWrapper {max-width:none;}
+#cboxOverlay{position:fixed; width:100%; height:100%;}
+#cboxMiddleLeft, #cboxBottomLeft{clear:left;}
+#cboxContent{position:relative;}
+#cboxLoadedContent{overflow:auto; -webkit-overflow-scrolling: touch;}
+#cboxTitle{margin:0;}
+#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%; height:100%;}
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
+.cboxPhoto{float:left; margin:auto; border:0; display:block; max-width:none; -ms-interpolation-mode:bicubic;}
+.cboxIframe{width:100%; height:100%; display:block; border:0; padding:0; margin:0;}
+#colorbox, #cboxContent, #cboxLoadedContent{box-sizing:content-box; -moz-box-sizing:content-box; -webkit-box-sizing:content-box;}
+
+/* 
+    User Style:
+    Change the following styles to modify the appearance of Colorbox.  They are
+    ordered & tabbed in a way that represents the nesting of the generated HTML.
+*/
+#cboxOverlay{background:#fff;}
+#colorbox{outline:0;}
+    #cboxContent{margin-top:32px; overflow:visible; background:#fff;}
+        .cboxIframe{background:#fff;}
+        #cboxError{padding:50px; border:1px solid #ccc;}
+        #cboxLoadedContent{background:#fff; padding:1px;}
+        #cboxLoadingGraphic{background:url(../../bundles/iqiyiavon/css/images/loading.gif) no-repeat center center;}
+        #cboxLoadingOverlay{background:#fff;}
+        #cboxTitle{position:absolute; top:-22px; left:0; color:#000;}
+        #cboxCurrent{position:absolute; top:-22px; right:205px; text-indent:-9999px;}
+
+        /* these elements are buttons, and may need to have additional styles reset to avoid unwanted base styles */
+        #cboxPrevious, #cboxNext, #cboxSlideshow, #cboxClose {border:0; padding:0; margin:0; overflow:visible; text-indent:-9999px; width:20px; height:20px; position:absolute; top:-20px; background:url(../../bundles/iqiyiavon/css/images/controls.png) no-repeat 0 0;}
+        
+        /* avoid outlines on :active (mouseclick), but preserve outlines on :focus (tabbed navigating) */
+        #cboxPrevious:active, #cboxNext:active, #cboxSlideshow:active, #cboxClose:active {outline:0;}
+
+        #cboxPrevious{background-position:0px 0px; right:44px;}
+        #cboxPrevious:hover{background-position:0px -25px;}
+        #cboxNext{background-position:-25px 0px; right:22px;}
+        #cboxNext:hover{background-position:-25px -25px;}
+        #cboxClose{background-position:-50px 0px; right:0;}
+        #cboxClose:hover{background-position:-50px -25px;}
+        .cboxSlideshow_on #cboxPrevious, .cboxSlideshow_off #cboxPrevious{right:66px;}
+        .cboxSlideshow_on #cboxSlideshow{background-position:-75px -25px; right:44px;}
+        .cboxSlideshow_on #cboxSlideshow:hover{background-position:-100px -25px;}
+        .cboxSlideshow_off #cboxSlideshow{background-position:-100px 0px; right:44px;}
+        .cboxSlideshow_off #cboxSlideshow:hover{background-position:-75px -25px;}
+
+@charset "utf-8";
+/* CSS Document */
+
+* {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT-SIZE: 14px; TEXT-DECORATION: none; PADDING-TOP: 0px
+}
+html, body, div, span, applet, object, iframe, h1, h2, h3, 
+h4, h5, h6, p, blockquote, pre, a, abbr, acronym, 
+address, big, cite, code, del, dfn, em, font, img, ins, 
+kbd, q, s, samp, small, strike, strong, sub, sup, tt, 
+var, dl, dt, dd, ol,  fieldset, form, label, legend, 
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin:0;
+	padding:0;
+	border:0;
+	outline:0;
+	font: 14px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+} 
+
+
+DIV {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+
+
+
+
+
+table{MARGIN: 0px auto; }
+BODY {BACKGROUND-COLOR:#ffffff; MARGIN: 0px auto;  border:0;FONT: 14px/1.8 Arial, Helvetica, sans-serif; font-size:14px; color:#747474; }
+#background{ height:auto !important; height:auto; border:0;MARGIN: 0px auto; background:url(../../bundles/iqiyiavon/images/bg.jpg) no-repeat center top; }
+#pagepage{width:1002px;  height:auto !important;  MARGIN: 0px auto;}
+.pic{float:left}
+.video_l{float:left; width:803px; height:512px;BACKGROUND:url(../../bundles/iqiyiavon/images/yf_02.jpg) no-repeat center top; }
+.video_l_area{float:left; width:785px; height:461px; background-color:#333; margin-left:12px; _margin-left:6px;margin-top:16px;}
+.video_r{float:left; width:198px; height:512px;BACKGROUND:url(../../bundles/iqiyiavon/images/yf_03.jpg) no-repeat center top; }
+.lb{float:left; width:1002px; height:355px;BACKGROUND:url(../../bundles/iqiyiavon/images/lb_01.jpg);position:relative;z-inde: 1000; }
+
+.lb_btn_l{position: absolute;width: 30px;height: 92px;BACKGROUND: url(../../bundles/iqiyiavon/images/btn_01.jpg) no-repeat center top; left:0px;z-inde: 1000;top: 123px;}
+.lb_btn_l:hover{ position: absolute; width:30px; height:92px;BACKGROUND:url(../../bundles/iqiyiavon/images/btn_01_click.jpg) no-repeat center top;z-inde:1000;}
+.lb_btn_r{position: absolute;width: 30px;z-inde: 1000; left:0px;height: 92px;BACKGROUND: url(../../bundles/iqiyiavon/images/btn_02.jpg) no-repeat center top;left:970px;top: 123px; }
+.lb_btn_r:hover{ position: absolute;width:30px; height:92px;BACKGROUND:url(../../bundles/iqiyiavon/images/btn_02_click.jpg) no-repeat center top;}
+
+.lb_under01{float:left; width:1002px; height:403px;BACKGROUND:url(../../bundles/iqiyiavon/images/lb_01.jpg) no-repeat center top;position:relative }
+.lb_btn_l_01{position: absolute; left:0px;width: 30px;height: 92px;BACKGROUND: url(../../bundles/iqiyiavon/images/btn_01.jpg) no-repeat center top;z-inde:1000;_z-inde:1000;   top:100px}
+.lb_btn_l_01:hover{ position: absolute; width:30px; height:92px;BACKGROUND:url(../../bundles/iqiyiavon/images/btn_01_click.jpg) no-repeat center top;z-inde:1000;_z-inde:1000;}
+.lb_btn_r_01{position: absolute; left:0px;width: 30px;height: 92px;BACKGROUND: url(../../bundles/iqiyiavon/images/btn_02.jpg) no-repeat center top;left:970px; top:100px;_z-inde:1000;}
+.lb_btn_r_01:hover{ position: absolute;width:30px; height:92px;BACKGROUND:url(../../bundles/iqiyiavon/images/btn_02_click.jpg) no-repeat center top;_z-inde:1000;}
+
+.dwgscy_l{float:left; width:651px; height:307px; BACKGROUND:url(../../bundles/iqiyiavon/images/yf_06.jpg) no-repeat center top; position:relative}
+.dwnccp{float:left; width:1002px; height:307px; BACKGROUND:url(../../bundles/iqiyiavon/images/yf_12.jpg) no-repeat center top;}
+
+
+.fbxy .tjxy{ height:110px; position:relative;}
+.fbxy .tjxy textarea{ position:absolute;  left:28px; width:602px; height:97px; border:1px solid #d9bed0; color:#747474 ;}
+.fbxy .tjxy a.tjbtn{ position:absolute;  left:422px; width:89px; height:97px; cursor:pointer;}
+.fbxy .xylist{ padding:10px 0 0;}
+
+
+.lounger {
+    left: 28px;
+    position: absolute;
+    top: 118px;
+    z-index: 300;
+}
+.lounger label {
+    color: #747474;
+    float: left;
+    font-size: 16px;
+    height: 27px;
+    line-height: 27px;
+}
+.lounger ul {
+    left: 80px;
+    position: absolute;
+    top: 1px;
+    z-index: 1000;
+}
+.lounger ul li {
+    background: url(../../bundles/iqiyiavon/images/btnbg.jpg) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    color: #747474;
+    cursor: pointer;
+    font-size: 16px;
+    height: 27px;
+    line-height: 27px;
+    text-align: center;
+    width: 323px;
+}
+.lounger ul li:hover {
+    background: url(../../bundles/iqiyiavon/images/btnbg.jpg) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.arrow {
+    cursor: pointer;
+    position: absolute;
+    right: 7px;
+    top: 9px;
+}
+.mr{ BACKGROUND:url(../../bundles/iqiyiavon/images/btnbg.jpg) no-repeat center top; color:#fffff; cursor:pointer; float:left;font-size:16px; height:31px; line-height:31px; text-align:center;width:323px;}
+.font{ width:245px; height:180px; float:left; margin-left:20px; margin-top:100px;}
+
+.jcdwys{width:1002px; height:930px; float:left; BACKGROUND:url(../../bundles/iqiyiavon/images/yf_11.jpg) no-repeat center top;}
+.jcdwys_con_l{width:420px; float:left; height:150px; margin-top:5px; BACKGROUND:url(../../bundles/iqiyiavon/images/bg_l.gif) no-repeat center;}
+.jcdwys_con_r{width:422px; height:150px;float:left; margin-top:5px; BACKGROUND:url(../../bundles/iqiyiavon/images/bg_r.gif) no-repeat center;}
+.jcdwys p{ font-weight:bolder; color:#82739d}
+.erjiye_font p{ font-weight:bolder; color:#82739d}
+.jcdwys_con_l_font{width:388px; height:60px; float:left; margin-top:20px; margin-left:16px; overflow:hidden;}
+.jcdwys_con_l_font span{ font-size:12px; line-height:20px}
+.jcdwys_con_l_end{width:388px; float:left; margin-left:2px;margin-top:20px; padding:2px;}
+.jcdwys_con_r_end{width:388px; float:left; margin-left:26px;margin-top:20px; padding:2px;}
+
+
+
+
+
+.dwnccp_l{width:748px; height:427px; float:left; BACKGROUND:url(../../bundles/iqiyiavon/images/yf_12.jpg) no-repeat center top;}
+.dwnccp_l span{ line-height:18px; font-size:12px}
+
+/* 导航 */
+.nav{width:210px; height:606px;BACKGROUND:url(../../bundles/iqiyiavon/images/navbg.gif) no-repeat center top; left:5%;position:fixed;top:20%; display:block;}
+.nav_01{width:172px; height:30px; BACKGROUND:url(../../bundles/iqiyiavon/images/navfont.png)0px 0px; display:block}
+.nav_01:hover{width:172px; height:30px; BACKGROUND:url(../../bundles/iqiyiavon/images/navfont.png)0px -179px;}
+.nav_02{width:172px; height:30px; BACKGROUND:url(../../bundles/iqiyiavon/images/navfont.png)0px -30px; display:block}
+.nav_02:hover{width:172px; height:30px; BACKGROUND:url(../../bundles/iqiyiavon/images/navfont.png)0px -209px;}
+.nav_03{width:172px; height:30px; BACKGROUND:url(../../bundles/iqiyiavon/images/navfont.png)0px -60px; display:block}
+.nav_03:hover{width:172px; height:30px; BACKGROUND:url(../../bundles/iqiyiavon/images/navfont.png)0px -239px;}
+.nav_04{width:172px; height:30px; BACKGROUND:url(../../bundles/iqiyiavon/images/navfont.png)0px -90px; display:block}
+.nav_04:hover{width:172px; height:30px; BACKGROUND:url(../../bundles/iqiyiavon/images/navfont.png)0px -269px;}
+.nav_05{width:172px; height:30px; BACKGROUND:url(../../bundles/iqiyiavon/images/navfont.png)0px -120px; display:block}
+.nav_05:hover{width:172px; height:30px; BACKGROUND:url(../../bundles/iqiyiavon/images/navfont.png)0px -299px;}
+.nav_06{width:172px; height:30px; BACKGROUND:url(../../bundles/iqiyiavon/images/navfont.png)0px -150px; display:block}
+.nav_06:hover{width:172px; height:30px; BACKGROUND:url(../../bundles/iqiyiavon/images/navfont.png)0px -329px;}
+
+/* foot*/
+.footer{line-height:20px;text-align:center;padding:20px 0 40px;margin-top:15px;background:url(http://www.qiyipic.com/common/homepage_images/footerBg.png) center 0 no-repeat;clear:both; }
+.footer,.footer a{color:#6b6b6b;font-size:12px}
+.footer a:hover{color:#4c7d08}
+
+/* 弹窗 */
+.tc_hjmd{width:527px; height:388px; BACKGROUND:url(../../bundles/iqiyiavon/images/tc_hjmd.gif) no-repeat center top; float:left; }
+.tc_font{float:left;}
+.tc_font span{ line-height:20px; font-size:12px;}
+.tc_font p{ line-height:25px; font-weight:bolder;}
+.tc_font_close{width:25px; height:25px; float:left; margin-left:484px; margin-top:20px}
+.tc_font_close_myform{width:25px; height:25px; float:left; margin-left:487px; margin-top:18px}
+.tc_cjdwnchd{width:527px; height:388px; BACKGROUND:url(../../bundles/iqiyiavon/images/tc_cjdwnchd.gif) no-repeat center top;float:left;}
+.tc_cjdwnchd03{width:527px; height:388px; BACKGROUND:url(../../bundles/iqiyiavon/images/tc_cjdwnchd03.gif) no-repeat center top; float:left; }
+.tc_cjdwnchd03_area{ margin-top:80px; float:left; margin-left:40px }
+
+
+
+
+/* 二级页 文字 */
+#background01{height:auto !important; height:auto; border:0;MARGIN: 0px auto; background:url(../../bundles/iqiyiavon/images/erjiye_bg.jpg) no-repeat center top;}
+.erjiye_font{ min-height:800px;width:1002px; height:auto !important; height:auto; MARGIN: 0px auto;BACKGROUND:url(../../bundles/iqiyiavon/images/erjiye_font_05.jpg) no-repeat center top;}
+.erjiye_font_btn01{width:305px; height:28px; BACKGROUND:url(../../bundles/iqiyiavon/images/soukuang.jpg) no-repeat center top; float:left; margin-top:95px; margin-left:48px; }
+.erjiye_font_btn01_l{width:222px; height:28px; }
+.erjiye_font_btn01_r{width:83px; height:28px; }
+.erjiye_font_btn02{float:left; margin-top:95px; margin-left:18px;}

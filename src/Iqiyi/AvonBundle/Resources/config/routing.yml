@@ -1,5 +1,5 @@
 iqiyi_avon_homepage:
-    pattern:  /home
+    pattern:  /
     defaults: { _controller: IqiyiAvonBundle:Home:index }
 
 iqiyi_avon_addphoto:
