@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* CSS Document */
+
+* {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT-SIZE: 14px; TEXT-DECORATION: none; PADDING-TOP: 0px
+}
+html, body, div, span, applet, object, iframe, h1, h2, h3, 
+h4, h5, h6, p, blockquote, pre, a, abbr, acronym, 
+address, big, cite, code, del, dfn, em, font, img, ins, 
+kbd, q, s, samp, small, strike, strong, sub, sup, tt, 
+var, dl, dt, dd, ol,  fieldset, form, label, legend, 
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin:0;
+	padding:0;
+	border:0;
+	outline:0;
+	font: 14px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+} 
+
+
+DIV {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+
+
+
+
+
+table{MARGIN: 0px auto; }
+BODY {BACKGROUND-COLOR:#ffffff; MARGIN: 0px auto;  border:0;FONT: 14px/1.8 Arial, Helvetica, sans-serif; font-size:14px; color:#747474; }
+#background{ height:auto !important; height:auto; border:0;MARGIN: 0px auto; background:url(../../images/yr/bg.jpg) no-repeat center top;overflow:inherit ;overflow:auto}
+#pagepage{width:1002px;  height:auto !important;  MARGIN: 0px auto;}
+.pic{float:left; overflow:inherit ;overflow:auto }
+.video_l{float:left; width:807px; height:629px;BACKGROUND:url(../../images/yr/yr_01.jpg) no-repeat center top; }
+.video_l_area{float:left; width:785px; height:461px; background-color:#333; margin-left:18px; _margin-left:6px;margin-top:16px;}
+
+/* foot*/
+.footer{line-height:20px;text-align:center;padding:20px 0 40px;margin-top:15px;background:url(http://www.qiyipic.com/common/homepage_images/footerBg.png) center 0 no-repeat;clear:both; }
+.footer,.footer a{color:#6b6b6b;font-size:12px}
+.footer a:hover{color:#4c7d08}

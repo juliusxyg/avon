@@ -10,9 +10,20 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Iqiyi\AvonBundle\Entity\AvonPhoto;
 use Iqiyi\AvonBundle\Entity\AvonSubject;
 use Iqiyi\AvonBundle\Entity\AvonSubjectVote;
+use Iqiyi\AvonBundle\Controller\MobileDetect;
 
 class HomeController extends Controller
 {   
+    public function prepareAction(Request $request)
+    {
+        $detect = new MobileDetect;
+        if($detect->isMobile())
+        {
+            return $this->render("IqiyiAvonBundle:Home:prepare.m.html.twig");
+        }
+        return $this->render("IqiyiAvonBundle:Home:prepare.html.twig");
+    }
+
     /**
     *  @Template()
     */

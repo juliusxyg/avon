@@ -18,17 +18,17 @@ $(function(){
     });
     /*avon share*/
     $("area.share-weibo").click(function(){
-    	var title = document.title;  
-    	var url = location.href; 
+    	var title = "如果2014年，还有什么重要的时刻你还在期待，你必须不能错过这个视频，它能让你成就最美一瞬！";  
+    	var url = encodeURIComponent(location.href); 
     	weibo(title, url);
     });
     $("area.share-renren").click(function(){
-    	var title = encodeURIComponent(document.title.substring(0,76));  
+    	var title = "如果2014年，还有什么重要的时刻你还在期待，你必须不能错过这个视频，它能让你成就最美一瞬！";  
     	var url = encodeURIComponent(location.href); 
     	renren(title, url);
     });
     $("area.share-tx").click(function(){
-    	var title = encodeURIComponent(document.title.substring(0,76));  
+    	var title = "如果2014年，还有什么重要的时刻你还在期待，你必须不能错过这个视频，它能让你成就最美一瞬！";  
     	var url = encodeURIComponent(location.href); 
     	tx(title, url);
     });
