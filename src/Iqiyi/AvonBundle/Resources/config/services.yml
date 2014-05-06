@@ -30,3 +30,7 @@ services:
         class: Iqiyi\AvonBundle\EventListener\RemoveVote
         tags:
             - { name: doctrine.event_listener, event: preRemove }
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+           - { name: twig.extension }

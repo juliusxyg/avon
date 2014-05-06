@@ -11,7 +11,7 @@ class UpdateVoteNumber
     {
         $entity = $args->getEntity();
         $em = $args->getEntityManager();
-        //投票后更新counter
+        //投票后更新counter, 赞+1 问题+2 天猫+50
         if ($entity instanceof AvonSubjectVote && $entity->getSubjectId())
         {
             $object = $em->getRepository('IqiyiAvonBundle:AvonSubject')

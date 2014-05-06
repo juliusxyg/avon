@@ -10,16 +10,20 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Iqiyi\AvonBundle\Entity\AvonPhoto;
 use Iqiyi\AvonBundle\Entity\AvonSubject;
 
-class ListController extends Controller
+use Iqiyi\AvonBundle\Controller\HomeController;
+
+class ListController extends HomeController
 {   
 	/**
   *  @Template()
   */
   public function subjectListAction(Request $request)
   {
+    $hash = array();
     $pagesize = 13;
     $page = $request->get('page', 1);
     $keyword = $request->get('keyword', '');
+    $sharedId = $request->get('shared', '');
     $em = $this->getDoctrine()->getManager();
     $query = $em->createQuery('SELECT COUNT(u.subjectId) AS total FROM IqiyiAvonBundle:AvonSubject u WHERE u.status=1 '.($keyword?' AND u.content LIKE %'.$keyword.'% ':''));
     $total = $query->getSingleResult();
@@ -31,7 +35,24 @@ class ListController extends Controller
     $query = $em->createQuery('SELECT u FROM IqiyiAvonBundle:AvonSubject u WHERE u.status=1 '.($keyword?' AND u.content LIKE %'.$keyword.'% ':''))
                 ->setMaxResults($pagesize)->setFirstResult($offset);
     $objects = $query->getResult();
-    return array("items"=>$objects, "page"=>$this->paginating($page,$totalpage,10, ($keyword?array("keyword"=>$keyword):array())));
+    $hash['items'] = $objects;
+
+    $hash['subjectForms'] = array();
+    if($objects)
+    {
+        foreach($objects as $key=>$subject)
+        {
+            $hash['subjectForms'][$key] = $this->votemsgAction(new Request(array("id"=>$subject->getSubjectId())));
+        }
+    }
+    $hash['sharedObject'] = "";
+    if($sharedId)
+    {
+      $hash['sharedObject'] = $em->getRepository("IqiyiAvonBundle:AvonSubject")->find($sharedId);
+      $hash['sharedForm'] = $this->votemsgAction(new Request(array("id"=>$sharedId)));
+    }
+    $hash['page'] = $this->paginating($page,$totalpage,10, ($keyword?array("keyword"=>$keyword):array()));
+    return $hash;
   }
 
   /**

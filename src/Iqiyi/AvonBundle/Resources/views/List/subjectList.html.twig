@@ -5,7 +5,12 @@
 <title>《雅芳》蝶舞霓彩最美一瞬</title>
 {% stylesheets 'bundles/iqiyiavon/css/*' filter='cssrewrite' %}
   <link rel="stylesheet" href="{{ asset_url }}" />
-{% endstylesheets %}</head>
+{% endstylesheets %}
+<script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+{% javascripts 'bundles/iqiyiavon/js/*' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+</head>
 <body>
 
 <div id="background01">
@@ -47,29 +52,41 @@
       {% elseif key == 12 %}
     <div class="jcdwys_con_r" style="margin-left:28px;_margin-left:19px">
     {% endif %}
-         <div class=""><p>许 先生</p></div>
-         <div class="jcdwys_con_l_font" ><span>我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的 瞬间我的蝶舞一瞬是幡然醒悟的瞬间</span></div>
+         <div class=""><p>{{ subject.getMemName() }}</p></div>
+         <div class="jcdwys_con_l_font" ><span>{{ subject.getContent() }}</span></div>
       
       <div class="jcdwys_con_l_end">分享
         <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
         <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
         <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gi') }}f" width="26" height="21" /></a>
         <a href="#" style="margin-left:20px;"><img src="images/btn_01.gif') }}" width="96" height="25" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" /></a>
-        <a ><img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" /><span>868</span></a>
+        <a href="#like" class="words-like">
+          <img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" />
+        </a>
+        <a >
+          <img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" />
+          <span class="vote-num-{{ subject.getSubjectId() }}">{{ subject.getTotalVote() }}</span>
+        </a>
       </div>
+      <div style="display:none">
+        {{ form_start(subjectForms[key]['form_like'], {'attr': {'class': "vote-form-like"}}) }}
+            {{ form_widget(subjectForms[key]['form_like'].subjectId) }}
+            {{ form_widget(subjectForms[key]['form_like']._token, {'attr': {'class': 'vote-form-like-token'}}) }}
+        {{ form_end(subjectForms[key]['form_like']) }}
       </div>
-      
+    </div>
+ {% if key==0 %}
  <!-- 搜索按钮盒查看更多按钮-->  
  <div class="erjiye_font_btn01" href="#" >
       <div class="erjiye_font_btn01_l">
       <input name="mid" type="text"style="text-align:left; width:222px; height:26px;" size="10" >
-
-
       </div>
       <a class="erjiye_font_btn01_r"></a>
  </div> 
- <div class="erjiye_font_btn02" href="#"><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/hjmdbtn.gif') }}" width="92" height="28" /></a></div> 
+ <div class="erjiye_font_btn02" href="#">
+  <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/hjmdbtn.gif') }}" width="92" height="28" /></a>
+ </div> 
+ {% endif %}
 {% endfor %}
   
 <!--翻页 -->
@@ -117,7 +134,9 @@
 </div>
 <!-- 标准尾 end -->
 <!--弹窗 -->
-<div  class="erjiye_font_tc">
+{% if sharedObject %}
+<div style="display:none;">
+<div  class="erjiye_font_tc" id="shared">
 <div class="tc_font_close"><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/close.gif') }}" width="25" height="25" /></a></div>
 <div class="erjiye_font_tc_area">Q:你知道，2014，我最重要的瞬间是？</div>
 <div  class="erjiye_font_tc_chance">
@@ -131,7 +150,7 @@
       <br />
       <label>
         <input type="radio" name="RadioGroup1" value="選項按鈕" id="RadioGroup1_1" />
-        B:结婚三周年</label>
+        B:{{ sharedObject.getContent()|truncate(10, true) }}</label>
       <br />
     </p>
   </form>
@@ -142,14 +161,61 @@
         <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
         <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
         <a href="#" style="margin-left:20px;"><img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" /></a>
-        <a ><img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" /><span>868</span></a>
+        <a href="#like" class="words-like">
+          <img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" />
+        </a>
+        <a >
+          <img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" />
+          <span class="vote-num-{{ subject.getSubjectId() }}">{{ sharedObject.getTotalVote() }}</span>
+        </a>
+      </div>
+      <div style="display:none">
+        {{ form_start(sharedForm['form_like'], {'attr': {'class': "vote-form-like"}}) }}
+            {{ form_widget(sharedForm['form_like'].subjectId) }}
+            {{ form_widget(sharedForm['form_like']._token, {'attr': {'class': 'vote-form-like-token'}}) }}
+        {{ form_end(sharedForm['form_like']) }}
       </div>
 </div>
+</div>
+{% endif %}
 <!--弹窗 end--> 
 </div>
 </div>
-
+<script>
+$(function(){
+  /*submit like*/
+  $("a.words-like").each(function(){
+    $(this).click(function(){
+      var likeForm = $(this).parent().next().find("form.vote-form-like").eq(0);
+      $(likeForm).submit();
+    });
+  });
+  $("form.vote-form-like").submit(function(){
+    event.preventDefault();
+    $.ajax({
+         type: "POST",
+         url: $(this).attr('action'),
+         data: $(this).serialize(),
+         success: function(data)
+         {
+              if(data.success == 1){
+                $("span.vote-num-"+data.id).text(data.vote);
+                  $("input.vote-form-like-token").val(data.token);
+              }else{
+                for(var i in data.errorList){
+                  alert(data.errorList[i]);
+                }
+              }
+         }
+       });
+    return false;
+  });
+  /*sharedObject*/
+  {% if sharedObject %}
+  $.colorbox({inline: true, href: "#shared"});
+  {% endif %}
+});
+</script>
 
 </body>
 </html>
