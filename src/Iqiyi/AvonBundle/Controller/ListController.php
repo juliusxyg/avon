@@ -25,14 +25,14 @@ class ListController extends HomeController
     $keyword = $request->get('keyword', '');
     $sharedId = $request->get('shared', '');
     $em = $this->getDoctrine()->getManager();
-    $query = $em->createQuery('SELECT COUNT(u.subjectId) AS total FROM IqiyiAvonBundle:AvonSubject u WHERE u.status=1 '.($keyword?' AND u.content LIKE %'.$keyword.'% ':''));
+    $query = $em->createQuery('SELECT COUNT(u.subjectId) AS total FROM IqiyiAvonBundle:AvonSubject u WHERE u.status=1 '.($keyword?" AND u.content LIKE '%".$keyword."%' ":''));
     $total = $query->getSingleResult();
     $totalpage = ceil($total['total']/$pagesize);
     if($totalpage<$page){
         $page = $totalpage<=0?1:$totalpage;
     }
     $offset = ($page-1)*$pagesize;
-    $query = $em->createQuery('SELECT u FROM IqiyiAvonBundle:AvonSubject u WHERE u.status=1 '.($keyword?' AND u.content LIKE %'.$keyword.'% ':''))
+    $query = $em->createQuery('SELECT u FROM IqiyiAvonBundle:AvonSubject u WHERE u.status=1 '.($keyword?" AND u.content LIKE '%".$keyword."%' ":''))
                 ->setMaxResults($pagesize)->setFirstResult($offset);
     $objects = $query->getResult();
     $hash['items'] = $objects;
@@ -52,6 +52,10 @@ class ListController extends HomeController
       $hash['sharedForm'] = $this->votemsgAction(new Request(array("id"=>$sharedId)));
     }
     $hash['page'] = $this->paginating($page,$totalpage,10, ($keyword?array("keyword"=>$keyword):array()));
+
+    $hash['keyword'] = $keyword;
+    $hash['randAnswer'] = $this->randAnswers[rand(0, 20)];
+    
     return $hash;
   }
 

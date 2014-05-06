@@ -32,6 +32,25 @@ $(function(){
     	var url = encodeURIComponent(location.href); 
     	tx(title, url);
     });
+    /*share*/
+	$('a.weibo-share').click(function(){
+		event.preventDefault();
+		var title = "如果2014年，还有什么重要的时刻你还在期待，你必须不能错过这个视频，它能让你成就最美一瞬！";  
+		var url = encodeURIComponent($(this).attr("href")); 
+		weibo(title, url);
+	});
+	$('a.renren-share').click(function(){
+		event.preventDefault();
+		var title = "如果2014年，还有什么重要的时刻你还在期待，你必须不能错过这个视频，它能让你成就最美一瞬！";  
+		var url = encodeURIComponent($(this).attr("href")); 
+		renren(title, url);
+	});
+	$('a.tx-share').click(function(){
+		event.preventDefault();
+		var title = "如果2014年，还有什么重要的时刻你还在期待，你必须不能错过这个视频，它能让你成就最美一瞬！";  
+		var url = encodeURIComponent($(this).attr("href")); 
+		tx(title, url);
+	});
 	/*words maxlength*/
 	$("textarea.words-input").on("keyup", function(){
 		var wordsContent = $(this).val();

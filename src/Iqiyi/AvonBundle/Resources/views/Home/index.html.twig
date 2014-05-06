@@ -65,12 +65,9 @@
 <label>精彩选择：</label>
 <span class="mr words-select">我的精彩一瞬是幡然醒悟的瞬间</span>
  <ul class="words-select-list" style="display:none;">
-    <li class="lazy_reason">不会洗！</li>
-    <li class="lazy_reason">我忙着赚钱，哪有时间洗衣服。</li>
-    <li class="lazy_reason">我忙着赚钱，哪有时间洗衣服。</li>
-    <li class="lazy_reason">我忙着赚钱，哪有时间洗衣服。</li>
-    <li class="lazy_reason">我忙着赚钱，哪有时间洗衣服。</li>
-    <li class="lazy_reason">我忙着赚钱，哪有时间洗衣服。</li>
+  {% for w in sampleWords %}
+    <li class="lazy_reason">{{ w }}</li>
+  {% endfor %}
   </ul>
 <span class="arrow">
 <img src="{{ asset('bundles/iqiyiavon/images/lounger_arrow.png') }}">
@@ -137,9 +134,9 @@
          <div class="jcdwys_con_l_font" ><span>{{ subject.getContent() }}</span></div>
       
       <div class="jcdwys_con_l_end">分享
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
+        <a href="{{ url('iqiyi_avon_subjects') }}?shared={{ subject.getSubjectId() }}" class="weibo-share"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
+        <a href="{{ url('iqiyi_avon_subjects') }}?shared={{ subject.getSubjectId() }}" class="renren-share"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
+        <a href="{{ url('iqiyi_avon_subjects') }}?shared={{ subject.getSubjectId() }}" class="tx-share"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
         <a href="#" style="margin-left:30px">
           <img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" />
         </a>

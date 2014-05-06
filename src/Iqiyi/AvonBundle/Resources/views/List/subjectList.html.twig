@@ -56,10 +56,10 @@
          <div class="jcdwys_con_l_font" ><span>{{ subject.getContent() }}</span></div>
       
       <div class="jcdwys_con_l_end">分享
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gi') }}f" width="26" height="21" /></a>
-        <a href="#" style="margin-left:20px;"><img src="images/btn_01.gif') }}" width="96" height="25" /></a>
+        <a href="{{ url('iqiyi_avon_subjects') }}?shared={{ subject.getSubjectId() }}" class="weibo-share"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
+        <a href="{{ url('iqiyi_avon_subjects') }}?shared={{ subject.getSubjectId() }}" class="renren-share"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
+        <a href="{{ url('iqiyi_avon_subjects') }}?shared={{ subject.getSubjectId() }}" class="tx-share"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gi') }}f" width="26" height="21" /></a>
+        <a href="#" style="margin-left:20px;"><img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" /></a>
         <a href="#like" class="words-like">
           <img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" />
         </a>
@@ -79,7 +79,9 @@
  <!-- 搜索按钮盒查看更多按钮-->  
  <div class="erjiye_font_btn01" href="#" >
       <div class="erjiye_font_btn01_l">
-      <input name="mid" type="text"style="text-align:left; width:222px; height:26px;" size="10" >
+      <form id="search" action="{{ path('iqiyi_avon_subjects') }}" method="GET">
+      <input name="keyword" type="text" value="{{ keyword }}" style="text-align:left; width:222px; height:26px;" size="10" >
+      </form>
       </div>
       <a class="erjiye_font_btn01_r"></a>
  </div> 
@@ -137,36 +139,48 @@
 {% if sharedObject %}
 <div style="display:none;">
 <div  class="erjiye_font_tc" id="shared">
-<div class="tc_font_close"><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/close.gif') }}" width="25" height="25" /></a></div>
+<div class="tc_font_close"><a href="#close" class="btn_close_lightbox"><img src="{{ asset('bundles/iqiyiavon/images/close.gif') }}" width="25" height="25" /></a></div>
 <div class="erjiye_font_tc_area">Q:你知道，2014，我最重要的瞬间是？</div>
 <div  class="erjiye_font_tc_chance">
-  <form id="form1" name="form1" method="post" action="">
+  {{ form_start(sharedForm['form_question'], {'attr': {'id': 'vote-form-question'}}) }}
+    {{ form_row(sharedForm['form_question'].subjectId) }}
     <p>
       <label>
-        <input type="radio" name="RadioGroup1" value="選項按鈕" id="RadioGroup1_0" />
-        A:幡然醒悟的瞬间
+        <input type="radio" name="answer" value="0" />
+        A:{{ randAnswer }}
       </label>
       <br />
       <br />
       <label>
-        <input type="radio" name="RadioGroup1" value="選項按鈕" id="RadioGroup1_1" />
-        B:{{ sharedObject.getContent()|truncate(10, true) }}</label>
+        <input type="radio" name="answer" value="1" />
+        B:{{ sharedObject.getContent()|truncate(20, true) }}</label>
       <br />
     </p>
-  </form>
+    <br />
+    <a href="#like" class="words-like-question">
+      <img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" />
+    </a>
+    {{ form_widget(sharedForm['form_question']._token, {'attr': {'class': 'vote-form-like-token'}}) }}
+  {{ form_end(sharedForm['form_question']) }}
 </div>
 
 <div class="jcdwys_con_l_end" style="margin-left:100px;_margin-left:50px; margin-top:56px;_margin-top:53px;">分享
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
+        <a href="{{ url('iqiyi_avon_subjects') }}?shared={{ sharedObject.getSubjectId() }}" class="weibo-share">
+          <img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" />
+        </a>
+        <a href="{{ url('iqiyi_avon_subjects') }}?shared={{ sharedObject.getSubjectId() }}" class="renren-share">
+          <img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" />
+        </a>
+        <a href="{{ url('iqiyi_avon_subjects') }}?shared={{ sharedObject.getSubjectId() }}" class="tx-share">
+          <img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" />
+        </a>
         <a href="#" style="margin-left:20px;"><img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" /></a>
         <a href="#like" class="words-like">
           <img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" />
         </a>
         <a >
           <img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" />
-          <span class="vote-num-{{ subject.getSubjectId() }}">{{ sharedObject.getTotalVote() }}</span>
+          <span class="vote-num-{{ sharedObject.getSubjectId() }}">{{ sharedObject.getTotalVote() }}</span>
         </a>
       </div>
       <div style="display:none">
@@ -210,11 +224,82 @@ $(function(){
        });
     return false;
   });
+  /*question like*/
+  $("#vote-form-question").submit(function(event){
+    event.preventDefault();
+    if(0 == $("#vote-form-question input[name=answer]:checked").val()){
+      alert("你选择的答案错误");
+    }else{
+      $.ajax({
+           type: "POST",
+           url: $(this).attr('action'),
+           data: $(this).serialize(),
+           success: function(data)
+           {
+                if(data.success == 1){
+                  $("span.vote-num-"+data.id).text(data.vote);
+                  $("input.vote-form-like-token").val(data.token);
+                }else{
+                  for(var i in data.errorList){
+                    alert(data.errorList[i]);
+                  }
+                }
+           }
+         });
+    }
+    return false;
+  }); 
+  $("a.words-like-question").click(function(){
+    $("#vote-form-question").submit();
+  });
+  /*search*/
+  $("a.erjiye_font_btn01_r").click(function(){
+    $("#search").submit();
+  })
+  /*close light box*/
+  $(".btn_close_lightbox").click(function(){
+    $.colorbox.close();
+  });
+  /*share*/
+  $('a.weibo-share').click(function(){
+    event.preventDefault();
+    var title = "如果2014年，还有什么重要的时刻你还在期待，你必须不能错过这个视频，它能让你成就最美一瞬！";  
+    var url = encodeURIComponent($(this).attr("href")); 
+    weibo(title, url);
+  });
+  $('a.renren-share').click(function(){
+    event.preventDefault();
+    var title = "如果2014年，还有什么重要的时刻你还在期待，你必须不能错过这个视频，它能让你成就最美一瞬！";  
+    var url = encodeURIComponent($(this).attr("href")); 
+    renren(title, url);
+  });
+  $('a.tx-share').click(function(){
+    event.preventDefault();
+    var title = "如果2014年，还有什么重要的时刻你还在期待，你必须不能错过这个视频，它能让你成就最美一瞬！";  
+    var url = encodeURIComponent($(this).attr("href")); 
+    tx(title, url);
+  });
   /*sharedObject*/
   {% if sharedObject %}
   $.colorbox({inline: true, href: "#shared"});
   {% endif %}
 });
+
+function weibo(title, url){
+  shareSocial('http://v.t.sina.com.cn/share/share.php?title={title}&url={url}', title, url);
+}
+function renren(title, url){
+  shareSocial('http://widget.renren.com/dialog/share?resourceUrl={url}&title={title}', title, url);
+}
+function tx(title, url){
+  shareSocial('http://share.v.t.qq.com/index.php?c=share&a=index&url={url}&title={title}', title, url);
+}
+function shareSocial(server_url,title, url)
+{  
+    server_url = server_url.replace("{title}",title);  
+    server_url = server_url.replace("{url}",url);  
+    window.open(server_url ,'_blank','scrollbars=no,width=600,height=450,left=75,top=20,status=no,resizable=yes');
+}  
 </script>
 
 </body>

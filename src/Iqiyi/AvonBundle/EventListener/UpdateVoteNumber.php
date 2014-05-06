@@ -18,7 +18,12 @@ class UpdateVoteNumber
             					->find($entity->getSubjectId());
             if($object){
                 $curVote = $object->getTotalVote();
-                $curVote++;
+                if($entity->getVoteType() == 2)
+                    $curVote+=50;
+                elseif($entity->getVoteType() == 1)
+                    $curVote+=2;
+                else
+                    $curVote++;
             	$object->setTotalVote($curVote);
             	$em->persist($object);
             	$em->flush();

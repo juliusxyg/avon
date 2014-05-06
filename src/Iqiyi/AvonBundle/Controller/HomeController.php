@@ -14,6 +14,37 @@ use Iqiyi\AvonBundle\Controller\MobileDetect;
 
 class HomeController extends Controller
 {   
+    public $sampleWords = array('毕业典礼上要拍出美美的毕业照',
+        '与心仪男生的第一次约会',
+        '好闺蜜的婚礼做温婉伴娘',
+        '第一次得体见男友家长',
+        '第一次相亲想要大方漂亮',
+        '我的生日Party',
+        '蜜月旅行甜蜜蜜的幸福时刻',
+        '新公司上班第一天',
+        '期待很久的公司年会表演',
+        '学会化妆后第一次妆后见人');
+    public $randAnswers = array('毕业典礼上要拍出美美的毕业照',
+        '时隔五年的高中同学聚会',
+        '与心仪男生的第一次约会',
+        '好闺蜜的婚礼做温婉伴娘',
+        '第一次得体见男友家长',
+        '第一次相亲想要大方漂亮',
+        '与异地男友期待很久的约会',
+        '我的生日Party',
+        '公司的集体旅游',
+        '蜜月旅行甜蜜蜜的幸福时刻',
+        '学院联谊派对要闪亮登场',
+        '紧张的面试要适合的妆容应对',
+        '新公司上班第一天',
+        '期待很久的公司年会表演',
+        '受邀参加男友的朋友聚会',
+        '产后复出第一次见闺蜜',
+        '第一次与客户见面',
+        '学会化妆后第一次妆后见人',
+        '与老公的结婚周年纪念',
+        '参加孩子的入学典礼');
+
     public function prepareAction(Request $request)
     {
         $detect = new MobileDetect;
@@ -41,6 +72,7 @@ class HomeController extends Controller
                 $hash['subjectForms'][$key] = $this->votemsgAction(new Request(array("id"=>$subject->getSubjectId())));
             }
         }
+        $hash['sampleWords'] = $this->sampleWords;
         return $hash;
     }
 
@@ -132,11 +164,8 @@ class HomeController extends Controller
         $formQuestion = $this->createFormBuilder($avonSubjectVote, array('validation_groups' => array('normal'), "intention"=>$intention))
             ->setAction($this->generateUrl('iqiyi_avon_votemsg', array('id'=>$id)))
             ->add('subjectId', 'hidden', array('data'=>$id, 'error_bubbling'=>false))
-            ->add('question', 'choice', array('choices'   => array('0' => '嘻嘻嘻嘻嘻嘻想', '1' => '美丽瞬间'),
-                                                'label'=>'ta的瞬间是：'))
             ->add('voteType', 'hidden', array('data'=>1, 'error_bubbling'=>false))
             ->add('fromType', 'hidden', array('data'=>0, 'error_bubbling'=>false))
-            ->add('save', 'submit', array( 'label'=>'投ta'))
             ->getForm();
 
         $formRedeem = $this->createFormBuilder($avonSubjectVote, array('validation_groups' => array('tmall'), "intention"=>$intention))
@@ -194,7 +223,9 @@ class HomeController extends Controller
 
                     $csrf = $this->get('form.csrf_provider');
                     $token = $csrf->generateCsrfToken($intention);
-                    $errors = array('success'=>1, 'id'=>$avonSubjectVote->getSubjectVoteId(), 'token'=>$token);
+
+                    $avonSubject = $em->getRepository("IqiyiAvonBundle:AvonSubject")->find($avonSubjectVote->getSubjectId());
+                    $errors = array('success'=>1, 'id'=>$avonSubjectVote->getSubjectId(), 'vote'=>$avonSubject->getTotalVote(), 'token'=>$token);
                     return new JsonResponse($errors);
                 }else{
                     $errors = array('success'=>0);
@@ -218,7 +249,9 @@ class HomeController extends Controller
 
                     $csrf = $this->get('form.csrf_provider');
                     $token = $csrf->generateCsrfToken($intention);
-                    $errors = array('success'=>1, 'id'=>$avonSubjectVote->getSubjectVoteId(), 'token'=>$token);
+
+                    $avonSubject = $em->getRepository("IqiyiAvonBundle:AvonSubject")->find($avonSubjectVote->getSubjectId());
+                    $errors = array('success'=>1, 'id'=>$avonSubjectVote->getSubjectId(), 'vote'=>$avonSubject->getTotalVote(), 'token'=>$token);
                     return new JsonResponse($errors);
                 }else{
                     $errors = array('success'=>0);
