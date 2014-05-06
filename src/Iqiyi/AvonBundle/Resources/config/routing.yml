@@ -20,6 +20,14 @@ iqiyi_avon_votemsg:
     requirements:
         page:  \d+
 
+iqiyi_avon_subjects:
+    pattern:  /list
+    defaults: { _controller: IqiyiAvonBundle:List:subjectList }
+
+iqiyi_avon_photos:
+    pattern:  /photos
+    defaults: { _controller: IqiyiAvonBundle:List:photoList }
+
 ##############################################################
 
 login:
