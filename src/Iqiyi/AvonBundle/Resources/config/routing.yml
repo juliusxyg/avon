@@ -21,8 +21,10 @@ iqiyi_avon_votemsg:
         page:  \d+
 
 iqiyi_avon_subjects:
-    pattern:  /list
-    defaults: { _controller: IqiyiAvonBundle:List:subjectList }
+    pattern:  /list/{page}
+    defaults: { _controller: IqiyiAvonBundle:List:subjectList, page: 1 }
+    requirements:
+        page:  \d+
 
 iqiyi_avon_photos:
     pattern:  /photos

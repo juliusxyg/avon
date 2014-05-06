@@ -17,7 +17,21 @@ class ListController extends Controller
   */
   public function subjectListAction(Request $request)
   {
-  	return array();
+    $pagesize = 13;
+    $page = $request->get('page', 1);
+    $keyword = $request->get('keyword', '');
+    $em = $this->getDoctrine()->getManager();
+    $query = $em->createQuery('SELECT COUNT(u.subjectId) AS total FROM IqiyiAvonBundle:AvonSubject u WHERE u.status=1 '.($keyword?' AND u.content LIKE %'.$keyword.'% ':''));
+    $total = $query->getSingleResult();
+    $totalpage = ceil($total['total']/$pagesize);
+    if($totalpage<$page){
+        $page = $totalpage<=0?1:$totalpage;
+    }
+    $offset = ($page-1)*$pagesize;
+    $query = $em->createQuery('SELECT u FROM IqiyiAvonBundle:AvonSubject u WHERE u.status=1 '.($keyword?' AND u.content LIKE %'.$keyword.'% ':''))
+                ->setMaxResults($pagesize)->setFirstResult($offset);
+    $objects = $query->getResult();
+    return array("items"=>$objects, "page"=>$this->paginating($page,$totalpage,10, ($keyword?array("keyword"=>$keyword):array())));
   }
 
   /**
@@ -26,5 +40,91 @@ class ListController extends Controller
   public function photoListAction(Request $request)
   {
   	return array();
+  }
+
+  public function paginating($currpage=1, $totalpage=1, $pagespan=10, $get=array(), $pageNameInClause='page')
+  {
+    $ret=array();
+    if($pagespan<1){
+      $pagespan = 10;
+    }
+    if($currpage<1){
+      $currpage = 1;
+    }
+    if($totalpage<1){
+      $totalpage = 1;
+    }
+    $pageOffetRight = ceil($pagespan/2)?ceil($pagespan/2):1;
+    $pageOffsetLeft = $pageOffetRight==1?1:$pageOffetRight-1;
+
+    if($currpage>=$totalpage){
+      $currpage=$totalpage;
+      $ret['lastpage'] = '';
+      $ret['nextpage'] = '';
+    }else{
+      $ret['lastpage'] = $totalpage;
+      $ret['nextpage'] = $currpage+1;
+    }
+    if($currpage>1){
+      $ret['firstpage'] = 1;
+      $ret['prevpage'] = $currpage-1;
+    }else{
+      $ret['firstpage'] = '';
+      $ret['prevpage'] = '';
+    }
+    $ret['currpage'] = $currpage;
+    $ret['totalpage'] = $totalpage;
+    
+    $clauseArgs=array();
+    $clause='';
+    if(is_array($get)){
+      foreach($get as $name=>$value){
+        if($name != $pageNameInClause){
+          $clauseArgs[] = $name.'='.$value;
+        }
+      }
+      if(!empty($clauseArgs)){
+        $clause = '?'.implode("&",$clauseArgs);
+      }
+    }
+    $ret['clause']=$clause;
+    
+    $pagelist = array();
+    if($currpage < 1+$pageOffsetLeft){
+      $pagelist[] = 1;
+      for($i=1;$i<$pagespan;$i++){
+        if(($pagelist[0]+$i)<=$totalpage){
+          $pagelist[] = $pagelist[0]+$i;
+        }
+      }
+      $ret['pagelist'] = $pagelist;
+    }elseif($currpage > $totalpage-$pageOffetRight){
+      $pagelist[]=$totalpage-$pagespan+1;
+      for($i=1;$i<$pagespan;$i++){
+        if(($pagelist[0]+$i)<=$totalpage){
+          $pagelist[] = $pagelist[0]+$i;
+        }
+      }
+      $ret['pagelist'] = $pagelist;
+    }else{
+      for($i=$pageOffsetLeft;$i>=1;$i--){
+        if(($currpage-$i)>=1){
+          $pagelist[] = $currpage-$i;
+        }
+      }
+      $pagelist[]=$currpage;
+      for($i=1;$i<=$pageOffetRight;$i++){
+        if(($currpage+$i)<=$totalpage){
+          $pagelist[] = $currpage+$i;
+        }
+      }
+      if(end($pagelist)==$totalpage){
+        $ret['pagelist'] = array_slice($pagelist,0-$pagespan);
+      }else{
+        $ret['pagelist'] = array_slice($pagelist,0,$pagespan);
+      }
+    }
+    
+    return $ret;
   }
 }

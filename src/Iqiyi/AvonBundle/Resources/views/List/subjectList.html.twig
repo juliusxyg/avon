@@ -18,8 +18,35 @@
     </div>
     
     <div id="erjiye_font">
+{% for key,subject in items %}
  <!-- 1 -->
-  <div class="jcdwys_con_l" style="margin-left:54px;_margin-left:19px">
+ {% if key == 0 %}
+    <div class="jcdwys_con_l" style="margin-left:54px;_margin-left:19px">
+    {% elseif key == 1 %}
+    <div class="jcdwys_con_r" style="margin-left:88px; margin-top:60px;">
+    {% elseif key == 2 %}
+    <div class="jcdwys_con_l" style="margin-left:28px;_margin-left:19px">
+    {% elseif key == 3 %}
+    <div class="jcdwys_con_r" style="margin-left:88px; margin-top:60px;">
+    {% elseif key == 4 %}
+    <div class="jcdwys_con_l" style="margin-left:28px;_margin-left:19px">
+    {% elseif key == 5 %}
+    <div class="jcdwys_con_r" style="margin-left:88px; margin-top:60px;">
+    {% elseif key == 6 %}
+    <div class="jcdwys_con_l" style="margin-left:28px;_margin-left:19px">
+    {% elseif key == 7 %}
+    <div class="jcdwys_con_r" style="margin-left:88px; margin-top:60px;">
+      {% elseif key == 8 %}
+    <div class="jcdwys_con_r" style="margin-left:28px;_margin-left:19px">
+      {% elseif key == 9 %}
+    <div class="jcdwys_con_r" style="margin-left:88px; margin-top:60px;">
+      {% elseif key == 10 %}
+    <div class="jcdwys_con_r" style="margin-left:28px;_margin-left:19px">
+      {% elseif key == 11 %}
+    <div class="jcdwys_con_r" style="margin-left:88px; margin-top:60px;">
+      {% elseif key == 12 %}
+    <div class="jcdwys_con_r" style="margin-left:28px;_margin-left:19px">
+    {% endif %}
          <div class=""><p>许 先生</p></div>
          <div class="jcdwys_con_l_font" ><span>我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的 瞬间我的蝶舞一瞬是幡然醒悟的瞬间</span></div>
       
@@ -43,217 +70,25 @@
       <a class="erjiye_font_btn01_r"></a>
  </div> 
  <div class="erjiye_font_btn02" href="#"><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/hjmdbtn.gif') }}" width="92" height="28" /></a></div> 
-
-  <!-- 2 -->  
-<div class="jcdwys_con_r" style="margin-left:88px; margin-top:60px;">
-         <div class=""><p>许 先生</p></div>
-         <div class="jcdwys_con_l_font" ><span>我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬</span></div>
-      
-      <div class="jcdwys_con_r_end">分享
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
-        <a href="#" style="margin-left:30px; margin-top:15px"><img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" /></a>
-        <a ><img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" /><span>868</span></a>
-      </div>  
-      </div>
-
-
-
-<!-- 3 -->
-<div class="jcdwys_con_l" style="margin-left:28px;_margin-left:19px">
-         <div class=""><p>许 先生</p></div>
-         <div class="jcdwys_con_l_font" ><span>我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的 瞬间我的蝶舞一瞬是幡然醒悟的瞬间</span></div>
-      
-      <div class="jcdwys_con_l_end">分享
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
-        <a href="#" style="margin-left:20px;"><img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" /></a>
-        <a ><img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" /><span>868</span></a>
-      </div>
-      </div>
-      
-
-
-  <!-- 4 -->  
-<div class="jcdwys_con_r" style="margin-left:88px; margin-top:60px;">
-         <div class=""><p>许 先生</p></div>
-         <div class="jcdwys_con_l_font" ><span>我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬</span></div>
-      
-      <div class="jcdwys_con_r_end">分享
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
-        <a href="#" style="margin-left:30px; margin-top:15px"><img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" /></a>
-        <a ><img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" /><span>868</span></a>
-      </div>  
-      </div>
-
- 
- 
- <!-- 5 -->
- <div class="jcdwys_con_l" style="margin-left:28px;_margin-left:19px">
-         <div class=""><p>许 先生</p></div>
-         <div class="jcdwys_con_l_font" ><span>我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的 瞬间我的蝶舞一瞬是幡然醒悟的瞬间</span></div>
-      
-      <div class="jcdwys_con_l_end">分享
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
-        <a href="#" style="margin-left:20px;"><img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" /></a>
-        <a ><img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" /><span>868</span></a>
-      </div>
-      </div>
-      
-
-
-  <!-- 6 -->  
-<div class="jcdwys_con_r" style="margin-left:88px; margin-top:60px;">
-         <div class=""><p>许 先生</p></div>
-         <div class="jcdwys_con_l_font" ><span>我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬</span></div>
-      
-      <div class="jcdwys_con_r_end">分享
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
-        <a href="#" style="margin-left:30px; margin-top:15px"><img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" /></a>
-        <a ><img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" /><span>868</span></a>
-      </div>  
-      </div>
-
-      
-           
-
-<!-- 7 -->
-  <div class="jcdwys_con_l" style="margin-left:28px;_margin-left:19px">
-         <div class=""><p>许 先生</p></div>
-         <div class="jcdwys_con_l_font" ><span>我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的 瞬间我的蝶舞一瞬是幡然醒悟的瞬间</span></div>
-      
-      <div class="jcdwys_con_l_end">分享
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
-        <a href="#" style="margin-left:20px;"><img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" /></a>
-        <a ><img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" /><span>868</span></a>
-      </div>
-      </div>
-      
-
-
-  <!-- 8 -->  
-<div class="jcdwys_con_r" style="margin-left:88px; margin-top:60px;">
-         <div class=""><p>许 先生</p></div>
-         <div class="jcdwys_con_l_font" ><span>我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬</span></div>
-      
-      <div class="jcdwys_con_r_end">分享
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
-        <a href="#" style="margin-left:30px; margin-top:15px"><img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" /></a>
-        <a ><img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" /><span>868</span></a>
-      </div>  
-      </div>
-
-      
-      <!-- 9 -->
-<div class="jcdwys_con_l" style="margin-left:28px;_margin-left:19px">
-         <div class=""><p>许 先生</p></div>
-         <div class="jcdwys_con_l_font" ><span>我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的 瞬间我的蝶舞一瞬是幡然醒悟的瞬间</span></div>
-      
-      <div class="jcdwys_con_l_end">分享
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
-        <a href="#" style="margin-left:20px;"><img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" /></a>
-        <a ><img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" /><span>868</span></a>
-      </div>
-      </div>
-      
-
- <!-- 8 -->  
-<div class="jcdwys_con_r" style="margin-left:88px; margin-top:60px;">
-         <div class=""><p>许 先生</p></div>
-         <div class="jcdwys_con_l_font" ><span>我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬</span></div>
-      
-      <div class="jcdwys_con_r_end">分享
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
-        <a href="#" style="margin-left:30px; margin-top:15px"><img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" /></a>
-        <a ><img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" /><span>868</span></a>
-      </div>  
-      </div>
-
-      
-      <!-- 9 -->
-<div class="jcdwys_con_l" style="margin-left:28px;_margin-left:19px">
-         <div class=""><p>许 先生</p></div>
-         <div class="jcdwys_con_l_font" ><span>我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的 瞬间我的蝶舞一瞬是幡然醒悟的瞬间</span></div>
-      
-      <div class="jcdwys_con_l_end">分享
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
-        <a href="#" style="margin-left:20px;"><img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" /></a>
-        <a ><img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" /><span>868</span></a>
-      </div>
-      </div>
-      
-       <!-- 8 -->  
-<div class="jcdwys_con_r" style="margin-left:88px; margin-top:60px;">
-         <div class=""><p>许 先生</p></div>
-         <div class="jcdwys_con_l_font" ><span>我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬</span></div>
-      
-      <div class="jcdwys_con_r_end">分享
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
-        <a href="#" style="margin-left:30px; margin-top:15px"><img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" /></a>
-        <a ><img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" /><span>868</span></a>
-      </div>  
-      </div>
-
-      
-      <!-- 9 -->
-<div class="jcdwys_con_l" style="margin-left:28px;_margin-left:19px">
-         <div class=""><p>许 先生</p></div>
-         <div class="jcdwys_con_l_font" ><span>我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的瞬间我的蝶舞一瞬是幡然醒悟的 瞬间我的蝶舞一瞬是幡然醒悟的瞬间</span></div>
-      
-      <div class="jcdwys_con_l_end">分享
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
-        <a href="#" style="margin-left:20px;"><img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" /></a>
-        <a href="#"><img src="{{ asset('bundles/iqiyiavon/images/btn_02.gif') }}" width="74" height="25" /></a>
-        <a ><img src="{{ asset('bundles/iqiyiavon/images/ico04.gif') }}" width="19" height="17" /><span>868</span></a>
-      </div>
-      </div>
-      
-
-
-
-    
-    
+{% endfor %}
   
 <!--翻页 -->
 <div class="fy" >
 <div class="yellow">
-<span class="disabled">&lt; </span>
-<span class="current">1</span>
-<a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a>...<a href="#">199</a><a href="#">200</a><a href="#">
-&gt; </a></div>
+  {% if page.prevpage %}
+  <a href="{{ path('iqiyi_avon_subject_list', {'page': page.prevpage}) }}{{ page.clause }}">&lt;</a>
+  {% endif %}
+  {% for p in page.pagelist %}
+  {% if page.currpage == p %}
+  <span class="current">{{ p }}</span>
+  {% else %}
+  <a href="{{ path('iqiyi_avon_subject_list', {'page': p}) }}{{ page.clause }}">{{ p }}</a>
+  {% endif %}
+  {% endfor %}
+  {% if page.nextpage %}
+  <a href="{{ path('iqiyi_avon_subject_list', {'page': page.nextpage}) }}{{ page.clause }}">&gt;</a>
+  {% endif %}
+</div>
 </div>
 <!--翻页 --> 
 </div> 
