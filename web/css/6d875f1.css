@@ -197,8 +197,13 @@ BODY {BACKGROUND-COLOR:#ffffff; MARGIN: 0px auto;  border:0;FONT: 14px/1.8 Arial
 .tc_cjdwnchd03_area{ margin-top:110px;_margin-top:110px; float:left; margin-left:40px ;_margin-left:20px;}
 .erjiye_font_tc_area{ float:left; width:384px; height:104px; margin-top:62px;_margin-top:80px; margin-left:73px;_margin-left:73px;}
 .erjiye_font_tc_chance{float:left; width:304px; height:54px; margin-top:22px; _margin-top:22px;margin-left:153px;_margin-left:75px;}
+.tc_tianmaoma{width:527px; height:388px; BACKGROUND:url(../../bundles/iqiyiavon/images/tc_tianmaoma.gif) no-repeat center top; float:left; }
 
+/* 05-06 增加*/
+.tc_tianmoma{width:527px; height:388px; BACKGROUND:url(../../bundles/iqiyiavon/images/tc_tianmoma.gif) no-repeat center top; float:left;}
+.tc_tianmaoma_area{width:427px; height:38px; float:left; margin-top:170px;_margin-top:170px; margin-left:40px;_margin-left:20px}
 
+/* 05-06 增加 end*/
 
 /* 二级页 文字 */
 #background01{height:auto !important; height:auto; border:0;	 background:url(../../bundles/iqiyiavon/images/erjiye_bg.jpg) center top;overflow:inherit; overflow:auto}

@@ -174,7 +174,6 @@ class HomeController extends Controller
             ->add('redeemCode', 'text', array('label'=>'我的天猫码：'))
             ->add('voteType', 'hidden', array('data'=>2, 'error_bubbling'=>false))
             ->add('fromType', 'hidden', array('data'=>0, 'error_bubbling'=>false))
-            ->add('save', 'submit', array( 'label'=>'投票'))
             ->getForm();
 
         if($request->isXmlHttpRequest())

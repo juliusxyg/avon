@@ -108,27 +108,31 @@
 <!-- 本周最美一瞬 end --> 
 
 <!--精彩蝶舞一瞬 --> 
-<div class="pic"><img src="{{ asset('bundles/iqiyiavon/images/yf_10.jpg') }}" width="1002" height="163" /></div> 
+<div class="pic"><img src="{{ asset('bundles/iqiyiavon/images/yf_10.jpg') }}" width="1002" height="163" border="0" usemap="#Map3" />
+  <map name="Map3" id="Map3">
+    <area shape="rect" coords="765,90,865,118" href="#" />
+  </map>
+</div> 
 <div class="jcdwys">
     <!-- 1 -->
     {% if subjects %}
     {% for key,subject in subjects %}
     {% if key == 0 %}
-    <div class="jcdwys_con_l" style="margin-left:54px">
+    <div class="jcdwys_con_l" style="margin-left:28px;_margin-left:19px">
     {% elseif key == 1 %}
-    <div class="jcdwys_con_r" style="margin-left:54px">
+    <div class="jcdwys_con_r" style="margin-left:54px; margin-top:60px;">
     {% elseif key == 2 %}
-    <div class="jcdwys_con_l" style="margin-left:14px">
+    <div class="jcdwys_con_l" style="margin-left:14px;_margin-left:14px;">
     {% elseif key == 3 %}
     <div class="jcdwys_con_r" style="margin-left:124px; margin-top:40px">
     {% elseif key == 4 %}
-    <div class="jcdwys_con_l" style="margin-left:44px">
+    <div class="jcdwys_con_l" style="margin-left:44px;_margin-left:22px">
     {% elseif key == 5 %}
     <div class="jcdwys_con_r" style="margin-left:110px; margin-top:60px">
     {% elseif key == 6 %}
-    <div class="jcdwys_con_l" style="margin-left:14px">
+    <div class="jcdwys_con_l" style="margin-left:14px;_margin-left:7px">
     {% elseif key == 7 %}
-    <div class="jcdwys_con_r" style="margin-left:95px; margin-top:60px">
+    <div class="jcdwys_con_r" style="margin-left:95px;_margin-left:95px; margin-top:60px">
     {% endif %}
          <div class=""><p>{{ subject.getMemName() }}</p></div>
          <div class="jcdwys_con_l_font" ><span>{{ subject.getContent() }}</span></div>
@@ -137,7 +141,7 @@
         <a href="{{ url('iqiyi_avon_subjects') }}?shared={{ subject.getSubjectId() }}" class="weibo-share"><img src="{{ asset('bundles/iqiyiavon/images/ico_01.gif') }}" width="26" height="21" /></a>
         <a href="{{ url('iqiyi_avon_subjects') }}?shared={{ subject.getSubjectId() }}" class="renren-share"><img src="{{ asset('bundles/iqiyiavon/images/ico_02.gif') }}" width="26" height="21" /></a>
         <a href="{{ url('iqiyi_avon_subjects') }}?shared={{ subject.getSubjectId() }}" class="tx-share"><img src="{{ asset('bundles/iqiyiavon/images/ico_03.gif') }}" width="26" height="21" /></a>
-        <a href="#" style="margin-left:30px">
+        <a href="#like" style="margin-left:30px" class="words-like-tmall">
           <img src="{{ asset('bundles/iqiyiavon/images/btn_01.gif') }}" width="96" height="25" />
         </a>
         <a href="#like" class="words-like">
@@ -153,11 +157,17 @@
               {{ form_widget(subjectForms[key]['form_like'].subjectId) }}
               {{ form_widget(subjectForms[key]['form_like']._token, {'attr': {'class': 'vote-form-like-token'}}) }}
           {{ form_end(subjectForms[key]['form_like']) }}
+
+          {{ form_start(subjectForms[key]['form_redeem'], {'attr': {'class': "vote-form-redeem"}}) }}
+              {{ form_widget(subjectForms[key]['form_redeem'].subjectId) }}
+              {{ form_widget(subjectForms[key]['form_redeem'].redeemCode, {'attr': {'style': 'text-align:left;border:1px solid #CCC;height:38px; width:425px'}}) }}
+              {{ form_widget(subjectForms[key]['form_redeem']._token, {'attr': {'class': 'vote-form-like-token'}}) }}
+          {{ form_end(subjectForms[key]['form_redeem']) }}
         </div>
       </div>
       {% if key==0 %}
-        <a class="btn_hjmd" href="#hjmd" style="width:145px; height:39px; float:left; margin-left:52px; margin-top:61px"></a>     
-        <a class="btn_more" href="#" style="width:93px; height:27px; float:left; margin-left:15px; margin-top:64px"></a>    
+        <a class="btn_hjmd" href="#hjmd" style="width:145px; height:39px; float:left; margin-left:113px; margin-top:14px; display:block"></a>     
+        <a class="btn_more" href="#" style="width:93px; height:27px; float:left; margin-left:35px; margin-top:23px; display:block"></a>    
       {% endif %}
     {% endfor %}
     {% endif %}
@@ -173,23 +183,14 @@
 
 <!--精彩蝶舞产品 --> 
 <div class="dwnccp_l">
-<div class="font" >
-<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;护肤彩妆蕴含蝴蝶兰精华、玫瑰精油、桃花精油、红石榴精华、维他命及胶原蛋白。多重天然护肤成分使双唇不仅莹润光泽，并且有效延缓女性唇部老化。
-水莹花香及丝滑质地让你感受到双唇之间的花瓣触感。<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6款精致华丽的色彩供选择 </span>
-<a class="btn_01" href="#" style="width:146px; height:33px; float:left; margin-top:39px;display:block;"></a>
+<div class="font" ><a class="btn_01" href="#" style="width:146px; height:33px; float:left; margin-top:138px;_margin-top:69px;"></a>
 </div>
-<div class="font" style="margin-left:222px; margin-top:218px" >
-<span>内含色彩盘内含双色腮红及四色眼影。<br />
-3款色彩供选择：沙漠炫色、海滩魅蓝、玫瑰花园 </span>
-<a class="btn_01" href="#" style="width:146px; height:33px; float:left; margin-left:76px; margin-top:64px; display:block;"></a>
+<div class="font" style="margin-left:222px; margin-top:218px" ><a class="btn_01" href="#" style="width:146px; height:33px; float:left; margin-left:86px;_margin-left:43px; margin-top:146px;_margin-top:73px;"></a>
 </div>
-
-
 </div> 
-<div class="pic"><img src="{{ asset('bundles/iqiyiavon/images/yf_13.jpg') }}" width="254" height="172" /></div> 
+<div class="picerweima"></div>
+ <span class="pic" style="margin-top:12px; height:93px;_height:95px"><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/yf_15.jpg') }}" width="245" height="90" /></a></span> 
 <div class="pic" style="margin-top:10px"><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/yf_14.jpg') }}" width="245" height="93" /></a></div> 
-<div class="pic" style="margin-top:10px"><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/yf_15.jpg') }}" width="245" height="90" /></a></div> 
 <!--精彩蝶舞产品 end--> 
 
 
@@ -283,6 +284,18 @@
   {{ form_widget(myForm._token, {'attr': {'class': 'words-form-token'}}) }}
   {{ form_end(myForm) }}
 <a class="btn_01 words-form-save" href="#myForm" style="width:200px; height:45px; float:left; margin-left:156px; margin-top:35px;display:block;"></a>  
+</div>
+</div>
+<!-- 参加蝶舞霓彩活动 end-->
+
+<!-- 参加蝶舞霓彩活动03-->
+<div style="display:none;">
+<div class="tc_tianmaoma" id="tmallCode">
+<div class="tc_tianmaoma_area">
+</div>
+
+<div class="btn02" style="margin-left:150px; _margin-left:150px;margin-top:30px;_margin-top:30px; float:left"><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/btn02.jpg') }}" width="201" height="42" /></a></div>
+
 </div>
 </div>
 <!-- 参加蝶舞霓彩活动 end-->

@@ -145,6 +145,14 @@ $(function(){
 	     });
 		return false;
 	});
+	/*tmall code*/
+	$("a.words-like-tmall").each(function(){
+		$(this).click(function(){
+			var codeForm = $(this).parent().next().find("form.vote-form-redeem").eq(0);
+			$("div.tc_tianmaoma_area").html(codeForm.clone());
+			$.colorbox({inline: true, href: "#tmallCode"});
+		});
+	});
 });
 
 function weibo(title, url){
