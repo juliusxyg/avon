@@ -22,7 +22,7 @@ class BackendController extends Controller
   public function redeemAction(Request $request)
   {
     $em = $this->getDoctrine()->getManager();
-    $query = $em->createQuery('SELECT COUNT(u.redeemCodeId) AS total FROM IqiyiAvonBundle:AvonRedeemCode u WHERE u.status=0');
+    $query = $em->createQuery('SELECT COUNT(u.redeemCodeId) AS total FROM IqiyiAvonBundle:AvonRedeemCode u WHERE u.status>=0');
     $totalUnused = $query->getSingleResult();
     return array("total_unused"=>$totalUnused['total']);
   }
@@ -93,7 +93,7 @@ class BackendController extends Controller
     $page = $request->get('page', 1);
     $mobile = $request->get('mobile', '');
     $em = $this->getDoctrine()->getManager();
-    $query = $em->createQuery('SELECT COUNT(u.subjectId) AS total FROM IqiyiAvonBundle:AvonSubject u WHERE '.($mobile?'u.memMobile='.$mobile.'':'u.status=0'));
+    $query = $em->createQuery('SELECT COUNT(u.subjectId) AS total FROM IqiyiAvonBundle:AvonSubject u WHERE '.($mobile?'u.memMobile='.$mobile.'':'u.status>=0'));
     $total = $query->getSingleResult();
     $totalpage = ceil($total['total']/$pagesize);
     if($totalpage<$page){
@@ -105,8 +105,11 @@ class BackendController extends Controller
     }else{
       $criteria = array("status"=>0);
     }
-    $objects = $em->getRepository("IqiyiAvonBundle:AvonSubject")
-                  ->findBy($criteria, array('addTime'=>'desc'), $pagesize, $offset);
+    $objects = $em->createQuery('SELECT u FROM IqiyiAvonBundle:AvonSubject u WHERE '.($mobile?'u.memMobile='.$mobile.'':'u.status>=0 ORDER BY u.addTime DESC'))
+                  ->setMaxResults($pagesize)->setFirstResult($offset)
+                  ->getResult();
+
+    
     return array("items"=>$objects, "page"=>$this->paginating($page,$totalpage,10, ($mobile?array("mobile"=>$mobile):array())));
   }
 
@@ -184,7 +187,7 @@ class BackendController extends Controller
     $page = $request->get('page', 1);
     $mobile = $request->get('mobile', '');
     $em = $this->getDoctrine()->getManager();
-    $query = $em->createQuery('SELECT COUNT(u.photoId) AS total FROM IqiyiAvonBundle:AvonPhoto u WHERE '.($mobile?'u.memMobile='.$mobile.'':'u.status=0'));
+    $query = $em->createQuery('SELECT COUNT(u.photoId) AS total FROM IqiyiAvonBundle:AvonPhoto u WHERE '.($mobile?'u.memMobile='.$mobile.'':'u.status>=0'));
     $total = $query->getSingleResult();
     $totalpage = ceil($total['total']/$pagesize);
     if($totalpage<$page){
@@ -196,8 +199,10 @@ class BackendController extends Controller
     }else{
       $criteria = array("status"=>0);
     }
-    $objects = $em->getRepository("IqiyiAvonBundle:AvonPhoto")
-                  ->findBy($criteria, array('addTime'=>'desc'), $pagesize, $offset);
+    $objects = $em->createQuery('SELECT u FROM IqiyiAvonBundle:AvonPhoto u WHERE '.($mobile?'u.memMobile='.$mobile.'':'u.status>=0 ORDER BY u.addTime DESC'))
+                  ->setMaxResults($pagesize)->setFirstResult($offset)
+                  ->getResult();
+
     return array("items"=>$objects, "page"=>$this->paginating($page,$totalpage,10, ($mobile?array("mobile"=>$mobile):array())));
   }
 

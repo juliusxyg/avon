@@ -24,7 +24,7 @@
        <div class="sczp_mid file-path">地址</div>
            <div class="sczp_r"><a href="#choose" class="choose-file"><img src="{{ asset('bundles/iqiyiavon/images/btn01.jpg') }}" width="98" height="36" /></a></div>
        </div>
-       <div class="sczp_font"><span>请选择本地图片上传（图片控制在1M以内）</span></div>
+       <div class="sczp_font"><span>请选择本地图片上传（图片控制在3M以内）</span></div>
        <!-- 上传照片 -->
      
      
@@ -42,15 +42,26 @@
     
    </div>
    <div class="erjiye_photo_r">
-       <div class="erjiye_photo_r_lb">轮播</div>
+       <div class="erjiye_photo_r_lb">
+        <ul>
+        <li><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/yf_09.jpg') }}" width="390" height="440" /></a></li>
+        <li><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/yf_09.jpg') }}" width="390" height="440" /></a></li>
+        <li><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/yf_09.jpg') }}" width="390" height="440" /></a></li>
+        <li><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/yf_09.jpg') }}" width="390" height="440" /></a></li>
+        <li><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/yf_09.jpg') }}" width="390" height="440" /></a></li>
+        <li><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/yf_09.jpg') }}" width="390" height="440" /></a></li>
+        <li><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/yf_09.jpg') }}" width="390" height="440" /></a></li>
+        </ul>
+       </div>
    </div>
    <div class="k" ><img src="{{ asset('bundles/iqiyiavon/images/erjiye_photo_pic01.jpg') }}" width="1002" height="118" /></div>
    
     <!-- 传照片区域 01 --> 
-   <div class="photo">
+   
   {% if items %}
   {% for key,photo in items %}
-   <div class="photo_pic"><img src="{{ photo.getWebPath() }}" width="226" height="301" /></div>
+  <div class="photo">
+   <div class="photo_pic"><img src="{{ asset(photo.getWebPath()) }}" width="226" height="301" /></div>
    
 <div class="photo_pic_l"><span>{{ photo.getMemName() }}</span></div>
    <div class="photo_pic_r">
@@ -74,9 +85,10 @@
    </div>
    
    <div class="photo_con_font"><p>{{ photo.getContent() }}</p></div>
+ </div>
    {% endfor %}
    {% endif %}
-   </div>
+   
   <!-- 传照片区域01 end -->
  <!--翻页 -->
  
@@ -125,9 +137,9 @@
   </div>
 </div>
 <!-- 标准尾 end -->
-
-<div class="tc_cjdwnchd03">
-  <div class="tc_font_close_myform"><a class="btn_close_lightbox" href="#closeMyForm"><img src="{{ asset('bundles/iqiyiavon/images/close.gif') }}" width="25" height="25" /></a></div>
+<div style="display:none;">
+<div class="tc_cjdwnchd03" id="myForm">
+  <div class="tc_font_close"><a class="btn_close_lightbox" href="#closeForm"><img src="{{ asset('bundles/iqiyiavon/images/close.gif') }}" width="25" height="25" /></a></div>
   {{ form_start(uploadForm, {'attr': {'id': 'photo-form', 'enctype': 'multipart/form-data'}}) }}
   <table width="400" border="0" cellpadding="0" cellspacing="0" class="tc_cjdwnchd03_area">
     <tr>
@@ -162,11 +174,45 @@
   {{ form_end(uploadForm) }}
 <a class="btn_01 photo-form-save" href="#" style="width:200px; height:45px; float:left; margin-left:156px; margin-top:35px;display:block;"></a>  
 </div>
+</div>
 
+{% if sharedObject %}
+<div style="display:none;">
+<div class="photo" id="shared">
+   <div class="photo_pic"><img src="{{ asset(sharedObject.getWebPath()) }}" width="226" height="301" /></div>
+   
+<div class="photo_pic_l"><span>{{ sharedObject.getMemName() }}</span></div>
+   <div class="photo_pic_r">
+  
+   <div class="photo_ico01"> <span>分享</span></div>
+   <div class="photo_ico"> 
+    <a href="{{ url('iqiyi_avon_photos') }}?shared={{ sharedObject.getPhotoId() }}" class="weibo-share">
+      <img src="{{ asset('bundles/iqiyiavon/images/erjiye_photo_ico01.gif') }}" width="21" height="21" />
+    </a>
+   </div>
+   <div class="photo_ico"> 
+    <a href="{{ url('iqiyi_avon_photos') }}?shared={{ sharedObject.getPhotoId() }}" class="renren-share">
+      <img src="{{ asset('bundles/iqiyiavon/images/erjiye_photo_ico02.gif') }}" width="21" height="21" />
+    </a>
+  </div>
+   <div class="photo_ico"> 
+    <a href="{{ url('iqiyi_avon_photos') }}?shared={{ sharedObject.getPhotoId() }}" class="tx-share">
+      <img src="{{ asset('bundles/iqiyiavon/images/erjiye_photo_ico03.gif') }}" width="21" height="21" />
+    </a>
+  </div>
+   </div>
+   
+   <div class="photo_con_font"><p>{{ sharedObject.getContent() }}</p></div>
+ </div>
+</div>
+{% endif %}
+ 
 </div>
 </div>
 <script>
 $(function(){
+  /*slider*/
+  $('div.erjiye_photo_r_lb').unslider();
   /*select file*/
   $("input.upload-form-file").change(function(){
     $("div.file-path").text($(this).val());
@@ -200,8 +246,13 @@ $(function(){
     $.colorbox({inline:true, href:"#myForm"});
     $("textarea.upload-form").val($("textarea.words-input").val());
   });
+  /*close light box*/
+  $(".btn_close_lightbox").click(function(){
+    $.colorbox.close();
+  });
   /*ajax submit*/
   $("a.photo-form-save").click(function(){
+    event.preventDefault();
     $("#photo-form").submit();
   });
   $("#photo-form").submit(function(event){
@@ -211,8 +262,10 @@ $(function(){
       success: function(data)
                {
                   if(data.success == 1){
-                    $("#upload-form")[0].reset();
-                    $("#upload-form .upload-form-token").val(data.token);
+                    $("#photo-form")[0].reset();
+                    $("#photo-form .upload-form-token").val(data.token);
+                    $("div.file-path").text('地址');
+                    $.colorbox.close();
                   }else{
                     for(var i in data.errorList){
                       $("span.error-"+i).text(data.errorList[i]);
@@ -223,7 +276,47 @@ $(function(){
 
     return false;
   }); 
+  /*share*/
+  $('a.weibo-share').click(function(){
+    event.preventDefault();
+    var title = "如果2014年，还有什么重要的时刻你还在期待，你必须不能错过这个视频，它能让你成就最美一瞬！";  
+    var url = encodeURIComponent($(this).attr("href")); 
+    weibo(title, url);
+  });
+  $('a.renren-share').click(function(){
+    event.preventDefault();
+    var title = "如果2014年，还有什么重要的时刻你还在期待，你必须不能错过这个视频，它能让你成就最美一瞬！";  
+    var url = encodeURIComponent($(this).attr("href")); 
+    renren(title, url);
+  });
+  $('a.tx-share').click(function(){
+    event.preventDefault();
+    var title = "如果2014年，还有什么重要的时刻你还在期待，你必须不能错过这个视频，它能让你成就最美一瞬！";  
+    var url = encodeURIComponent($(this).attr("href")); 
+    tx(title, url);
+  });
+  /*sharedObject*/
+  {% if sharedObject %}
+  $.colorbox({inline: true, href: "#shared"});
+  {% endif %}
 });
+
+
+function weibo(title, url){
+  shareSocial('http://v.t.sina.com.cn/share/share.php?title={title}&url={url}', title, url);
+}
+function renren(title, url){
+  shareSocial('http://widget.renren.com/dialog/share?resourceUrl={url}&title={title}', title, url);
+}
+function tx(title, url){
+  shareSocial('http://share.v.t.qq.com/index.php?c=share&a=index&url={url}&title={title}', title, url);
+}
+function shareSocial(server_url,title, url)
+{  
+    server_url = server_url.replace("{title}",title);  
+    server_url = server_url.replace("{url}",url);  
+    window.open(server_url ,'_blank','scrollbars=no,width=600,height=450,left=75,top=20,status=no,resizable=yes');
+}  
 </script>
 </body>
 </html>

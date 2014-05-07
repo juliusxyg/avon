@@ -22,6 +22,11 @@ services:
         arguments: [@doctrine.orm.entity_manager]
         tags:
             - { name: validator.constraint_validator, alias: iqiyi_avon.validator.redeem }
+    iqiyi_avon.validator.redeem_limit:
+        class: Iqiyi\AvonBundle\Validator\Constraints\RedeemLimitValidator
+        arguments: [@doctrine.orm.entity_manager]
+        tags:
+            - { name: validator.constraint_validator, alias: iqiyi_avon.validator.redeem_limit }
     iqiyi_avon.listener.update_vote_number:
         class: Iqiyi\AvonBundle\EventListener\UpdateVoteNumber
         tags:

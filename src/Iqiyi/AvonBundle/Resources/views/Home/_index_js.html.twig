@@ -1,5 +1,7 @@
 <script>
 $(function(){
+	/*qrcode-avon*/
+	$("#qrcode-avon").qrcode({render: 'table', width: 115,height: 115,text: location.href});
 	/*slide story*/
 	var sliderStory = $('div.slider-story').unslider();
 	$('a.slider-story-btn-prev').click(function() {
@@ -97,6 +99,23 @@ $(function(){
                	if(data.success == 1){
                		$("#words-form")[0].reset();
                		$("#words-form .words-form-token").val(data.token);
+               		var sharedUrl = "{{ url('iqiyi_avon_subjects') }}?shared="+data.id;
+               		$("#share-weibo").click(function(){
+               			var title = "如果2014年，还有什么重要的时刻你还在期待，你必须不能错过这个视频，它能让你成就最美一瞬！";  
+				    	var url = encodeURIComponent(sharedUrl); 
+				    	weibo(title, url);
+               		});
+               		$("#share-renren").click(function(){
+               			var title = "如果2014年，还有什么重要的时刻你还在期待，你必须不能错过这个视频，它能让你成就最美一瞬！";  
+				    	var url = encodeURIComponent(sharedUrl); 
+				    	renren(title, url);
+               		});
+               		$("#share-tx").click(function(){
+               			var title = "如果2014年，还有什么重要的时刻你还在期待，你必须不能错过这个视频，它能让你成就最美一瞬！";  
+				    	var url = encodeURIComponent(sharedUrl); 
+				    	tx(title, url);
+               		});
+               		$("#qrcode-share").qrcode({render: 'table', width: 115,height: 115,text: sharedUrl});
                		$.colorbox({inline:true, href:"#shareForm"});
                	}else{
                		for(var i in data.errorList){
@@ -147,9 +166,9 @@ $(function(){
 	});
 	/*tmall code*/
 	$("form.vote-form-redeem").submit(function(event){
-    event.preventDefault();
-    return false;
-  }); 
+	    event.preventDefault();
+	    return false;
+	  }); 
 	$("a.words-like-tmall").each(function(){
 		$(this).click(function(){
 			var codeForm = $(this).parent().next().find("form.vote-form-redeem").eq(0).clone();
@@ -168,6 +187,7 @@ $(function(){
 		                if(data.success == 1){
 		                  $("span.vote-num-"+data.id).text(data.vote);
 			                $("input.vote-form-like-token").val(data.token);
+			                $.colorbox.close();
 		                }else{
 		                  for(var i in data.errorList){
 		                    alert(data.errorList[i]);

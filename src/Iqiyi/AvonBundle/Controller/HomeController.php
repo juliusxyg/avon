@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Iqiyi\AvonBundle\Entity\AvonPhoto;
 use Iqiyi\AvonBundle\Entity\AvonSubject;
 use Iqiyi\AvonBundle\Entity\AvonSubjectVote;
+use Iqiyi\AvonBundle\Entity\AvonPhotoVote;
 use Iqiyi\AvonBundle\Controller\MobileDetect;
 
 class HomeController extends Controller
@@ -109,7 +110,7 @@ class HomeController extends Controller
                 $avonSubject->setAddTime(time());
 
                 $avonSubject->setFromType(0);
-                $avonSubject->setStatus(0);
+                $avonSubject->setStatus(1);
                 $avonSubject->setTotalVote(0);
                 $avonSubject->setMemZip(0);
 
@@ -274,6 +275,7 @@ class HomeController extends Controller
             ->setAction($this->generateUrl('iqiyi_avon_addphoto'))
             ->add('memName', 'text', array('label'=>'姓名：', 'max_length'=>45))
             ->add('memGender', 'choice', array('choices'   => array('0' => '男', '1' => '女'),
+                                                'expanded' => true,
                                                 'required'  => true, 
                                                 'label'=>'性别：'))
             ->add('memMobile', 'text', array( 'label'=>'手机：', 'max_length'=>15))
@@ -289,7 +291,7 @@ class HomeController extends Controller
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $avonPhoto->setAddTime(time());
-                $avonPhoto->setStatus(0);
+                $avonPhoto->setStatus(1);
                 $avonPhoto->setMemZip(0);
                 $avonPhoto->setTotalVote(0);
                 $em->persist($avonPhoto);
@@ -312,7 +314,7 @@ class HomeController extends Controller
         return $form->createView();
     }
 
-    public function votephotoAction()
+    public function votephotoAction(Request $request)
     {
         $id = $request->get('id');
         $intention = "vote_form_".date("YmdH");

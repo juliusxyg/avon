@@ -48,7 +48,7 @@ class ListController extends HomeController
     $hash['sharedObject'] = "";
     if($sharedId)
     {
-      $hash['sharedObject'] = $em->getRepository("IqiyiAvonBundle:AvonSubject")->find($sharedId);
+      $hash['sharedObject'] = $em->getRepository("IqiyiAvonBundle:AvonSubject")->findBy(array('subjectId'=>$sharedId, 'status'=>1));
       $hash['sharedForm'] = $this->votemsgAction(new Request(array("id"=>$sharedId)));
     }
     $hash['page'] = $this->paginating($page,$totalpage,10, ($keyword?array("keyword"=>$keyword):array()));
@@ -65,10 +65,6 @@ class ListController extends HomeController
   public function photoListAction(Request $request)
   {
     //有一个地方你改一下，就是用户发蝶舞一瞬之后，你默认让它审核通过吧，然后后台可以再拒绝审核
-    /*
-    照片不用点赞了
-就上传照片，填个信息
-    */
     $hash = array();
     $pagesize = 20;
     $page = $request->get('page', 1);
@@ -97,7 +93,7 @@ class ListController extends HomeController
     $hash['sharedObject'] = "";
     if($sharedId)
     {
-      $hash['sharedObject'] = $em->getRepository("IqiyiAvonBundle:AvonPhoto")->find($sharedId);
+      $hash['sharedObject'] = $em->getRepository("IqiyiAvonBundle:AvonPhoto")->findBy(array('photoId'=>$sharedId, 'status'=>1));
       $hash['sharedForm'] = $this->votephotoAction(new Request(array("id"=>$sharedId)));
     }
 

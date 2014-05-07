@@ -23,12 +23,14 @@
     <div class="video_l">
       <div class="video_l_area"></div>
     </div>
-    <div class="video_r"> <img src="{{ asset('bundles/iqiyiavon/images/yf_03.jpg') }}" width="198" height="512" usemap="#Map" border="0" />
+    <div class="video_r"> 
+      <img src="{{ asset('bundles/iqiyiavon/images/yf_03.jpg') }}" width="198" height="512" usemap="#Map" border="0" />
       <map name="Map" id="Map">
         <area shape="circle" coords="44,105,20" href="#weibo" class="share-weibo"/>
         <area shape="circle" coords="90,106,20" href="#renren" class="share-renren"/>
         <area shape="circle" coords="140,106,20" href="#tx" class="share-tx"/>
       </map><a name="b" id="b"></a> 
+      <div id="qrcode-avon" style="position:absolute;top: 670px; left: 970px;z-index:999"></div>
     </div>
 <!-- 视频区 end -->   
 
@@ -66,7 +68,7 @@
 <span class="mr words-select">我的精彩一瞬是幡然醒悟的瞬间</span>
  <ul class="words-select-list" style="display:none;">
   {% for w in sampleWords %}
-    <li class="lazy_reason">{{ w }}</li>
+    <li class="lazy_reason" style="color:#000;width:286px;">{{ w }}</li>
   {% endfor %}
   </ul>
 <span class="arrow">
@@ -228,7 +230,7 @@
 <!-- 获奖名单 end-->
 
 <!-- 参加蝶舞霓彩活动-->
-<div class="tc_cjdwnchd">
+<div class="tc_cjdwnchd" style="display:none;">
 <div class="tc_font_close"><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/close.gif') }}" width="25" height="25" /></a></div>
 <a class="btn_01" href="#" style="width:264px; height:45px; float:left; margin-left:136px; margin-top:100px;display:block;"></a>
 <a class="btn_01" href="#" style="width:145px; height:37px; float:left; margin-left:204px; margin-top:42px;display:block;"></a>
@@ -240,11 +242,12 @@
 <div class="tc_cjdwnchd" id="shareForm">
   <img src="{{ asset('bundles/iqiyiavon/images/tc_cjdwnchd02.gif') }}" width="527" height="388" usemap="#Map2" border="0" />
   <map name="Map2" id="Map2">
-    <area shape="circle" coords="328,135,21" href="#" />
-    <area shape="circle" coords="264,133,21" href="#" />
+    <area shape="circle" coords="328,135,21" href="#" id="share-tx"/>
+    <area shape="circle" coords="264,133,21" href="#" id="share-renren"/>
     <area shape="circle" coords="501,30,14" href="#closeShareForm" class="btn_close_lightbox" />
-    <area shape="circle" coords="200,133,21" href="#" />
+    <area shape="circle" coords="200,133,21" href="#" id="share-weibo"/>
   </map>
+  <div id="qrcode-share" style="position:absolute;top: 220px;left: 206px;z-index:999;"></div>
 </div>
 </div>
 <!-- 参加蝶舞霓彩活动 end-->
@@ -252,7 +255,7 @@
 <!-- 参加蝶舞霓彩活动03-->
 <div style="display:none;">
 <div class="tc_cjdwnchd03" id="myForm">
-  <div class="tc_font_close_myform"><a class="btn_close_lightbox" href="#closeMyForm"><img src="{{ asset('bundles/iqiyiavon/images/close.gif') }}" width="25" height="25" /></a></div>
+  <div class="tc_font_close"><a class="btn_close_lightbox" href="#closeMyForm"><img src="{{ asset('bundles/iqiyiavon/images/close.gif') }}" width="25" height="25" /></a></div>
   {{ form_start(myForm, {'attr': {'id': 'words-form'}}) }}
   <table width="400" border="0" cellpadding="0" cellspacing="0" class="tc_cjdwnchd03_area">
     <tr>
@@ -291,7 +294,7 @@
 <!-- 参加蝶舞霓彩活动03-->
 <div style="display:none;">
 <div class="tc_tianmaoma" id="tmallCode">
-  <div class="tc_font_close_myform"><a class="btn_close_lightbox" href="#closeMyForm"><img src="{{ asset('bundles/iqiyiavon/images/close.gif') }}" width="25" height="25" /></a></div>
+  <div class="tc_font_close"><a class="btn_close_lightbox" href="#closeMyForm"><img src="{{ asset('bundles/iqiyiavon/images/close.gif') }}" width="25" height="25" /></a></div>
   <div class="tc_tianmaoma_area">
   </div>
 
