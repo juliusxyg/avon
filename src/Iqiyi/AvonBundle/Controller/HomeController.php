@@ -56,14 +56,18 @@ class HomeController extends Controller
         return $this->render("IqiyiAvonBundle:Home:prepare.html.twig");
     }
 
-    /**
-    *  @Template()
-    */
     public function indexAction()
     {
         $hash = array();
 
         $hash['myForm'] = $this->addmsgAction(new Request());
+
+        $detect = new MobileDetect;
+        if($detect->isMobile())
+        {
+            return $this->render("IqiyiAvonBundle:Home:index.m.html.twig", $hash);
+        }
+
         $hash['subjects'] = $this->getRecentSubjectList(8);
         $hash['subjectForms'] = array();
         if($hash['subjects'])
@@ -74,7 +78,7 @@ class HomeController extends Controller
             }
         }
         $hash['sampleWords'] = $this->sampleWords;
-        return $hash;
+        return $this->render("IqiyiAvonBundle:Home:index.html.twig", $hash);
     }
 
     public function getRecentSubjectList($size=8)

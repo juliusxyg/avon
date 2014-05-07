@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="Description" content=""/>
+<meta name="Keywords" content=""/>
+<meta name="author" content="lingyi_xu@hotmail.com">
+<script type="text/javascript" src="http://www.gamefy.cn/js/jquery.js"></script>
+<title>雅芳</title>
+<style type="text/css">
+html{font-size: 16px; height:100%}
+body,p,h1,h2,dl,dt,dd{margin: 0;padding: 0;font-size: 1rem;color: #FFF;}
+img{border:0;}
+a,button{-webkit-tap-highlight-color:rgba(255,0,0,0);}
+ol,ul{list-style:none;}
+body{font-family: Helvetica; height:100%;}
+section{display: block;}
+
+@font-face {font-family: 'invitation';src:url('{{ asset('bundles/iqiyiavon/images/m/avon.woff') }}') format('woff'),url('{{ asset('bundles/iqiyiavon/images/m/avon.ttf') }}') format('truetype');font-weight: normal;font-style: normal;}
+[data-icon]:before {font-family: 'invitation';content: attr(data-icon);speak: none;font-weight: normal;font-variant: normal;text-transform: none;line-height: 1;-webkit-font-smoothing: antialiased;}
+
+.wrap h1,.sec01 h2{display: none;}
+.wrap{position: relative; height:100%;width: 100%;overflow: hidden;}
+
+.sec{z-index: 1;position: absolute;left: 0;top: 0;width: 100%;height: 100%;-webkit-transition:all 0.3s linear;-webkit-transform:translateY(0px);transition:all 0.3s linear;transform:translateY(0px);-webkit-backface-visibility:hidden;}
+.sec section{overflow: hidden;position: relative;width: 100%;/*min-height: 416px;*/z-index: 3;-webkit-backface-visibility:hidden;}
+.drag{-webkit-transition:none;transition:none;}
+
+.bg {position: absolute;left: 0;top: 0;width: 100%;height: 100%;z-index:1;}
+.bg .bg_sec{width: 100%;float: left;position: relative;overflow: hidden;/*min-height: 416px;*/}
+.bg01{background: url({{ asset('bundles/iqiyiavon/images/m/bg01.png') }}) no-repeat;background-size: 100%;}
+
+.sec01 .top{background: url({{ asset('bundles/iqiyiavon/images/m/avon.png') }}) no-repeat;background-size: 90%;width: 30%;height: 30%;right: 0;top:2%;position: absolute;}
+.sec01 .slogen{background: url({{ asset('bundles/iqiyiavon/images/m/slogen.png') }}) no-repeat; background-size: 90%; width: 90%; height: 40%;left: 10%; top: 5%;position: absolute;}
+.sec01 .text{background: url({{ asset('bundles/iqiyiavon/images/m/text.png') }}) no-repeat;background-size: 90%;width: 50%;height: 50%;left: 22%;top:28%;position: absolute;}
+.sec01 .share{margin-left: 5%;top: 40%; position: absolute;color: #333; font-weight: bold; font-size: 12pt;}
+.sec01 .share_btn1{background: url({{ asset('bundles/iqiyiavon/images/m/share.png') }}) no-repeat;background-size: 100px;background-position: 0px 0px;width: 34px;height: 34px;margin-left: 28%;top: 39%;z-index: 5;position: absolute;}
+.sec01 .share_btn2{background: url({{ asset('bundles/iqiyiavon/images/m/share.png') }}) no-repeat;background-size: 100px;background-position: -33px 0px;width: 34px;height: 34px;margin-left: 40%;top: 39%;z-index: 6;position: absolute;}
+.sec01 .share_btn3{background: url({{ asset('bundles/iqiyiavon/images/m/share.png') }}) no-repeat;background-size: 100px;background-position: -72px 0px;width: 34px;height: 34px;margin-left: 54%;top: 39%;z-index: 7;position: absolute;}
+.sec01 .video_area{background-color: #ccc;width: 80%;height: 35%;margin-left:10%;z-index:100;margin-right:10%;top:49%;position: absolute;}
+
+.bg02{background: url({{ asset('bundles/iqiyiavon/images/m/bg02.png') }}) no-repeat;background-size: 100%;}
+.sec02 .tbtitle{background: url({{ asset('bundles/iqiyiavon/images/m/tbtitle.png') }}) no-repeat;background-size: 90%;background-position: 0px 0px;width: 90%;height: 80%;margin-left: 20%;margin-right:5%;top: 3%;z-index: 5;position: absolute;}
+.sec02 .question{background: url({{ asset('bundles/iqiyiavon/images/m/question.png') }}) no-repeat;background-size: 90%;background-position: 0px 0px;width: 90%;height: 80%;margin-left: 10%;margin-right:5%;top: 15%;z-index: 5;position: absolute;}
+.sec02 .text{margin-left: 10%;top: 22%; position: absolute;color: #999; font-size: 8pt;}
+.sec02 .content{margin-left: 10%;top: 26%; width: 80%; position: absolute;z-index: 10000;}
+.sec02 .content textarea{left: 0;top: 0;width: 100%;border:2px solid;border-radius:0px;border-color:#dd9ecb;}
+.sec02 .tip{margin-left: 10%;top: 38%; position: absolute;color: #999; font-size: 8pt;}
+.sec02 .name{margin-left: 10%;top: 42%; position: absolute;z-index: 10000;}
+.sec02 .name input{border:1px solid;border-radius:0px;border-color:#999;}
+.sec02 .sex{margin-left: 10%;top: 50%; position: absolute;z-index: 10000;}
+.sec02 .tel{margin-left: 10%;top: 58%; position: absolute;z-index: 10000;}
+.sec02 .tel input{border:1px solid;border-radius:0px;border-color:#999;}
+.sec02 .addr{margin-left: 10%;top: 66%; position: absolute;z-index: 10000;}
+.sec02 .addr input{border: 1px solid;border-radius: 0px;border-color: #999;}
+.sec02 .tbbtn{background: url({{ asset('bundles/iqiyiavon/images/m/tbbtn.png') }}) no-repeat;background-size: 90%;background-position: 0px 0px;width: 40%;height: 40%;margin-left: 30%;top: 74%;z-index: 5;position: absolute;}
+.sec02 .jp{background: url({{ asset('bundles/iqiyiavon/images/m/jp.png') }}) no-repeat;background-size: 90%;background-position: 0px 0px;width: 80%;height: 80%;margin-left: 10%;top: 82%;z-index: 5;position: absolute;}
+
+.bg03{background: url({{ asset('bundles/iqiyiavon/images/m/bg03.png') }}) no-repeat;background-size: 100%;}
+.sec03 .title{background: url({{ asset('bundles/iqiyiavon/images/m/title.png') }}) no-repeat;background-size: 90%;background-position: 0px 0px;width: 90%;height: 80%;margin-left: 5%;margin-right:5%;top: 0%;z-index: 5;position: absolute;}
+.sec03 .more{background: url({{ asset('bundles/iqiyiavon/images/m/more.png') }}) no-repeat;background-size: 90%;background-position: 0px 0px;width: 25%;height: 25%;margin-left: 70%;margin-right:5%;top: 4%;z-index: 5;position: absolute;}
+.sec03 .topic1{background: url({{ asset('bundles/iqiyiavon/images/m/topic1.png') }}) no-repeat;background-size: 90%;background-position: 0px 0px;width: 90%;height: 80%;margin-left: 5%;margin-right:5%;top: 15%;z-index: 5;padding-left:5%;padding-top:3%;color:#ccc;position: absolute;}
+.sec03 .topic2{background: url({{ asset('bundles/iqiyiavon/images/m/topic2.png') }}) no-repeat;background-size: 90%;background-position: 0px 0px;width: 90%;height: 80%;margin-left: 5%;margin-right:5%;top: 35%;z-index: 5;padding-left:5%;padding-top:3%;color:#ccc;position: absolute;}
+.sec03 .week{background: url({{ asset('bundles/iqiyiavon/images/m/week.png') }}) no-repeat;background-size: 90%;background-position: 0px 0px;width: 90%;height: 80%;margin-left: 5%;margin-right:5%;top: 50%;z-index: 5;position: absolute;}
+.sec03 .jy{background: url({{ asset('bundles/iqiyiavon/images/m/jy.png') }}) no-repeat;background-size: 90%;background-position: 0px 0px;width: 40%;height: 40%;margin-left: 55%;margin-right:5%;top: 80%;z-index: 5;position: absolute;}
+
+.bg04{background: url({{ asset('bundles/iqiyiavon/images/m/bg04.png') }}) no-repeat;background-size: 100%;}
+.sec04 .pro1{background: url({{ asset('bundles/iqiyiavon/images/m/pro1.png') }}) no-repeat;background-size: 90%;background-position: 0px 0px;width: 90%;height: 80%;margin-left: 5%;margin-right:5%;top: 12%;z-index: 5;position: absolute;}
+.sec04 .pro2{background: url({{ asset('bundles/iqiyiavon/images/m/pro2.png') }}) no-repeat;background-size: 90%;background-position: 0px 0px;width: 90%;height: 80%;margin-left: 5%;margin-right:5%;top: 65%;z-index: 5;position: absolute;}
+.buy1{background: url({{ asset('bundles/iqiyiavon/images/m/buy.png') }}) no-repeat;background-size: 90%;background-position: 0px 0px;width: 35%; height: 20%; margin-left: 5%;top: 48%;z-index: 5;position: absolute;}
+.buy2{background: url({{ asset('bundles/iqiyiavon/images/m/buy.png') }}) no-repeat;background-size: 90%;background-position: 0px 0px;width: 35%; height: 20%; margin-left: 58%;top: 87%;z-index: 5;position: absolute;}
+
+.sec01 .start,.sec02 .start,.sec03 .start{position: absolute;left: 50%;margin-left: -17px;top: 97%;margin-top: -30px;width: 28px;height: 28px;z-index: 1000;}
+.sec02 .start,.sec03 .start{top: 97%;}
+.sec01 .start,.sec02 .start,.sec03 .start{background: rgba(160,160,160,0.9);border-radius: 100%;}
+.sec01 .start b,.sec02 .start b,.sec03 .start b{position: absolute;left: 50%;margin-left: -10px;z-index: 3;font-size: 1.25rem;color: #FFF;text-align: center;line-height: 29px;-webkit-transform: rotate(180deg);transform: rotate(180deg);}
+.start{-webkit-animation: opa_btm 1.5s ease-in-out;animation: opa_btm 1.5s ease-in-out;}
+@-webkit-keyframes opa_btm {0%,25% {opacity: 0;-webkit-transform: translate(0,10px);}}
+@keyframes opa_btm {0%,25% {opacity: 0;transform: translate(0,10px);}}
+.start b{-webkit-animation: start 1.5s infinite ease-in-out;animation: start 1.5s infinite ease-in-out;}
+@-webkit-keyframes start {0%,30% {opacity: 0;-webkit-transform: rotate(180deg) translate(0,-5px);}60% {opacity: 1;-webkit-transform: rotate(180deg) translate(0,2.5px);}100% {opacity: 0;-webkit-transform: rotate(180deg) translate(0,7.5px);}}
+@keyframes start {0%,30% {opacity: 0;transform: rotate(180deg) translate(0,-5px);}60% {opacity: 1;transform: rotate(180deg) translate(0,2.5px);}100% {opacity: 0;transform: rotate(180deg) translate(0,7.5px);}}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#wb_share").click(function(){
+	    weibo("万众瞩目，这一瞬美丽蜕变，那一眼震撼人心。", "http://avon.iqiyi.com");
+	});
+	$("#rr_share").click(function(){
+		renren("万众瞩目，这一瞬美丽蜕变，那一眼震撼人心。", "http://avon.iqiyi.com");
+	});
+	$("#qq_share").click(function(){
+	    tx("万众瞩目，这一瞬美丽蜕变，那一眼震撼人心。", "http://avon.iqiyi.com");
+	});
+	if(navigator.userAgent.indexOf("iPhone") != -1 || navigator.userAgent.indexOf("iPad") != -1 )
+	{
+		$("#v_area").html('<video id="iqiyi-video" width="100%" height="100%" controls="" autoplay="" preload="" src="http://avon.iqiyi.com/uploads/avon.mp4"></video>');
+	} else {
+		$("#v_area").html('<embed src="http://player.video.qiyi.com/b1dad04ef3a859a9ec4f165a10e240de/0/0/v_19rrhu53cs.swf-albumId=238859600-tvId=238859600-isPurchase=0-cnId=7-autoplay=true-cyclePlay=true-cid=qc_100001_300089" allowFullScreen="true" quality="high" width="100%" height="100%" align="middle" wmode="transparent" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>');
+	}
+});
+
+function weibo(title, url){
+	shareSocial('http://v.t.sina.com.cn/share/share.php?title={title}&url={url}', title, url);
+}
+function renren(title, url){
+	shareSocial('http://widget.renren.com/dialog/share?resourceUrl={url}&title={title}', title, url);
+}
+function tx(title, url){
+	shareSocial('http://share.v.t.qq.com/index.php?c=share&a=index&url={url}&title={title}', title, url);
+}
+function shareSocial(server_url,title, url)
+{  
+    server_url = server_url.replace("{title}",title);  
+    server_url = server_url.replace("{url}",url);  
+    window.open(server_url ,'_blank','scrollbars=no,width=600,height=450,left=75,top=20,status=no,resizable=yes');
+}  
+</script>
+</head>
+<body onload="initPage();">
+	<div class="wrap" id="scene">
+		<h1></h1>
+        <div class="sec">
+            <div class="bg">
+                <div class="bg_sec bg01"></div>
+                <div class="bg_sec bg02"></div>
+                <div class="bg_sec bg03"></div>
+                <div class="bg_sec bg04"></div>
+            </div>
+            <section class="sec01" style="display:;">
+            	<span class="top"></span>
+            	<span class="slogen"></span>
+            	<span class="text"></span>
+            	<span class="share">一键分享</span>
+            	<span class="share_btn1" id="wb_share"></span>
+            	<span class="share_btn2" id="wb_share"></span>
+            	<span class="share_btn3" id="wb_share"></span>
+            	<span class="video_area" id="v_area"></span>
+                <span class="start"><b aria-hidden="true" data-icon="1"></b></span>
+            </section>
+            <section class="sec02" style="display:;">
+        	{{ form_start(myForm, {'attr': {'id': 'words-form'}}) }}
+            	<span class="tbtitle"></span>
+            	<span class="question"></span>
+            	<span class="text">请记住正确答案，告诉给你投票的小伙伴，可双倍获赞</span>
+            	<span class="content">
+            		{{ form_widget(myForm.content, {'attr': {'rows': '2'}}) }}
+            	</span>
+            	<span class="tip">请填写正确信息，抽奖以此为准</span>
+            	<span class="name"><font style="color: #666; font-size: 8pt;">姓名：</font>
+            		{{ form_widget(myForm.memName, {'attr': {'size': '20', 'maxlength': '50'}}) }}
+            	</span>
+            	<span class="sex"><font style="color: #666; font-size: 8pt;">性别： 男</font>
+            		<input type="radio" name="form[memGender]" checked value="0" > 
+            		<font style="color: #666; font-size: 8pt;">女</font>
+            		<input type="radio" name="form[memGender]" checked value="1" >
+            	</span>
+            	<span class="tel"><font style="color: #666; font-size: 8pt;">手机：</font>
+            		{{ form_widget(myForm.memMobile, {'attr': {'size': '20', 'maxlength': '50'}}) }}
+            	</span>
+            	<span class="addr"><font style="color: #666; font-size: 8pt;">地址：</font>
+            		{{ form_widget(myForm.memAddress, {'attr': {'rows': '1'}}) }}
+            	</span>
+            	<span class="tbbtn"></span>
+            	<span class="jp"></span>
+            	<span class="start"><b aria-hidden="true" data-icon="1"></b></span>
+			  {{ form_widget(myForm._token, {'attr': {'class': 'words-form-token'}}) }}
+			  {{ form_end(myForm) }}
+            </section>
+            <section class="sec03" style="display:;">
+            	<span class="title"></span>
+            	<a class="more"></a>
+            	<span class="topic1">111</span>
+            	<span class="topic2">222</span>
+            	<span class="week"></span>
+            	<a class="jy"></a>
+                <span class="start"><b aria-hidden="true" data-icon="1"></b></span>
+            </section>
+            <section class="sec04" style="display:;">
+            	<span class="pro1"></span>
+            	<span class="buy1"></span>
+            	<span class="pro2"></span>
+            	<span class="buy2"></span>
+            </section>
+        </div>
+	</div>
+
+	<script src="http://up.qq.com/2014/invitation/parallax.js"></script>
+	<script type="text/javascript">
+	/*function IsPC()  
+	{  
+	    var userAgentInfo = navigator.userAgent;  
+	    var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");  
+	    var flag = true;  
+	    for (var v = 0; v < Agents.length; v++) {  
+	        if (userAgentInfo.indexOf(Agents[v]) > 0) { flag = false; break; }  
+	    }  
+	    return flag;  
+	}
+
+	var jumpPc = IsPC();
+	if(jumpPc!=false){
+		//window.location.href = "http://avon.iqiyi.com";
+	}*/
+
+	document.body.addEventListener('touchstart', function (e) {
+	    //console.log("target:"+e.target.className);
+	    e = e.changedTouches[0];
+	    onStart(e);
+	});
+
+	document.body.addEventListener('touchmove', function (e) {
+	    onMove(e.changedTouches[0], e);
+	});
+
+	document.body.addEventListener('touchend', function (e) {
+	    onEnd(e.changedTouches[0]);
+	});
+
+	function initPage(){
+		pageWidth = $(window).width();
+		pageHeight = $(".wrap").height();
+		pages = $(".wrap section");
+		$(".bg .bg_sec").css("height",pageHeight);
+		$(".bg .bg_sec").css("width",pageWidth);
+		$(".wrap section").css({
+        	"width":pageWidth+"px",
+        	"height":pageHeight+"px"
+    	});
+	}
+
+	function orientationChange(){
+		initPage();
+	}
+
+	var startX = 0,
+	    startY = 0;
+	    margin = 0;
+	var pages = null;
+	var curPage = 0;
+	var pageWidth = 0,
+	    pageHeight = 0;
+	var lineHeight = 0, secHeight = 0;
+	var targetElement = null;
+	var scrollPrevent = false, movePrevent = false, touchDown = false;
+
+	$(document).ready(function(){
+		initPage();
+	});
+
+
+	function onStart (e) {
+	    if(movePrevent == true){
+	        event.preventDefault();
+	        return false;
+	    }
+	    if($(e.target).parents("#container").length==1){
+	        scrollPrevent = true;
+	    }else{
+	        scrollPrevent = false;
+	    }
+
+	    touchDown = true;
+
+	    startX = e.pageX;
+	    startY = e.pageY;
+	    //margin = parseInt($(".sec").css("top"));
+	    //-webkit-transform:translateY(0px)
+
+	    //matrix(1, 0, 0, 1, 0, 8)
+
+	    $(".sec, .line").addClass("drag");
+
+	    margin = $(".sec").css("-webkit-transform");
+	    //margin = "matrix(1, 0, 0, 1, 0, -50)";
+	    margin = margin.replace("matrix(", "");
+	    margin = margin.replace(")", "");
+	    margin = margin.split(",");
+	    margin = parseInt(margin[5]);
+	}
+
+	function onMove (e, oe) {
+	    if(movePrevent == true || touchDown != true){
+	        event.preventDefault();
+	        return false;
+	    }
+	    event.preventDefault();
+	    if( scrollPrevent==false && e.pageY!=startY){
+	        var temp = margin + e.pageY - startY;
+	        $(".sec").css("-webkit-transform", "matrix(1, 0, 0, 1, 0, "+temp+")");
+	        var b =  lineHeight / secHeight * temp;
+	        $(".line").css("-webkit-transform", "matrix(1, 0, 0, 1, 0, "+b+")");
+	    }
+	}
+
+	function onEnd (e) {
+	    if(movePrevent == true){
+	        event.preventDefault();
+	        return false;
+	    }
+
+	    touchDown = false;
+
+	    if( scrollPrevent==false ){
+
+	        endX = e.pageX;
+	        endY = e.pageY;
+
+	        if( Math.abs(endY-startY)<=50) {
+	            animatePage(curPage);
+	        }else{
+	        	if(endY>startY){
+	        		prevPage();
+	        	}else{
+	        		nextPage();
+	        	}
+	        }
+	    }
+
+	    $(".sec").removeClass("drag");
+	}
+
+	function prevPage(){
+	    var newPage = curPage - 1;
+	    animatePage(newPage);
+	}
+	function nextPage(){
+	    var newPage = curPage + 1;
+	    animatePage(newPage);
+	}
+
+	function animatePage( newPage ){
+	    if(newPage<0){
+	        newPage = 0;
+	    }
+	    if(newPage>$(".wrap section").length-1){
+	        newPage = $(".wrap section").length-1;
+	    }
+
+	    curPage = newPage;
+
+	    var newMarginTop = newPage * (-pageHeight);
+	    $(".sec").css({
+	        "-webkit-transform" : "matrix(1, 0, 0, 1, 0, "+newMarginTop+")"
+	    });
+
+	    movePrevent = true;
+	    setTimeout("movePrevent=false;", 300 );
+
+	    pgvSendClick({hottag:'index.index.start_qzone'});
+	}
+	/*publish*/
+	$(function(){
+		/*ajax submit words*/
+		$("#words-form").submit(function(event){
+			event.preventDefault();
+			$.ajax({
+	           type: "POST",
+	           url: $(this).attr('action'),
+	           data: $(this).serialize(),
+	           success: function(data)
+	           {
+	               	if(data.success == 1){
+	               		$("#words-form")[0].reset();
+	               		$("#words-form .words-form-token").val(data.token);
+	               		var sharedUrl = "{{ url('iqiyi_avon_subjects') }}?shared="+data.id;
+	               		location.href = sharedUrl;
+	               	}else{
+	               		for(var i in data.errorList){
+	               			alert(data.errorList[i]);
+	               		}
+	               	}
+	           }
+	         });
+			return false;
+		});	
+		$("span.tbbtn").click(function(){
+			$("#words-form").submit();
+		});
+	});
+
+	</script>
+	<script src="http://pingjs.qq.com/ping_tcss_ied.js"></script>
+	<script type="text/javascript">
+	if(typeof(pgvMain) == 'function')
+	pgvMain();
+	</script>
+</body>
+</html>
