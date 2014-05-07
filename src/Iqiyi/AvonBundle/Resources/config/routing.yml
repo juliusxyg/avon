@@ -20,6 +20,12 @@ iqiyi_avon_votemsg:
     requirements:
         page:  \d+
 
+iqiyi_avon_votephoto:
+    pattern:  /votephoto/{id}
+    defaults: { _controller: IqiyiAvonBundle:Home:votephoto }
+    requirements:
+        page:  \d+
+
 iqiyi_avon_subjects:
     pattern:  /list/{page}
     defaults: { _controller: IqiyiAvonBundle:List:subjectList, page: 1 }
@@ -27,8 +33,10 @@ iqiyi_avon_subjects:
         page:  \d+
 
 iqiyi_avon_photos:
-    pattern:  /photos
-    defaults: { _controller: IqiyiAvonBundle:List:photoList }
+    pattern:  /photos/{page}
+    defaults: { _controller: IqiyiAvonBundle:List:photoList, page: 1 }
+    requirements:
+        page:  \d+
 
 ##############################################################
 

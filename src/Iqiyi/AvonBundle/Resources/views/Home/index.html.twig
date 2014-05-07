@@ -258,7 +258,7 @@
     <tr>
       <td width="96" height="30" align="right" valign="middle">姓名：</td>
       <td width="304">
-        {{ form_widget(myForm.memName, {'attr': {'style': 'text-align:left;'}}) }}<span class="error-memName"></span>
+        {{ form_widget(myForm.memName, {'attr': {'style': 'text-align:left;border:1px solid #CCC; height:20px'}}) }}<span class="error-memName"></span>
       </td>
     </tr>
     <tr>
@@ -270,7 +270,7 @@
     <tr>
       <td height="30" align="right" valign="middle">手机：</td>
       <td>
-        {{ form_widget(myForm.memMobile, {'attr': {'style': 'text-align:left;'}}) }}<span class="error-memMobile"></span>
+        {{ form_widget(myForm.memMobile, {'attr': {'style': 'text-align:left;border:1px solid #CCC;height:20px;'}}) }}<span class="error-memMobile"></span>
       </td>
     </tr>
     <tr>
@@ -291,10 +291,11 @@
 <!-- 参加蝶舞霓彩活动03-->
 <div style="display:none;">
 <div class="tc_tianmaoma" id="tmallCode">
-<div class="tc_tianmaoma_area">
-</div>
+  <div class="tc_font_close_myform"><a class="btn_close_lightbox" href="#closeMyForm"><img src="{{ asset('bundles/iqiyiavon/images/close.gif') }}" width="25" height="25" /></a></div>
+  <div class="tc_tianmaoma_area">
+  </div>
 
-<div class="btn02" style="margin-left:150px; _margin-left:150px;margin-top:30px;_margin-top:30px; float:left"><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/btn02.jpg') }}" width="201" height="42" /></a></div>
+<div class="btn02" style="margin-left:150px; _margin-left:150px;margin-top:30px;_margin-top:30px; float:left"><a href="#like" class="tmall-like-btn"><img src="{{ asset('bundles/iqiyiavon/images/btn02.jpg') }}" width="201" height="42" /></a></div>
 
 </div>
 </div>

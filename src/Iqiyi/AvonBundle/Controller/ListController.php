@@ -64,7 +64,47 @@ class ListController extends HomeController
   */
   public function photoListAction(Request $request)
   {
-  	return array();
+    //有一个地方你改一下，就是用户发蝶舞一瞬之后，你默认让它审核通过吧，然后后台可以再拒绝审核
+    /*
+    照片不用点赞了
+就上传照片，填个信息
+    */
+    $hash = array();
+    $pagesize = 20;
+    $page = $request->get('page', 1);
+    $sharedId = $request->get('shared', '');
+    $em = $this->getDoctrine()->getManager();
+    $query = $em->createQuery('SELECT COUNT(u.photoId) AS total FROM IqiyiAvonBundle:AvonPhoto u WHERE u.status=1 ');
+    $total = $query->getSingleResult();
+    $totalpage = ceil($total['total']/$pagesize);
+    if($totalpage<$page){
+        $page = $totalpage<=0?1:$totalpage;
+    }
+    $offset = ($page-1)*$pagesize;
+    $query = $em->createQuery('SELECT u FROM IqiyiAvonBundle:AvonPhoto u WHERE u.status=1 ')
+                ->setMaxResults($pagesize)->setFirstResult($offset);
+    $objects = $query->getResult();
+    $hash['items'] = $objects;
+
+    $hash['photoForms'] = array();
+    if($objects)
+    {
+        foreach($objects as $key=>$photo)
+        {
+            $hash['photoForms'][$key] = $this->votephotoAction(new Request(array("id"=>$photo->getPhotoId())));
+        }
+    }
+    $hash['sharedObject'] = "";
+    if($sharedId)
+    {
+      $hash['sharedObject'] = $em->getRepository("IqiyiAvonBundle:AvonPhoto")->find($sharedId);
+      $hash['sharedForm'] = $this->votephotoAction(new Request(array("id"=>$sharedId)));
+    }
+
+    $hash['page'] = $this->paginating($page,$totalpage,10);
+    //build uplaod form
+    $hash['uploadForm'] = $this->addphotoAction(new Request());
+  	return $hash;
   }
 
   public function paginating($currpage=1, $totalpage=1, $pagespan=10, $get=array(), $pageNameInClause='page')

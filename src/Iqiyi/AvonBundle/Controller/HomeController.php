@@ -266,9 +266,6 @@ class HomeController extends Controller
                     'form_redeem' => $formRedeem->createView());
     }
 
-    /**
-    *  @Template()
-    */
     public function addphotoAction(Request $request)
     {
         $intention = "photo_form_".date("YmdH");
@@ -280,11 +277,9 @@ class HomeController extends Controller
                                                 'required'  => true, 
                                                 'label'=>'性别：'))
             ->add('memMobile', 'text', array( 'label'=>'手机：', 'max_length'=>15))
-            ->add('memAddress', 'text', array( 'label'=>'地址：', 'max_length'=>60))
-            ->add('memZip', 'text', array( 'label'=>'邮编：', 'max_length'=>15))
+            ->add('memAddress', 'textarea', array( 'label'=>'地址：', 'max_length'=>60))
             ->add('file', 'file', array( 'label'=>'照片：'))
             ->add('content', 'textarea', array( 'label'=>'我的瞬间：'))
-            ->add('save', 'submit', array( 'label'=>'发布'))
             ->getForm();
 
         if($request->isXmlHttpRequest())
@@ -295,6 +290,7 @@ class HomeController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $avonPhoto->setAddTime(time());
                 $avonPhoto->setStatus(0);
+                $avonPhoto->setMemZip(0);
                 $avonPhoto->setTotalVote(0);
                 $em->persist($avonPhoto);
                 $em->flush();
@@ -313,12 +309,49 @@ class HomeController extends Controller
 
             
 
-        return array('form' => $form->createView());
+        return $form->createView();
     }
 
     public function votephotoAction()
     {
+        $id = $request->get('id');
+        $intention = "vote_form_".date("YmdH");
+        //普通赞
+        $avonPhotoVote = new AvonPhotoVote();
+        $formLike = $this->createFormBuilder($avonPhotoVote, array('validation_groups' => array('normal'), "intention"=>$intention))
+            ->setAction($this->generateUrl('iqiyi_avon_votephoto', array('id'=>$id)))
+            ->add('photoId', 'hidden', array('data'=>$id, 'error_bubbling'=>false))
+            ->getForm();
 
+        if($request->isXmlHttpRequest())
+        {
+            $formParams = $request->get('form');
+            $formLike->handleRequest($request);
+
+            if ($formLike->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $avonPhotoVote->setVoteIp($request->getClientIp());
+                $avonPhotoVote->setVoteTime(time());
+
+                $em->persist($avonPhotoVote);
+                $em->flush();
+
+                $csrf = $this->get('form.csrf_provider');
+                $token = $csrf->generateCsrfToken($intention);
+
+                $avonPhoto = $em->getRepository("IqiyiAvonBundle:AvonPhoto")->find($avonPhotoVote->getPhotoId());
+                $errors = array('success'=>1, 'id'=>$avonPhotoVote->getPhotoId(), 'vote'=>$avonPhoto->getTotalVote(), 'token'=>$token);
+                return new JsonResponse($errors);
+            }else{
+                $errors = array('success'=>0);
+                $errors['errorList'] = $this->getErrorMessages($formLike);
+                
+                return new JsonResponse($errors);
+            }
+            
+        }
+
+        return array('form_like' => $formLike->createView());
     }
 
 

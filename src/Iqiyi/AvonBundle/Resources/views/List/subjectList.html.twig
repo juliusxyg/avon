@@ -23,6 +23,7 @@
     </div>
     
     <div id="erjiye_font">
+{% if items %}
 {% for key,subject in items %}
  <!-- 1 -->
  {% if key == 0 %}
@@ -90,22 +91,23 @@
  </div> 
  {% endif %}
 {% endfor %}
+{% endif %}
   
 <!--翻页 -->
 <div class="fy" >
 <div class="yellow">
   {% if page.prevpage %}
-  <a href="{{ path('iqiyi_avon_subject_list', {'page': page.prevpage}) }}{{ page.clause }}">&lt;</a>
+  <a href="{{ path('iqiyi_avon_subjects', {'page': page.prevpage}) }}{{ page.clause }}">&lt;</a>
   {% endif %}
   {% for p in page.pagelist %}
   {% if page.currpage == p %}
   <span class="current">{{ p }}</span>
   {% else %}
-  <a href="{{ path('iqiyi_avon_subject_list', {'page': p}) }}{{ page.clause }}">{{ p }}</a>
+  <a href="{{ path('iqiyi_avon_subjects', {'page': p}) }}{{ page.clause }}">{{ p }}</a>
   {% endif %}
   {% endfor %}
   {% if page.nextpage %}
-  <a href="{{ path('iqiyi_avon_subject_list', {'page': page.nextpage}) }}{{ page.clause }}">&gt;</a>
+  <a href="{{ path('iqiyi_avon_subjects', {'page': page.nextpage}) }}{{ page.clause }}">&gt;</a>
   {% endif %}
 </div>
 </div>

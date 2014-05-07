@@ -6,6 +6,10 @@
 {% stylesheets 'bundles/iqiyiavon/css/*' filter='cssrewrite' %}
   <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %}
+<script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+{% javascripts 'bundles/iqiyiavon/js/*' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
 </head>
 <body>
 
@@ -17,8 +21,8 @@
        <!-- 上传照片 -->
 <div  class="sczp">
            <div  class="sczp_l"><span>上传照片</span></div>
-       <div class="sczp_mid">地址</div>
-           <div class="sczp_r"><a href="#"><img src="{{ asset('bundles/iqiyiavon/images/btn01.jpg') }}" width="98" height="36" /></a></div>
+       <div class="sczp_mid file-path">地址</div>
+           <div class="sczp_r"><a href="#choose" class="choose-file"><img src="{{ asset('bundles/iqiyiavon/images/btn01.jpg') }}" width="98" height="36" /></a></div>
        </div>
        <div class="sczp_font"><span>请选择本地图片上传（图片控制在1M以内）</span></div>
        <!-- 上传照片 -->
@@ -28,12 +32,12 @@
     <div class="sczp_con">
     <div class="sczp_con_l"><span>输入文字</span></div>
     <div class="tjxy1">
-      <textarea name="key"   id="key" style="color:#999; height:70px; width:400px" onblur="if(!value){value=defaultValue;this.style.color='#999'}" onclick="if(value==defaultValue){value='';this.style.color='#000'}" onmouseover="this.focus();this.select();" 03="03" 04="04" 05="05">关键词</textarea>
+      <textarea class="words-input" name="key" maxlength="100" style="color:#999; height:70px; width:400px" >关键词</textarea>
     </div>
   </div>
      <!--上传区域 end -->
      
-   <a class="btn_01" href="#" style="width:264px; height:45px; float:left; margin-left:127px; margin-top:15px;display:block;"></a>
+   <a class="btn_01 upload-picture" href="#upload" style="width:264px; height:45px; float:left; margin-left:127px; margin-top:15px;display:block;"></a>
    
     
    </div>
@@ -44,26 +48,54 @@
    
     <!-- 传照片区域 01 --> 
    <div class="photo">
-   <div class="photo_pic"><img src="photo/photopico01.jpg" width="226" height="301" /></div>
+  {% if items %}
+  {% for key,photo in items %}
+   <div class="photo_pic"><img src="{{ photo.getWebPath() }}" width="226" height="301" /></div>
    
-<div class="photo_pic_l"><span>徐女士</span></div>
+<div class="photo_pic_l"><span>{{ photo.getMemName() }}</span></div>
    <div class="photo_pic_r">
   
    <div class="photo_ico01"> <span>分享</span></div>
-   <div class="photo_ico"> <img src="{{ asset('bundles/iqiyiavon/images/erjiye_photo_ico01.gif') }}" width="21" height="21" /></div>
-   <div class="photo_ico"> <img src="{{ asset('bundles/iqiyiavon/images/erjiye_photo_ico02.gif') }}" width="21" height="21" /></div>
-   <div class="photo_ico"> <img src="{{ asset('bundles/iqiyiavon/images/erjiye_photo_ico03.gif') }}" width="21" height="21" /></div>
+   <div class="photo_ico"> 
+    <a href="{{ url('iqiyi_avon_photos') }}?shared={{ photo.getPhotoId() }}" class="weibo-share">
+      <img src="{{ asset('bundles/iqiyiavon/images/erjiye_photo_ico01.gif') }}" width="21" height="21" />
+    </a>
+   </div>
+   <div class="photo_ico"> 
+    <a href="{{ url('iqiyi_avon_photos') }}?shared={{ photo.getPhotoId() }}" class="renren-share">
+      <img src="{{ asset('bundles/iqiyiavon/images/erjiye_photo_ico02.gif') }}" width="21" height="21" />
+    </a>
+  </div>
+   <div class="photo_ico"> 
+    <a href="{{ url('iqiyi_avon_photos') }}?shared={{ photo.getPhotoId() }}" class="tx-share">
+      <img src="{{ asset('bundles/iqiyiavon/images/erjiye_photo_ico03.gif') }}" width="21" height="21" />
+    </a>
+  </div>
    </div>
    
-   <div class="photo_con_font"><p>sfsdfsfdsdfsfsdsdsdfsfsdfsdfsfsdsfsdfsfdsdfsfsdsdsdfsfsdfsdfsfsdsfsdfsfdsdfsfsdsdsdfsfsdfsdfsfsdsfsdfsfdsdfsfsdsdsdfsfsdfsdfsfsdsfsdfsfdsdfsfsdsdsdfsfsdfsdfsfsdsfsdfsfdsdfsfsdsdsdfsfsdfsdfsfsd</p></div>
+   <div class="photo_con_font"><p>{{ photo.getContent() }}</p></div>
+   {% endfor %}
+   {% endif %}
    </div>
   <!-- 传照片区域01 end -->
  <!--翻页 -->
  
 <div class="fy" style=" " >
 <div class="yellow">
-<span class="disabled">&lt; </span><span class="current">1</span><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a>...<a href="#">199</a><a href="#">200</a><a href="#">
-&gt; </a></div>
+  {% if page.prevpage %}
+  <a href="{{ path('iqiyi_avon_photos', {'page': page.prevpage}) }}{{ page.clause }}">&lt;</a>
+  {% endif %}
+  {% for p in page.pagelist %}
+  {% if page.currpage == p %}
+  <span class="current">{{ p }}</span>
+  {% else %}
+  <a href="{{ path('iqiyi_avon_photos', {'page': p}) }}{{ page.clause }}">{{ p }}</a>
+  {% endif %}
+  {% endfor %}
+  {% if page.nextpage %}
+  <a href="{{ path('iqiyi_avon_photos', {'page': page.nextpage}) }}{{ page.clause }}">&gt;</a>
+  {% endif %}
+</div>
 </div>
 <!--翻页 -->
  
@@ -94,7 +126,104 @@
 </div>
 <!-- 标准尾 end -->
 
+<div class="tc_cjdwnchd03">
+  <div class="tc_font_close_myform"><a class="btn_close_lightbox" href="#closeMyForm"><img src="{{ asset('bundles/iqiyiavon/images/close.gif') }}" width="25" height="25" /></a></div>
+  {{ form_start(uploadForm, {'attr': {'id': 'photo-form', 'enctype': 'multipart/form-data'}}) }}
+  <table width="400" border="0" cellpadding="0" cellspacing="0" class="tc_cjdwnchd03_area">
+    <tr>
+      <td width="96" height="30" align="right" valign="middle">姓名：</td>
+      <td width="304">
+        {{ form_widget(uploadForm.memName, {'attr': {'style': 'text-align:left;border:1px solid #CCC; height:20px'}}) }}<span class="error-memName"></span>
+        <span class="error-file"></span>
+      </td>
+    </tr>
+    <tr>
+      <td height="30" align="right" valign="middle">性别：</td>
+      <td>
+        {{ form_widget(uploadForm.memGender) }}<span class="error-memGender"></span>
+      </td>
+    </tr>
+    <tr>
+      <td height="30" align="right" valign="middle">手机：</td>
+      <td>
+        {{ form_widget(uploadForm.memMobile, {'attr': {'style': 'text-align:left;border:1px solid #CCC;height:20px;'}}) }}<span class="error-memMobile"></span>
+      </td>
+    </tr>
+    <tr>
+      <td height="50" align="right" valign="middle">地址：</td>
+      <td>
+        {{ form_widget(uploadForm.memAddress, {'attr': {'style': 'text-align:left; width:260px;'}}) }}<span class="error-memAddress"></span>
+      </td>
+    </tr>
+  </table>
+  {{ form_widget(uploadForm.content, {'attr': {'readonly': 'true', 'class': 'upload-form', 'style': 'display:none;'}}) }}
+  {{ form_widget(uploadForm.file, {'attr': { 'class': 'upload-form-file', 'style': 'position:absolute;top:-100px'}}) }}
+  {{ form_widget(uploadForm._token, {'attr': {'class': 'upload-form-token'}}) }}
+  {{ form_end(uploadForm) }}
+<a class="btn_01 photo-form-save" href="#" style="width:200px; height:45px; float:left; margin-left:156px; margin-top:35px;display:block;"></a>  
+</div>
+
 </div>
 </div>
+<script>
+$(function(){
+  /*select file*/
+  $("input.upload-form-file").change(function(){
+    $("div.file-path").text($(this).val());
+  });
+  $("a.choose-file").click(function(){
+    event.preventDefault();
+    $("input.upload-form-file").trigger('click');
+  });
+  /*words maxlength*/
+  $("textarea.words-input").on("keyup", function(){
+    var wordsContent = $(this).val();
+    var maxLength = $(this).attr('maxlength');
+    var left = maxLength - wordsContent.length;
+    if(left < 0){
+      left=0;
+      $(this).val(wordsContent.substring(0, maxLength));
+    }
+  });
+  /*upload ok*/
+  $("a.upload-picture").click(function(){
+    event.preventDefault();
+    if($("input.upload-form-file").val() == ''){
+      alert("请先选择图片");
+      return;
+    }
+    if($.trim($("textarea.words-input").val()) == '' || $.trim($("textarea.words-input").val()).length<5){
+      $("textarea.words-input").focus();
+      alert("请填写您的图片关键字, 最少5个字");
+      return;
+    }
+    $.colorbox({inline:true, href:"#myForm"});
+    $("textarea.upload-form").val($("textarea.words-input").val());
+  });
+  /*ajax submit*/
+  $("a.photo-form-save").click(function(){
+    $("#photo-form").submit();
+  });
+  $("#photo-form").submit(function(event){
+    event.preventDefault();
+
+    $(this).ajaxSubmit({
+      success: function(data)
+               {
+                  if(data.success == 1){
+                    $("#upload-form")[0].reset();
+                    $("#upload-form .upload-form-token").val(data.token);
+                  }else{
+                    for(var i in data.errorList){
+                      $("span.error-"+i).text(data.errorList[i]);
+                    }
+                  }
+               }
+    }); 
+
+    return false;
+  }); 
+});
+</script>
 </body>
 </html>
