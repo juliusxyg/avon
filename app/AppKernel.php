@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Iqiyi\AvonBundle\IqiyiAvonBundle(),
             new Iqiyi\CacheBundle\IqiyiCacheBundle(),
+            new Mandango\MandangoBundle\MandangoBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
