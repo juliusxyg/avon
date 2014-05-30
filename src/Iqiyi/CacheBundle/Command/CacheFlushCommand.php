@@ -37,7 +37,7 @@ class CacheFlushCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $serviceName = 'aequasi_cache.instance.' . $input->getArgument('instance');
+        $serviceName = 'iqiyi_cache.instance.' . $input->getArgument('instance');
 
         /** @var CacheService $service */
         $service = $this->getContainer()->get($serviceName);
