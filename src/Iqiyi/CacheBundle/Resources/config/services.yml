@@ -1,0 +1,54 @@
+parameters:
+    iqiyi_cache.abstract.apc.class: Doctrine\Common\Cache\ApcCache
+    iqiyi_cache.abstract.array.class: Doctrine\Common\Cache\ArrayCache
+    iqiyi_cache.abstract.file_system.class: Doctrine\Common\Cache\FilesystemCache
+    iqiyi_cache.abstract.memcache.class: Doctrine\Common\Cache\MemcacheCache
+    iqiyi_cache.abstract.memcached.class: Doctrine\Common\Cache\MemcachedCache
+    iqiyi_cache.abstract.redis.class: Doctrine\Common\Cache\RedisCache
+    iqiyi_cache.abstract.php_file.class: Doctrine\Common\Cache\PhpFileCache
+    iqiyi_cache.abstract.win_cache.class: Doctrine\Common\Cache\WinCacheCache
+    iqiyi_cache.abstract.xcache.class: Doctrine\Common\Cache\XcacheCache
+    iqiyi_cache.abstract.zend_data.class: Doctrine\Common\Cache\ZendDataCache
+    iqiyi_cache.session.handler.class: Iqiyi\CacheBundle\Session\SessionHandler
+    iqiyi_cache.service.class: Iqiyi\CacheBundle\Service\CacheService
+
+services:
+    iqiyi_cache.abstract.apc:
+        class: %iqiyi_cache.abstract.apc.class%
+        abstract: true
+
+    iqiyi_cache.abstract.array:
+        class: %iqiyi_cache.abstract.array.class%
+        abstract: true
+
+    iqiyi_cache.abstract.file_system:
+        class: %iqiyi_cache.abstract.file_system.class%
+        abstract: true
+
+    iqiyi_cache.abstract.memcache:
+        class: %iqiyi_cache.abstract.memcache.class%
+        abstract: true
+
+    iqiyi_cache.abstract.memcached:
+        class: %iqiyi_cache.abstract.memcached.class%
+        abstract: true
+
+    iqiyi_cache.abstract.redis:
+        class: %iqiyi_cache.abstract.redis.class%
+        abstract: true
+
+    iqiyi_cache.abstract.php_file:
+        class: %iqiyi_cache.abstract.php_file.class%
+        abstract: true
+
+    iqiyi_cache.abstract.win_cache:
+        class: %iqiyi_cache.abstract.win_cache.class%
+        abstract: true
+
+    iqiyi_cache.abstract.xcache:
+        class: %iqiyi_cache.abstract.xcache.class%
+        abstract: true
+
+    iqiyi_cache.zend_data:
+        class: %iqiyi_cache.abstract.zend_data.class%
+        abstract: true

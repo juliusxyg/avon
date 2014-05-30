@@ -1,0 +1,10 @@
+parameters:
+    iqiyi_cache.data_collector.class: Iqiyi\CacheBundle\DataCollector\CacheDataCollector
+    iqiyi_cache.data_collector.template: IqiyiCacheBundle:Collector:cache.html.twig
+
+services:
+   data_collector.cache:
+        class: %iqiyi_cache.data_collector.class%
+        tags:
+            - { name: data_collector, template: %iqiyi_cache.data_collector.template%, id: 'cache' }
+

@@ -67,3 +67,13 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# Cache: php app/console config:dump-reference iqiyi_cache
+iqiyi_cache:
+    instances:
+        default:
+            persistent: true # Boolean or persistent_id
+            namespace: mc
+            type: memcached
+            hosts:
+                - { host: localhost, port: 11211 }
